@@ -1,3 +1,4 @@
+package Weapon;
 public class Magic implements Weapon{
 
     private int strenght;

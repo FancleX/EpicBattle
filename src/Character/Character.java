@@ -1,3 +1,4 @@
+package Character;
 import java.util.Random;
 
 public abstract class Character {

@@ -1,3 +1,4 @@
+package Character;
 public class Hero extends Character{
     
     private String name;
