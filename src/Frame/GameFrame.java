@@ -21,6 +21,9 @@ public class GameFrame extends JFrame implements KeyListener {
         this.addKeyListener(this);
         // set title
         this.setTitle("Epic Battle");
+        // initialize static value
+        StaticValue.initializer();
+
 
     }
 
