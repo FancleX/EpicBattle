@@ -39,7 +39,7 @@ public class GameFrame extends JFrame implements KeyListener {
             allBackground.add(new Background(i, i == 3 ? true : false));
         }
         // set first scence to current scence
-        currentBackground = allBackground.get(0);
+        currentBackground = allBackground.get(2);
         // sketch background
         repaint();
     }
@@ -55,6 +55,18 @@ public class GameFrame extends JFrame implements KeyListener {
         // draw background
         graphics.drawImage(currentBackground.getBackgroundImage(), 0, 0, this);
 
+        // draw obstacles
+        for (Obstacle obstacle : currentBackground.getObstacleList()) {
+            graphics.drawImage(obstacle.getRenderedImage(), obstacle.getX(), obstacle.getY(), this);
+        }
+
+        if (!(currentBackground.getIsFinal())) {
+            // draw teleporter
+            graphics.drawImage(currentBackground.getTeleporter(), currentBackground.getTeleporterX(), currentBackground.getTeleporterY(), this);
+        } else {
+            // draw end teleporter
+            graphics.drawImage(currentBackground.getEnd(), 620, 445, this);
+        }
         // connect off screen image to window
         g.drawImage(offScreenImage, 0, 0, this);
 

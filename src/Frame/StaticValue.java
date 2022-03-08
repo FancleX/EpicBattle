@@ -34,6 +34,9 @@ public class StaticValue {
     // teleporter
     public static BufferedImage teleporter = null;
 
+    // end
+    public static BufferedImage end = null;
+
     // obstacles
     public static List<BufferedImage> obstacles = new ArrayList<>();
 
@@ -99,6 +102,9 @@ public class StaticValue {
             // initialize teleporter
             teleporter = ImageIO.read(new File(path + "teleporter.png"));
 
+            // initialize end
+            end = ImageIO.read(new File(path + "end.png"));
+
             // initialize jump
             jump_to_left = ImageIO.read(new File(path + "jump_to_left.png"));
             jump_to_right = ImageIO.read(new File(path + "jump_to_right.png"));
@@ -125,8 +131,15 @@ public class StaticValue {
             }
         }
 
-        // initialize obstacles
-
+        // initialize obstacles and ground
+        try {
+            obstacles.add(ImageIO.read(new File(path + "ground.jpg")));
+            for (int i = 1; i <= 2; i++) {
+                obstacles.add(ImageIO.read(new File(path + "obstacle" + i + ".png")));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         // initialize enemy
 
