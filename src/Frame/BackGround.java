@@ -80,17 +80,7 @@ public class Background {
                 end = StaticValue.end;
                 break;
         }
-           
-        
-
-
-
     }
-
-
-
-
-
 
     public BufferedImage getBackgroundImage() {
         return backgroundImage;

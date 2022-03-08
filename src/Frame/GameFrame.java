@@ -8,6 +8,8 @@ import java.awt.Graphics;
 
 import javax.swing.JFrame;
 
+import Character.Hero;
+
 public class GameFrame extends JFrame implements KeyListener {
 
     // store background
@@ -16,6 +18,8 @@ public class GameFrame extends JFrame implements KeyListener {
     private Background currentBackground = new Background();
     // double cach
     private Image offScreenImage = null;
+    // create a hero
+    private Hero hero;
 
     public GameFrame() {
         // set window's size
@@ -34,12 +38,16 @@ public class GameFrame extends JFrame implements KeyListener {
         this.setTitle("Epic Battle");
         // initialize static value
         StaticValue.initializer();
+        // initialize hero with a specific coorindate
+        hero = new Hero("Jack", 100, 100, 100);
+        hero.setX(20);
+        hero.setY(495);
         // initialize all scences
         for (int i = 1; i <= 3; i++) {
             allBackground.add(new Background(i, i == 3 ? true : false));
         }
         // set first scence to current scence
-        currentBackground = allBackground.get(2);
+        currentBackground = allBackground.get(0);
         // sketch background
         repaint();
     }
@@ -67,6 +75,10 @@ public class GameFrame extends JFrame implements KeyListener {
             // draw end teleporter
             graphics.drawImage(currentBackground.getEnd(), 620, 445, this);
         }
+
+        // draw hero
+        graphics.drawImage(hero.getImage(), hero.getX(), hero.getY(), this);
+
         // connect off screen image to window
         g.drawImage(offScreenImage, 0, 0, this);
 
