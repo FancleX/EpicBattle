@@ -116,7 +116,7 @@ public class StaticValue {
         // initialize hero running left
         for (int i = 1; i <= 2; i++) {
             try {
-                hero_run_left_magic.add(ImageIO.read(new File(path + "hero_run" + i + "_left.png")));
+                hero_run_left_melee.add(ImageIO.read(new File(path + "hero_run" + i + "_left.png")));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -125,7 +125,7 @@ public class StaticValue {
         // initialize hero running right
         for (int i = 1; i <= 2; i++) {
             try {
-                hero_run_left_magic.add(ImageIO.read(new File(path + "hero_run" + i + "_right.png")));
+                hero_run_right_melee.add(ImageIO.read(new File(path + "hero_run" + i + "_right.png")));
             } catch (IOException e) {
                 e.printStackTrace();
             }

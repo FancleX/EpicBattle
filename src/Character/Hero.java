@@ -32,7 +32,7 @@ public class Hero extends Character implements Runnable{
     "stop_right": stop and towards right
     */
     private String status;
-    // the picture corresponding to the current state
+    // the picture corresponding to the current status
     private BufferedImage image = null;
     // get obstacle information
     private Background background = new Background();
@@ -61,7 +61,7 @@ public class Hero extends Character implements Runnable{
     // hero moves to left
     public void moveLeft() {
         // change speed to nagative 
-        xSpeed = -5;
+        xSpeed = -10;
         // if the hero is jumping
         if (status != "jumping") {
             status = "move_left";
@@ -72,7 +72,7 @@ public class Hero extends Character implements Runnable{
 
     // hero moves to right
     public void moveRight() {
-        xSpeed = 5;
+        xSpeed = 10;
         if (status != "jumping") {
             status = "move_right";
         } else {
@@ -115,8 +115,8 @@ public class Hero extends Character implements Runnable{
                     x = 0;
                 }
                 // right boundary
-                else if (x > 800) {
-                    x = 800;
+                else if (x > 750) {
+                    x = 750;
                 }
             }
 
@@ -129,19 +129,19 @@ public class Hero extends Character implements Runnable{
             switch (status) {
                 // move to left
                 case "move_left":
-                    image = StaticValue.hero_run_left_magic.get(index);
+                    image = StaticValue.hero_run_left_melee.get(index);
                     break;
                 // move to right
                 case "move_right":
-                    image = StaticValue.hero_run_right_magic.get(index);
+                    image = StaticValue.hero_run_right_melee.get(index);
                     break;
                 // stop and towards left
                 case "stop_left":
-                    image = StaticValue.magic_weapon_left;
+                    image = StaticValue.melee_weapon_left;
                     break;
                 // stop and towards right
                 case "stop_right":
-                    image = StaticValue.magic_weapon_right;
+                    image = StaticValue.melee_weapon_right;
                     break;
             }
 
@@ -194,6 +194,14 @@ public class Hero extends Character implements Runnable{
 
     public BufferedImage getImage() {
         return image;
+    }
+
+    public Background getBackground() {
+        return background;
+    }
+
+    public void setBackground(Background background) {
+        this.background = background;
     }
 
 }
