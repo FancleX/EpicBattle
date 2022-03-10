@@ -22,6 +22,8 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
     private Hero hero;
     // create a thread to do hero action
     private Thread thread = new Thread(this);
+    long firstPress = 0;
+    long secondPress = 1500;
 
     public GameFrame() {
         // set window's size
@@ -43,7 +45,7 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
         // initialize hero with a specific coorindate
         hero = new Hero("Jack", 100, 100, 100);
         hero.setX(20);
-        hero.setY(495);
+        hero.setY(490);
         // initialize all scences
         for (int i = 1; i <= 3; i++) {
             allBackground.add(new Background(i, i == 3 ? true : false));
@@ -68,7 +70,7 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
         // draw background
         graphics.drawImage(currentBackground.getBackgroundImage(), 0, 0, this);
 
-        // draw obstacles
+        // draw obstacles and ground
         for (Obstacle obstacle : currentBackground.getObstacleList()) {
             graphics.drawImage(obstacle.getRenderedImage(), obstacle.getX(), obstacle.getY(), this);
         }
@@ -106,19 +108,32 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
         if (e.getKeyCode() == 37) {
             hero.moveLeft();
         }
-        
+
+        // if press "↑", then jump
+        if (e.getKeyCode() == 38) {
+            if (secondPress - firstPress >= 1500) {
+                firstPress = System.currentTimeMillis();
+                hero.jump();
+            }
+        }
+        secondPress = System.currentTimeMillis();
+
+        // //if press "↓", then fall
+        // if (e.getKeyCode() == 36) {
+        //     hero.fall();
+        // }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
         // if release "->", then stop right
         if (e.getKeyCode() == 39) {
-            hero.stopRight();;
+            hero.stopRight();
         }
 
         // if release "<-", then stop left
         if (e.getKeyCode() == 37) {
-            hero.stopLeft();;
+            hero.stopLeft();
         }
         
     }
@@ -142,7 +157,7 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
                             hero.setBackground(currentBackground);
                             // reset hero postition
                             hero.setX(20);
-                            hero.setY(495);
+                            hero.setY(490);
                         }
                         break;
                     // level 2
@@ -153,7 +168,7 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
                             hero.setBackground(currentBackground);
                             // reset hero postition
                             hero.setX(20);
-                            hero.setY(495);
+                            hero.setY(490);
                         } 
                         break;
                     // level 3

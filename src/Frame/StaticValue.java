@@ -141,6 +141,8 @@ public class StaticValue {
             e.printStackTrace();
         }
 
+
+
         // initialize enemy
 
 

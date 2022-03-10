@@ -1,6 +1,7 @@
 package Character;
 
 import java.awt.image.BufferedImage;
+import java.util.concurrent.TimeUnit;
 
 import Frame.*;
 
@@ -23,7 +24,7 @@ public class Hero extends Character implements Runnable{
     "ranged_weapon_left": hero holds ranged weapon and towards left
     "magic_weapon_right": hero holds magic weapon and towards right
     "magic_weapon_left": hero holds magic weapon and towards left
-    "jumping" : is jumping right now
+    "jump" : is jumping right now
     "jump_left": jump to left
     "jump_right": jump to right
     "move_left": move to left
@@ -44,6 +45,8 @@ public class Hero extends Character implements Runnable{
     private int ySpeed;
     // define an index to get image of moving images
     private int index;
+    // jumping time
+    private int jumpingTime;
 
     public Hero(String name, int strenght, int hp, int mana) {
         super(strenght, hp, mana);
@@ -63,7 +66,7 @@ public class Hero extends Character implements Runnable{
         // change speed to nagative 
         xSpeed = -10;
         // if the hero is jumping
-        if (status != "jumping") {
+        if (status != "jump") {
             status = "move_left";
         } else {
             status = "jump_left";
@@ -73,7 +76,7 @@ public class Hero extends Character implements Runnable{
     // hero moves to right
     public void moveRight() {
         xSpeed = 10;
-        if (status != "jumping") {
+        if (status != "jump") {
             status = "move_right";
         } else {
             status = "jump_right";
@@ -85,7 +88,7 @@ public class Hero extends Character implements Runnable{
         // change xSpeed to zero
         xSpeed = 0;
         // if is jumping
-        if (status != "jumping") {
+        if (status != "jump") {
             status = "stop_left";
         } else {
             status = "jump_left";
@@ -95,17 +98,95 @@ public class Hero extends Character implements Runnable{
     // hero stops at right
     public void stopRight() {
         xSpeed = 0;
-        if (status != "jumping") {
+        if (status != "jump") {
             status = "stop_right";
         } else {
             status = "jump_right";
         }
     }
 
+    // hero jumps up
+    public void jump() {
+        // if is jumping
+        if (status != "jump") {
+            // if jump to left
+            if (status.contains("left")) {
+                status = "jump_left";
+            } else {
+                status = "jump_right";
+            }
+            ySpeed = -12;
+            jumpingTime = 10;
+            int height = ySpeed * jumpingTime;
+            y += height;
+        }  
+    }
+
+    // hero falls down
+    public void fall() {
+        // detect if is on ground and stop falling on the ground
+        if (y <= 480) {
+            if (status.contains("left")) {
+                status = "jump_left";
+            } else {
+                status = "jump_right";
+            }
+            ySpeed = 12;
+            // change position when moving on jumping
+            y += ySpeed;
+        }
+    }
   
     @Override
     public void run() {
         while (true) {
+            // if hero is on obstacles
+            boolean isOnObstacle = false;
+            // iterate obstacles 
+            for (int i = 0; i < background.getObstacleList().size(); i++) {
+                Obstacle obstacle = background.getObstacleList().get(i);
+                // determine if hero is on obstacles
+                System.err.println(obstacle.getY());
+                System.err.println(this.y);
+                if (obstacle.getY() == this.y + 50 && (obstacle.getX() > this.x - 5 && obstacle.getX() < this.x + 5)) {
+                    isOnObstacle = true;
+                }
+            }
+
+            // display the action of jumping
+            // stand on the obstacle
+            if (isOnObstacle && jumpingTime == 0) {
+                if (status.contains("left")) {
+                    // move to left
+                    if (xSpeed != 0) {
+                        status = "move_left";
+                    } else {
+                        // stop at left
+                        status = "stop_left";
+                    }
+                } else {
+                    // move to right
+                    if (xSpeed != 0) {
+                        status = "move_right";
+                    } else {
+                        // stop at right
+                        status = "stop_right";
+                    }
+                }
+            } else {
+                // hero is jumping and need to fall down
+                if (jumpingTime != 0) {
+                    jumpingTime--;
+                } else {
+                    // hero jumps to the most top
+                    fall();
+                }
+                
+            }
+
+
+
+
             // if hero is moving
             if (xSpeed != 0) {
                 x += xSpeed;
@@ -125,7 +206,7 @@ public class Hero extends Character implements Runnable{
             if (status.contains("move")) {
                 index = index == 0 ? 1 : 0;
             }
-            // detect status
+            // detect status and assign the images of the status
             switch (status) {
                 // move to left
                 case "move_left":
@@ -142,6 +223,14 @@ public class Hero extends Character implements Runnable{
                 // stop and towards right
                 case "stop_right":
                     image = StaticValue.melee_weapon_right;
+                    break;
+                // jump to left
+                case "jump_left":
+                    image = StaticValue.jump_to_left;
+                    break;
+                // jump to right
+                case "jump_right":
+                    image = StaticValue.jump_to_right;
                     break;
             }
 
