@@ -59,6 +59,9 @@ public class StaticValue {
     // character run to left with magic weapon
     public static List<BufferedImage> hero_run_left_magic = new ArrayList<>();
 
+    // UI
+    public static BufferedImage hero_ui = null;
+
 
     // ememy
     // character run to right with melee weapon
@@ -108,6 +111,9 @@ public class StaticValue {
             // initialize jump
             jump_to_left = ImageIO.read(new File(path + "jump_to_left.png"));
             jump_to_right = ImageIO.read(new File(path + "jump_to_right.png"));
+
+            // initialize UI
+            hero_ui = ImageIO.read(new File(path + "hero_ui.png"));
 
         } catch (IOException e) {
             e.printStackTrace();

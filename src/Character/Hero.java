@@ -37,6 +37,8 @@ public class Hero extends Character implements Runnable{
     private BufferedImage image = null;
     // get obstacle information
     private Background background = new Background();
+    // hero UI
+    private BufferedImage ui = null;
     // create thread to drive hero
     private Thread thread = null;
     // moving speed on x-axis
@@ -51,6 +53,10 @@ public class Hero extends Character implements Runnable{
     private int height = 60;
     // width
     private int width = 40;
+    // current hp
+    private int currentHp;
+    // current mana
+    private int currentMana;
 
     public Hero(String name, int strenght, int hp, int mana) {
         super(strenght, hp, mana);
@@ -58,9 +64,12 @@ public class Hero extends Character implements Runnable{
         this.strenght = strenght;
         this.hp = hp;
         this.mana = mana;
+        this.currentHp = hp;
+        this.currentMana = mana;
 
         image = StaticValue.melee_weapon_right;
         this.status = "melee_weapon_right";
+        ui = StaticValue.hero_ui;
         thread = new Thread(this);
         thread.start();
     }
@@ -181,8 +190,6 @@ public class Hero extends Character implements Runnable{
                 // if ((obstacle.getY() <= this.y - obstacle.getHeight() - 5 && obstacle.getY() >= this.y - 5 ) && (this.x > obstacle.getX() - 15 && this.x < obstacle.getY() + obstacle.getWidth() + 15)) {
                 //     jumpingTime = 0;
                 // }
-
-
             }
 
             // display the action of jumping
@@ -323,6 +330,30 @@ public class Hero extends Character implements Runnable{
 
     public Rectangle toRectangle() {
         return new Rectangle(x, y, width, height);
+    }
+
+    public BufferedImage getUI() {
+        return ui;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getCurrentlHp() {
+        return currentHp;
+    }
+
+    public void setCurrentHp(int hp) {
+        this.currentHp = hp;
+    }
+
+    public int getCurrentMana() {
+        return currentMana;
+    }
+
+    public void setCurrentMana(int mana) {
+        this.currentMana = mana;
     }
 
 }

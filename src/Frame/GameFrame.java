@@ -4,9 +4,12 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.Image;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import Character.Hero;
 
@@ -22,6 +25,7 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
     private Hero hero;
     // create a thread to do hero action
     private Thread thread = new Thread(this);
+    // limit jumping gap
     long firstPress = 0;
     long secondPress = 1500;
 
@@ -86,6 +90,19 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
         // draw hero
         graphics.drawImage(hero.getImage(), hero.getX(), hero.getY(), this);
 
+        // draw hero's info
+        graphics.drawImage(hero.getUI(), 20, 40, this);
+        graphics.setFont(new Font("TimesRoman", Font.BOLD, 27));
+        graphics.setColor(Color.GRAY);
+        graphics.drawString(hero.getName(), 165, 68);
+        // draw hp
+        graphics.setColor(Color.RED);
+        // hero.setCurrentHp(73);
+        graphics.fillRect(110, 75, (int) ((float) hero.getCurrentlHp() / hero.getHp() * 165), 5);
+        // draw mana
+        graphics.setColor(Color.BLUE);
+        graphics.fillRect(110, 87, (int) ((float) hero.getCurrentMana() / hero.getMana() * 165), 5);
+
         // connect off screen image to window
         g.drawImage(offScreenImage, 0, 0, this);
 
@@ -117,11 +134,6 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
             }
         }
         secondPress = System.currentTimeMillis();
-
-        // //if press "↓", then fall
-        // if (e.getKeyCode() == 36) {
-        //     hero.fall();
-        // }
     }
 
     @Override
@@ -173,7 +185,7 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
                         break;
                     // level 3
                     case 3:
-                        if (hero.getX() >= 610 && hero.getY() >= 445 && hero.getY() <= 565) {
+                        if (hero.getX() >= 680 && hero.getY() >= 445 && hero.getY() <= 565) {
                             // currentBackground = allBackground.get(currentBackground.getCurrentScence());
                             // // send the background to hero
                             // hero.setBackground(currentBackground);
@@ -181,6 +193,8 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
                             // hero.setX(20);
                             // hero.setY(495);
                             System.out.println("you win");
+                            JOptionPane.showMessageDialog(this, "Congrats, you win the battle!");
+                            System.exit(0);
                         }
                         break;
                 }
@@ -198,6 +212,8 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
         GameFrame gameFrame = new GameFrame();
 
     }
+
+
 
 
 }
