@@ -1,5 +1,6 @@
 package Frame;
 import java.awt.image.BufferedImage;
+import java.awt.Rectangle;
 
 public class Obstacle {
     // coordinate
@@ -11,10 +12,16 @@ public class Obstacle {
     private BufferedImage image = null;
     // current scence
     private Background background = null;
+    // height
+    private int height;
+    // width
+    private int width;
 
-    public Obstacle(int x, int y, int type, Background background) {
+    public Obstacle(int x, int y, int width, int height, int type, Background background) {
         this.x = x;
         this.y = y;
+        this.width = width;
+        this.height = height;
         this.type = type;
         this.background = background;
 
@@ -35,6 +42,10 @@ public class Obstacle {
 
     public BufferedImage getRenderedImage() {
         return image;
+    }
+
+    public Rectangle toRectangle() {
+        return new Rectangle(x, y, width, height);
     }
 
 

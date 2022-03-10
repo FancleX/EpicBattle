@@ -1,7 +1,7 @@
 package Character;
 
 import java.awt.image.BufferedImage;
-import java.util.concurrent.TimeUnit;
+import java.awt.Rectangle;
 
 import Frame.*;
 
@@ -47,6 +47,10 @@ public class Hero extends Character implements Runnable{
     private int index;
     // jumping time
     private int jumpingTime;
+    // height
+    private int height = 60;
+    // width
+    private int width = 40;
 
     public Hero(String name, int strenght, int hp, int mana) {
         super(strenght, hp, mana);
@@ -125,16 +129,14 @@ public class Hero extends Character implements Runnable{
     // hero falls down
     public void fall() {
         // detect if is on ground and stop falling on the ground
-        if (y <= 480) {
-            if (status.contains("left")) {
-                status = "jump_left";
-            } else {
-                status = "jump_right";
-            }
-            ySpeed = 12;
-            // change position when moving on jumping
-            y += ySpeed;
+        if (status.contains("left")) {
+            status = "jump_left";
+        } else {
+            status = "jump_right";
         }
+        ySpeed = 15;
+        // change position when moving on jumping
+        y += ySpeed;
     }
   
     @Override
@@ -142,13 +144,14 @@ public class Hero extends Character implements Runnable{
         while (true) {
             // if hero is on obstacles
             boolean isOnObstacle = false;
+            // boolean isBlocked = false;
             // iterate obstacles 
             for (int i = 0; i < background.getObstacleList().size(); i++) {
                 Obstacle obstacle = background.getObstacleList().get(i);
                 // determine if hero is on obstacles
-                System.err.println(obstacle.getY());
-                System.err.println(this.y);
-                if (obstacle.getY() == this.y + 50 && (obstacle.getX() > this.x - 5 && obstacle.getX() < this.x + 5)) {
+                // System.err.println(obstacle.getY());
+                // System.err.println(this.y);
+                if (obstacle.toRectangle().intersects(toRectangle())) {
                     isOnObstacle = true;
                 }
             }
@@ -180,14 +183,14 @@ public class Hero extends Character implements Runnable{
                 } else {
                     // hero jumps to the most top
                     fall();
-                }
-                
+                } 
             }
 
+            // if (isBlocked) {
+            //     xSpeed = 0;
+            // }
 
-
-
-            // if hero is moving
+            // if hero is moving to boundary
             if (xSpeed != 0) {
                 x += xSpeed;
                 // boundary detection, if the hero runs to the left and right of the window
@@ -291,6 +294,10 @@ public class Hero extends Character implements Runnable{
 
     public void setBackground(Background background) {
         this.background = background;
+    }
+
+    public Rectangle toRectangle() {
+        return new Rectangle(x, y, width, height);
     }
 
 }

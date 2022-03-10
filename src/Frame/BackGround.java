@@ -47,10 +47,10 @@ public class Background {
             */
             case 1:
                 // ground
-                obstacleList.add(new Obstacle(0, 550, 0, this));
+                obstacleList.add(new Obstacle(0, 550, 800, 50, 0, this));
                 // add obstacle 1
                 for (int i = 170; i <= 600; i += 300) {
-                    obstacleList.add(new Obstacle(i, 450, 2, this));
+                    obstacleList.add(new Obstacle(i, 450, 154, 28, 2, this));
                 }
                 // add teleporter at (750, 450)
                 teleporter = StaticValue.teleporter;
@@ -60,11 +60,11 @@ public class Background {
 
             case 2:
                 // ground
-                obstacleList.add(new Obstacle(0, 550, 0, this));
+                obstacleList.add(new Obstacle(0, 550, 800, 50, 0, this));
                 // add obstacle 1
                 int j = 500;
                 for (int i = 250; i <= 600; i += 100) {
-                    obstacleList.add(new Obstacle(i, j, 1, this));
+                    obstacleList.add(new Obstacle(i, j, 154, 44, 1, this));
                     j -= 50;
                 }
                 // add teleporter at (660, 250)
@@ -75,7 +75,7 @@ public class Background {
 
             case 3:
                 // ground
-                obstacleList.add(new Obstacle(0, 550, 0, this));
+                obstacleList.add(new Obstacle(0, 550, 800, 50, 0, this));
                 // end teleporter
                 end = StaticValue.end;
                 break;
@@ -117,5 +117,6 @@ public class Background {
     public boolean getIsFinal() {
         return isFinal;
     }
+
 
 }
