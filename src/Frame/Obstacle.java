@@ -48,5 +48,9 @@ public class Obstacle {
         return new Rectangle(x, y, width, height);
     }
 
+    public int getWidth() {
+        return width;
+    }
+
 
 }

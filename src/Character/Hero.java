@@ -144,16 +144,30 @@ public class Hero extends Character implements Runnable{
         while (true) {
             // if hero is on obstacles
             boolean isOnObstacle = false;
-            // boolean isBlocked = false;
+            boolean passLeft = true;
+            boolean passRight = true;
             // iterate obstacles 
             for (int i = 0; i < background.getObstacleList().size(); i++) {
                 Obstacle obstacle = background.getObstacleList().get(i);
                 // determine if hero is on obstacles
-                // System.err.println(obstacle.getY());
-                // System.err.println(this.y);
                 if (obstacle.toRectangle().intersects(toRectangle())) {
                     isOnObstacle = true;
                 }
+                // determine if hero can walk right head: 494  ground: 550 hero width: 70
+                // System.err.println("obstacleY: " + obstacle.getY() + " type: " + obstacle.getType());
+                // System.err.println("heroY: " + y);
+                if (obstacle.getX() == this.x + 70 && (obstacle.getY() > this.y - 10 && obstacle.getY() < this.y + 50)) {
+                    passRight = false;
+                }
+                // determine if hero can walk left
+                System.err.println("obstacleX: " + obstacle.getX());
+                System.err.println("heroX: " + this.x);
+                System.err.println("obstacleWidth: " + obstacle.getWidth() + " obstacleType: " + obstacle.getType());
+                if (obstacle.getX() == this.x - obstacle.getWidth() - 30 && (obstacle.getY() > this.y - 10 && obstacle.getY() < this.y + 50)) {
+                    passLeft = false;
+                }
+                System.err.println(passRight);
+
             }
 
             // display the action of jumping
@@ -186,12 +200,8 @@ public class Hero extends Character implements Runnable{
                 } 
             }
 
-            // if (isBlocked) {
-            //     xSpeed = 0;
-            // }
-
-            // if hero is moving to boundary
-            if (xSpeed != 0) {
+            // if hero is moving
+            if ((xSpeed < 0 && passLeft) || (xSpeed > 0 && passRight)) {
                 x += xSpeed;
                 // boundary detection, if the hero runs to the left and right of the window
                 // left boundary
