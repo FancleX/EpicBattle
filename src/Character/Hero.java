@@ -134,7 +134,7 @@ public class Hero extends Character implements Runnable{
         } else {
             status = "jump_right";
         }
-        ySpeed = 15;
+        ySpeed = 7;
         // change position when moving on jumping
         y += ySpeed;
     }

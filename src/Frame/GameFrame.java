@@ -45,7 +45,7 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
         // initialize hero with a specific coorindate
         hero = new Hero("Jack", 100, 100, 100);
         hero.setX(20);
-        hero.setY(490);
+        hero.setY(480);
         // initialize all scences
         for (int i = 1; i <= 3; i++) {
             allBackground.add(new Background(i, i == 3 ? true : false));
@@ -157,7 +157,7 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
                             hero.setBackground(currentBackground);
                             // reset hero postition
                             hero.setX(20);
-                            hero.setY(490);
+                            hero.setY(480);
                         }
                         break;
                     // level 2
@@ -168,7 +168,7 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
                             hero.setBackground(currentBackground);
                             // reset hero postition
                             hero.setX(20);
-                            hero.setY(490);
+                            hero.setY(480);
                         } 
                         break;
                     // level 3
