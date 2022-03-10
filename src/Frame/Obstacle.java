@@ -52,5 +52,8 @@ public class Obstacle {
         return width;
     }
 
+    public int getHeight() {
+        return height;
+    }
 
 }

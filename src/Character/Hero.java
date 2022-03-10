@@ -142,7 +142,7 @@ public class Hero extends Character implements Runnable{
     @Override
     public void run() {
         while (true) {
-            // if hero is on obstacles
+            // determine hero's action 
             boolean isOnObstacle = false;
             boolean passLeft = true;
             boolean passRight = true;
@@ -150,23 +150,38 @@ public class Hero extends Character implements Runnable{
             for (int i = 0; i < background.getObstacleList().size(); i++) {
                 Obstacle obstacle = background.getObstacleList().get(i);
                 // determine if hero is on obstacles
-                if (obstacle.toRectangle().intersects(toRectangle())) {
+                // if (obstacle.toRectangle().intersects(toRectangle())) {
+                //     isOnObstacle = true;
+                // }
+                // System.err.println("obstacleY: " + obstacle.getY() + " obstacleType: " + obstacle.getType());
+                // System.err.println("heroY: " + this.y);
+                // obstacle.getY() > this.y + 45 && obstacle.getY() < this.y + 55
+                if ((obstacle.toRectangle().intersects(toRectangle())) && (this.x > obstacle.getX() - 15 && this.x < obstacle.getY() + obstacle.getWidth() + 15)) {
                     isOnObstacle = true;
                 }
                 // determine if hero can walk right head: 494  ground: 550 hero width: 70
                 // System.err.println("obstacleY: " + obstacle.getY() + " type: " + obstacle.getType());
                 // System.err.println("heroY: " + y);
-                if (obstacle.getX() == this.x + 70 && (obstacle.getY() > this.y - 10 && obstacle.getY() < this.y + 50)) {
+                // obstacle.getX() == this.x + 70
+                // (obstacle.getY() > this.y - 5 && obstacle.getY() < this.y + 55)
+                if (obstacle.toRectangle().intersects(toRectangle()) && (obstacle.getY() > this.y - 5 && obstacle.getY() < this.y + 55)) {
                     passRight = false;
                 }
                 // determine if hero can walk left
-                System.err.println("obstacleX: " + obstacle.getX());
-                System.err.println("heroX: " + this.x);
-                System.err.println("obstacleWidth: " + obstacle.getWidth() + " obstacleType: " + obstacle.getType());
-                if (obstacle.getX() == this.x - obstacle.getWidth() - 30 && (obstacle.getY() > this.y - 10 && obstacle.getY() < this.y + 50)) {
+                // System.err.println("obstacleX: " + obstacle.getX());
+                // System.err.println("heroX: " + this.x);
+                // System.err.println("obstacleWidth: " + obstacle.getWidth() + " obstacleType: " + obstacle.getType());
+                // obstacle.getX() == this.x - obstacle.getWidth() - 30
+                // (obstacle.getY() > this.y - 5 && obstacle.getY() < this.y + 55)
+                if (obstacle.toRectangle().intersects(toRectangle()) && (obstacle.getY() > this.y - 5 && obstacle.getY() < this.y + 55)) {
                     passLeft = false;
                 }
-                System.err.println(passRight);
+                // System.err.println(passRight);
+                // determine if hero is on the bottom of the obstacle
+                // if ((obstacle.getY() <= this.y - obstacle.getHeight() - 5 && obstacle.getY() >= this.y - 5 ) && (this.x > obstacle.getX() - 15 && this.x < obstacle.getY() + obstacle.getWidth() + 15)) {
+                //     jumpingTime = 0;
+                // }
+
 
             }
 
