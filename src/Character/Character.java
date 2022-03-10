@@ -3,15 +3,9 @@ import java.util.Random;
 
 public abstract class Character {
     
-    private int strenght;
-    private int hp;
-    private int mana;
-
-    public Character(int strenght, int hp, int mana) {
-        this.strenght = strenght;
-        this.hp = hp;
-        this.mana = mana;
-    }
+    protected int strenght;
+    protected int hp;
+    protected int mana;
 
     public int attack() {
         Random rd = new Random();

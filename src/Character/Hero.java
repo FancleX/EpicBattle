@@ -34,7 +34,7 @@ public class Hero extends Character implements Runnable{
     */
     private String status;
     // the picture corresponding to the current status
-    private BufferedImage image = null;
+    private BufferedImage image = StaticValue.melee_weapon_left;
     // get obstacle information
     private Background background = new Background();
     // hero UI
@@ -59,7 +59,9 @@ public class Hero extends Character implements Runnable{
     private int currentMana;
 
     public Hero(String name, int strenght, int hp, int mana) {
-        super(strenght, hp, mana);
+        super.strenght = strenght;
+        super.hp = hp;
+        super.mana = mana;
         this.name = name;
         this.strenght = strenght;
         this.hp = hp;
