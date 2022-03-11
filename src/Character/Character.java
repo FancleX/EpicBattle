@@ -1,4 +1,6 @@
 package Character;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import Frame.Background;
@@ -17,30 +19,42 @@ public abstract class Character {
     private Background background;
     // current weapon effects
     private BufferedImage currentEffects;
+    // attacking status
+    private boolean isAttacking = false;
+    // current weapon
+    private Armory currentWeapons = Armory.MELEE;
+    // list of weapons
+    private List<Weapon> availableWeapons = new ArrayList<>();
+
+    //initialize weapons
+    public Character() {
+        availableWeapons.add(new Melee());
+        availableWeapons.add(new Ranged());
+        availableWeapons.add(new Magic());
+    }
+
  
     public void attack(boolean attackRight) {
-        switch (weapon.getType()) {
+        isAttacking = true;
+        switch (currentWeapons) {
             case MELEE:
-                if (attackRight) {
-                    currentEffects = StaticValue.melee_effects.get(0);
-                } else {
-                    currentEffects = StaticValue.melee_effects.get(1);
-                }
+                currentEffects = availableWeapons.get(0).getCurrentImage(attackRight);
                 break;
             case RANGED:
-                if (attackRight) {
-                    currentEffects = StaticValue.ranged_effects.get(0);
-                } else {
-                    currentEffects = StaticValue.ranged_effects.get(1);
-                }
+                currentEffects = availableWeapons.get(1).getCurrentImage(attackRight);
                 break;
             case MAGIC:
-                currentEffects = StaticValue.magic_effects.get(0);
+                currentEffects = availableWeapons.get(2).getCurrentImage(attackRight);
                 break;
         }
         Random rd = new Random();
         int damage = rd.nextInt(strenght);
         hp -= damage;
+    }
+
+    public void stopAttacking() {
+        isAttacking = false;
+        currentEffects = null;
     }
 
     public void hurt(int damage) {
@@ -64,6 +78,17 @@ public abstract class Character {
         return currentEffects;
     }
 
+    public boolean isAttacking() {
+        return isAttacking;
+    }
+
+    public Armory getCurrentWeapon() {
+        return currentWeapons;
+    }
+
+    public List<Weapon> getAvailablWeapons() {
+        return availableWeapons;
+    }
 
 
 

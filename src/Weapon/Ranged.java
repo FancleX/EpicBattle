@@ -1,8 +1,21 @@
 package Weapon;
+
+import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
+
+import Frame.StaticValue;
+
 public class Ranged implements Weapon{
 
     private int strenght;
     private int durability;
+    // coordinate of weapon effects
+    private int effectsX;
+    private int effectsY;
+    // effects image
+    private BufferedImage currentImage = null;
+    // weapon's orientation
+    private boolean isRight;
 
     public Ranged() {
         this.strenght = 30;
@@ -25,6 +38,28 @@ public class Ranged implements Weapon{
     public void damageEffect() {
         // TODO Auto-generated method stub
         
+    }
+
+    @Override
+    public Armory getType() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public Rectangle toRectangle() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public BufferedImage getCurrentImage(boolean attackRight) {
+        if (isRight) {
+            currentImage = StaticValue.ranged_effects.get(0);
+        } else {
+            currentImage = StaticValue.ranged_effects.get(1);
+        }
+        return currentImage;
     }
     
 }

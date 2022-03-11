@@ -27,8 +27,11 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
     // create a thread to do hero action
     private Thread thread = new Thread(this);
     // limit jumping gap
-    long firstPress = 0;
-    long secondPress = 1500;
+    long firstJump = 0;
+    long secondJump = 1500;
+    // limit attack gap
+    long firstAttack = 0;
+    long secondAttack = 200;
 
     public GameFrame() {
         // set window's size
@@ -110,7 +113,14 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
         }
 
         // draw attack effects
-
+        if (hero.isAttacking()) {
+            if (hero.faceRight()) {
+                graphics.drawImage(hero.getCurrentEffects(), hero.getX() + 35, hero.getY() - 10, this);
+            } else {
+                graphics.drawImage(hero.getCurrentEffects(), hero.getX() - 30, hero.getY() - 10, this);
+            }
+        } 
+        
         // connect off screen image to window
         g.drawImage(offScreenImage, 0, 0, this);
 
@@ -136,17 +146,21 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
 
         // if press "↑", then jump
         if (e.getKeyCode() == 38) {
-            if (secondPress - firstPress >= 1500) {
-                firstPress = System.currentTimeMillis();
+            if (secondJump - firstJump >= 1500) {
+                firstJump = System.currentTimeMillis();
                 hero.jump();
             }
         }
-        secondPress = System.currentTimeMillis();
+        secondJump = System.currentTimeMillis();
 
         // press "A" to attack
         if (e.getKeyCode() == 65) {
-            hero.attack(hero.faceRight());
+            if (secondAttack - firstAttack >= 200) {
+                firstAttack = System.currentTimeMillis();
+                hero.attack(hero.faceRight());
+            }
         }
+        secondAttack = System.currentTimeMillis();
 
     }
 
@@ -160,6 +174,11 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
         // if release "<-", then stop left
         if (e.getKeyCode() == 37) {
             hero.stopLeft();
+        }
+
+        // if release "A", then stop attacking
+        if (e.getKeyCode() == 65) {
+            hero.stopAttacking();
         }
         
     }

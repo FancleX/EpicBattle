@@ -1,4 +1,4 @@
 package Weapon;
-public enum Weapons {
+public enum Armory {
     MELEE, RANGED, MAGIC
 }

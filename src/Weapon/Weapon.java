@@ -1,4 +1,8 @@
 package Weapon;
+
+import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
+
 public interface Weapon {
     
     void crit();
@@ -7,5 +11,9 @@ public interface Weapon {
 
     void damageEffect();
 
-    Weapons getType();
+    Armory getType();
+
+    Rectangle toRectangle();
+
+    BufferedImage getCurrentImage(boolean attackRight);
 }
