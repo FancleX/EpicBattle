@@ -109,6 +109,8 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
             graphics.drawImage(enemy.getCurrentImage(), enemy.getX(), enemy.getY(), this);
         }
 
+        // draw attack effects
+
         // connect off screen image to window
         g.drawImage(offScreenImage, 0, 0, this);
 
@@ -140,6 +142,12 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
             }
         }
         secondPress = System.currentTimeMillis();
+
+        // press "A" to attack
+        if (e.getKeyCode() == 65) {
+            hero.attack(hero.faceRight());
+        }
+
     }
 
     @Override
@@ -164,6 +172,11 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
             repaint();
             try {
                 Thread.sleep(50);
+                // determine if hero is alive, otherwise end the game
+                if (!hero.isAlive()) {
+                    JOptionPane.showMessageDialog(this, "You lost!");
+                    System.exit(0);
+                }
                 // determine if the hero has entered the teleporter, if so, enter the next level
                 int currentLevel = hero.getBackground().getCurrentScence();
                 switch (currentLevel) {

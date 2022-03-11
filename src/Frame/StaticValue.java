@@ -62,6 +62,18 @@ public class StaticValue {
     // UI
     public static BufferedImage hero_ui = null;
 
+    // hero death
+    public static BufferedImage hero_death = null;
+
+    // melee weapon effect
+    public static List<BufferedImage> melee_effects = new ArrayList<>();
+
+    // ranged weapon effect
+    public static List<BufferedImage> ranged_effects = new ArrayList<>();
+
+    // magic weapon effect
+    public static List<BufferedImage> magic_effects = new ArrayList<>();
+
 
     // ememy
     // character run to right with melee weapon
@@ -122,6 +134,7 @@ public class StaticValue {
             e.printStackTrace();
         }
 
+        // hero
         // initialize hero running left
         for (int i = 1; i <= 2; i++) {
             try {
@@ -130,7 +143,6 @@ public class StaticValue {
                 e.printStackTrace();
             }
         }
-
         // initialize hero running right
         for (int i = 1; i <= 2; i++) {
             try {
@@ -139,7 +151,6 @@ public class StaticValue {
                 e.printStackTrace();
             }
         }
-
         // initialize obstacles and ground
         try {
             obstacles.add(ImageIO.read(new File(path + "ground.jpg")));
@@ -149,8 +160,30 @@ public class StaticValue {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        // hero death
+        try {
+            hero_death = ImageIO.read(new File(path + "hero_death.png"));
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+        // weapon initialization
+        try {
+            // melee effects
+            for (int i = 1; i <= 2; i++) {
+                melee_effects.add(ImageIO.read(new File(path + "melee_effects" + i + ".png")));
+            }
+            // ranged effects
+            for (int i = 1; i <= 3; i++) {
+                ranged_effects.add(ImageIO.read(new File(path + "ranged_effects" + i + ".png")));
+            }
+            // magic effects
+            for (int i = 1; i <= 2; i++) {
+                magic_effects.add(ImageIO.read(new File(path + "magic_effects" + i + ".png")));
+            }
 
-
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
 
         // initialize enemy
         // right
@@ -171,9 +204,8 @@ public class StaticValue {
         }
         // death
         try {
-            enemy_death = ImageIO.read(new File(path + "enemy_death.png"));
+            enemy_death = ImageIO.read(new File(path + "enemy_death.gif"));
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 

@@ -76,6 +76,8 @@ public class Background {
                 teleporter = StaticValue.teleporter;
                 teleporterX = 660;
                 teleporterY = 250;
+                // add enemies
+                enemies.add(new Enemy(650, 480, false, 0, this));
                 break;
 
             case 3:

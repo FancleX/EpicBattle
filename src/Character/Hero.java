@@ -57,6 +57,8 @@ public class Hero extends Character implements Runnable{
     private int currentHp;
     // current mana
     private int currentMana;
+    // hero is alive
+    private boolean isAlive = true;
 
     public Hero(String name, int strenght, int hp, int mana) {
         super.strenght = strenght;
@@ -149,7 +151,22 @@ public class Hero extends Character implements Runnable{
         // change position when moving on jumping
         y += ySpeed;
     }
-  
+
+    // death
+    public void death() {
+        image = StaticValue.hero_death;
+        isAlive = false;
+    }
+
+    // hero orientation
+    public boolean faceRight() {
+        if (status.contains("right")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     @Override
     public void run() {
         while (true) {
@@ -193,6 +210,15 @@ public class Hero extends Character implements Runnable{
                 //     jumpingTime = 0;
                 // }
             }
+
+            // // attack and injured from enemies
+            // for (int i = 0; i < background.getEnemies().size(); i++) {
+            //     Enemy enemy = background.getEnemies().get(i);
+            //     // if attack a enemy 
+            //     if ()
+            // }
+
+
 
             // display the action of jumping
             // stand on the obstacle
@@ -356,6 +382,10 @@ public class Hero extends Character implements Runnable{
 
     public void setCurrentMana(int mana) {
         this.currentMana = mana;
+    }
+
+    public boolean isAlive() {
+        return isAlive;
     }
 
 }

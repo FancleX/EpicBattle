@@ -6,4 +6,6 @@ public interface Weapon {
     void destory();
 
     void damageEffect();
+
+    Weapons getType();
 }
