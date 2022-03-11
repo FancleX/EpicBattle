@@ -82,6 +82,9 @@ public class StaticValue {
     // character run to left with magic weapon
     public static List<BufferedImage> enemy_run_left_magic = new ArrayList<>();
 
+    // death
+    public static BufferedImage enemy_death = null;
+
     // path define
     public static String path = System.getProperty("user.dir") + "/src/images/";
 
@@ -150,6 +153,30 @@ public class StaticValue {
 
 
         // initialize enemy
+        // right
+        for (int i = 1; i <= 2; i++) {
+            try {
+                enemy_run_right_melee.add(ImageIO.read(new File(path + "enemy_run" + i + "_right_melee.png")));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        // left
+        for (int i = 1; i <= 2; i++) {
+            try {
+                enemy_run_left_melee.add(ImageIO.read(new File(path + "enemy_run" + i + "_left_melee.png")));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        // death
+        try {
+            enemy_death = ImageIO.read(new File(path + "enemy_death.png"));
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
 
 
 

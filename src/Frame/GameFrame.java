@@ -11,6 +11,7 @@ import java.awt.Graphics;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import Character.Enemy;
 import Character.Hero;
 
 public class GameFrame extends JFrame implements KeyListener, Runnable {
@@ -102,6 +103,11 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
         // draw mana
         graphics.setColor(Color.BLUE);
         graphics.fillRect(110, 87, (int) ((float) hero.getCurrentMana() / hero.getMana() * 165), 5);
+
+        // draw enemies
+        for (Enemy enemy : currentBackground.getEnemies()) {
+            graphics.drawImage(enemy.getCurrentImage(), enemy.getX(), enemy.getY(), this);
+        }
 
         // connect off screen image to window
         g.drawImage(offScreenImage, 0, 0, this);

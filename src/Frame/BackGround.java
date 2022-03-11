@@ -3,6 +3,8 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
+import Character.Enemy;
+
 public class Background {
     
     // current background
@@ -20,7 +22,8 @@ public class Background {
     private int teleporterY;
     // end 
     private BufferedImage end = null;
-
+    // enemies
+    private List<Enemy> enemies = new ArrayList<>();
     
     public Background() {}
 
@@ -56,6 +59,8 @@ public class Background {
                 teleporter = StaticValue.teleporter;
                 teleporterX = 750;
                 teleporterY = 450;
+                // add enemies
+                enemies.add(new Enemy(650, 480, false, 0, this));
                 break;
 
             case 2:
@@ -118,5 +123,8 @@ public class Background {
         return isFinal;
     }
 
+    public List<Enemy> getEnemies() {
+        return enemies;
+    }
 
 }
