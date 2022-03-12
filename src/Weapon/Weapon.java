@@ -32,4 +32,6 @@ public interface Weapon {
     int getDurability();
 
     void setDurability(int cost) throws Exception;
+
+    void pressAttackKey(boolean b);
 }

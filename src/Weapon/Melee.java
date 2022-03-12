@@ -26,11 +26,14 @@ public class Melee implements Weapon, Runnable {
     private boolean isAttacked = false;
     // background
     private Background background = new Background();
+    // determine if user press "A" to attack
+    private boolean userAttack = false;
 
-    public Melee() {
+    public Melee(Background background) {
         this.strenght = 2;
         this.durability = 100;
-        // thread.start();
+        this.background = background;
+        thread.start();
     }
 
     
@@ -98,23 +101,38 @@ public class Melee implements Weapon, Runnable {
         return background;
     }
 
+    public void pressAttackKey(boolean userAttack) {
+        this.userAttack = userAttack;
+    }
+
 
 
     @Override
     public void run() {
-        // while (true) {
-        //     for (int i = 0; i < background.getEnemies().size(); i++) {
-        //         Enemy enemy = background.getEnemies().get(i);
-        //         System.err.println("is attacked: " + toRectangle().intersects(enemy.toRectangle()));
-        //         if (toRectangle().intersects(enemy.toRectangle())) {
-        //             isAttacked = true;
-        //         } else {
-        //             isAttacked = false;
-        //         }
-        //     }
+        while (true) {
+            for (int i = 0; i < background.getEnemies().size(); i++) {
+                Enemy enemy = background.getEnemies().get(i);
+                System.err.println("x: " + effectsX);
+                System.err.println("enemyX: " + enemy.getX());
+                System.err.println("is attacked: " + isAttacked);
+                System.err.println("enemyhp: " + enemy.getHp());
+                // (effectsX <= enemy.getX() - 5 && effectsX >= enemy.getX() - 10)
+                if (toRectangle().intersects(enemy.toRectangle()) && userAttack) {
+                    isAttacked = true;
+                    enemy.hurted(8);
+                } else {
+                    isAttacked = false;
+                }
+            }
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
             
 
-        // }
+        }
         
     }
 

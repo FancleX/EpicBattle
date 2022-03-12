@@ -89,6 +89,11 @@ public class Enemy implements Runnable{
      // death
      public void death() {
         currentImage = StaticValue.enemy_death;
+        try {
+            Thread.sleep(10);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         background.getEnemies().remove(this);
     }
 
@@ -213,5 +218,9 @@ public class Enemy implements Runnable{
             return false;
         }
         return true;
+    }
+
+    public Background getBackground() {
+        return background;
     }
 }

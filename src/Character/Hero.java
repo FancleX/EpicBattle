@@ -96,9 +96,9 @@ public class Hero implements Runnable{
         weaponList.add(Armory.MELEE);
         weaponList.add(Armory.RANGED);
         weaponList.add(Armory.MAGIC);
-        weapons.add(new Melee());
-        weapons.add(new Ranged());
-        weapons.add(new Magic());
+        weapons.add(new Melee(background));
+        weapons.add(new Ranged(background));
+        weapons.add(new Magic(background));
         currentWeapon = Armory.MELEE;
 
         thread = new Thread(this);
@@ -338,12 +338,15 @@ public class Hero implements Runnable{
     }
 
 
+
+
     @Override
     public void run() {
         while (true) {
             // setEffectPosition();
+            // weapons.get(0).setBackground(background);
             weapons.get(0).setX(x, faceRight);
-            System.err.println("X: " + weapons.get(0).getX());
+            // System.err.println("X: " + weapons.get(0).getX());
             // determine hero's action 
             boolean isOnObstacle = false;
             boolean passLeft = true;
@@ -386,18 +389,17 @@ public class Hero implements Runnable{
             }
 
             // attack damage judgment
-            for (int i = 0; i < background.getEnemies().size(); i++) {
-                Enemy enemy = background.getEnemies().get(i);
-                // if attack a enemy 
-                // boolean right = (getAvailablWeapons().get(0).getX() <= enemy.getX() - 5 && getAvailablWeapons().get(0).getX() <= enemy.getX() - 10);
-                // boolean left = (getAvailablWeapons().get(0).getX() >= enemy.getX() + 5 && getAvailablWeapons().get(0).getX() >= enemy.getX() + 10);
-                System.err.println("attacked: " + enemy.toRectangle().intersects(weapons.get(0).toRectangle()));
-                System.err.println("enemy hp: " + enemy.getHp());
-                if (enemy.toRectangle().intersects(weapons.get(0).toRectangle())) {
-                    // if enemy is alive
-                    enemy.hurted(causedDamage());
-                }
-            }
+            // for (int i = 0; i < background.getEnemies().size(); i++) {
+            //     Enemy enemy = background.getEnemies().get(i);
+            //     // if attack a enemy 
+            //     // boolean right = (getAvailablWeapons().get(0).getX() <= enemy.getX() - 5 && getAvailablWeapons().get(0).getX() <= enemy.getX() - 10);
+            //     // boolean left = (getAvailablWeapons().get(0).getX() >= enemy.getX() + 5 && getAvailablWeapons().get(0).getX() >= enemy.getX() + 10);
+            //     System.err.println("attacked: " + enemy.toRectangle().intersects(weapons.get(0).toRectangle()));
+            //     System.err.println("enemy hp: " + enemy.getHp());
+            //     if (enemy.toRectangle().intersects(weapons.get(0).toRectangle())) {
+            //         enemy.hurted(causedDamage());
+            //     }
+            // }
 
 
             // display the action of jumping
@@ -639,4 +641,7 @@ public class Hero implements Runnable{
         return currentWeaponEffects;
     }
 
+    public boolean isNoWeapon() {
+        return isNoWeapon;
+    }
 }

@@ -17,10 +17,13 @@ public class Ranged implements Weapon{
     private BufferedImage currentImage = null;
     // weapon's orientation
     private boolean isRight;
+    // background
+    private Background background = new Background();
 
-    public Ranged() {
+    public Ranged(Background background) {
         this.strenght = 30;
         this.durability = 50;
+        this.background = background;
     }
 
     @Override
@@ -91,6 +94,30 @@ public class Ranged implements Weapon{
 
     @Override
     public void setX(int x, boolean faceRight) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public int getStrength() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public int getDurability() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public void setDurability(int cost) throws Exception {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void pressAttackKey(boolean b) {
         // TODO Auto-generated method stub
         
     }

@@ -34,9 +34,9 @@ public abstract class Character {
 
     //initialize weapons
     public Character() {
-        availableWeapons.add(new Melee());
-        availableWeapons.add(new Ranged());
-        availableWeapons.add(new Magic());
+        availableWeapons.add(new Melee(background));
+        availableWeapons.add(new Ranged(background));
+        availableWeapons.add(new Magic(background));
     }
 
  

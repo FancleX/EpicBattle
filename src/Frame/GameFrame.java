@@ -161,6 +161,7 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
             if (secondAttack - firstAttack >= 200) {
                 firstAttack = System.currentTimeMillis();
                 hero.attack(hero.faceRight());
+                hero.getWeapons().get(0).pressAttackKey(true);
             }
         }
         secondAttack = System.currentTimeMillis();
@@ -200,7 +201,7 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
             try {
                 Thread.sleep(50);
                 // determine if hero is alive, otherwise end the game
-                if (!hero.isAlive()) {
+                if ((!hero.isAlive()) ||  hero.isNoWeapon()) {
                     JOptionPane.showMessageDialog(this, "You lost!");
                     System.exit(0);
                 }
