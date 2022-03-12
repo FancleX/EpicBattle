@@ -30,7 +30,7 @@ public class Melee implements Weapon, Runnable {
     public Melee() {
         this.strenght = 2;
         this.durability = 100;
-        thread.start();
+        // thread.start();
     }
 
     
@@ -102,19 +102,19 @@ public class Melee implements Weapon, Runnable {
 
     @Override
     public void run() {
-        while (true) {
-            for (int i = 0; i < background.getEnemies().size(); i++) {
-                Enemy enemy = background.getEnemies().get(i);
-                System.err.println("is attacked: " + toRectangle().intersects(enemy.toRectangle()));
-                if (toRectangle().intersects(enemy.toRectangle())) {
-                    isAttacked = true;
-                } else {
-                    isAttacked = false;
-                }
-            }
+        // while (true) {
+        //     for (int i = 0; i < background.getEnemies().size(); i++) {
+        //         Enemy enemy = background.getEnemies().get(i);
+        //         System.err.println("is attacked: " + toRectangle().intersects(enemy.toRectangle()));
+        //         if (toRectangle().intersects(enemy.toRectangle())) {
+        //             isAttacked = true;
+        //         } else {
+        //             isAttacked = false;
+        //         }
+        //     }
             
 
-        }
+        // }
         
     }
 

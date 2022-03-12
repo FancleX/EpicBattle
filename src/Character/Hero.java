@@ -1,9 +1,13 @@
 package Character;
 
 import java.awt.image.BufferedImage;
+import java.util.List;
 import java.awt.Rectangle;
 
 import Frame.*;
+import Weapon.Armory;
+import Weapon.Melee;
+import Weapon.Weapon;
 
 
 public class Hero extends Character implements Runnable{
@@ -60,15 +64,14 @@ public class Hero extends Character implements Runnable{
     // hero is alive
     private boolean isAlive = true;
     // hero orientation
-    protected boolean faceRight;
+    private boolean faceRight;
+    // current weapon
+    private Armory currentWeapon;
+    // weapon list
+    private List<Armory> weaponList;
+
 
     public Hero(String name, int strenght, int hp, int mana) {
-        super.strenght = strenght;
-        super.hp = hp;
-        super.mana = mana;
-        super.x = this.x;
-        super.y = this.y;
-        super.faceRight = this.faceRight;
         this.name = name;
         this.strenght = strenght;
         this.hp = hp;
@@ -79,6 +82,10 @@ public class Hero extends Character implements Runnable{
         image = StaticValue.melee_weapon_right;
         this.status = "melee_weapon_right";
         ui = StaticValue.hero_ui;
+        weaponList.add(Armory.MELEE);
+        weaponList.add(Armory.RANGED);
+        weaponList.add(Armory.MAGIC);
+
         thread = new Thread(this);
         thread.start();
     }
@@ -174,6 +181,34 @@ public class Hero extends Character implements Runnable{
         }
     }
 
+    // hero change weapon
+    public void changeWeapon() {
+        switch (currentWeapon) {
+            case MELEE:
+                if (weaponList.contains(Armory.RANGED)) {
+                    currentWeapon = Armory.RANGED;
+                } else if (weaponList.contains(Armory.MAGIC)) {
+                    currentWeapon = Armory.MAGIC;
+                }
+                break;
+            case RANGED:
+                if (weaponList.contains(Armory.MAGIC)) {
+                    currentWeapon = Armory.MAGIC;
+                } else if (weaponList.contains(Armory.MELEE)) {
+                    currentWeapon = Armory.MELEE;
+                } 
+                break;
+            case MAGIC:
+                if (weaponList.contains(Armory.MELEE)) {
+                    currentWeapon = Armory.MELEE;
+                } else if (weaponList.contains(Armory.RANGED)) {
+                    currentWeapon = Armory.RANGED;
+                }
+                break;
+        }
+    }
+
+
     @Override
     public void run() {
         while (true) {
@@ -225,9 +260,11 @@ public class Hero extends Character implements Runnable{
             for (int i = 0; i < background.getEnemies().size(); i++) {
                 Enemy enemy = background.getEnemies().get(i);
                 // if attack a enemy 
-                System.err.println("attacked: " + getAvailablWeapons().get(0).isAttacked());
+                // boolean right = (getAvailablWeapons().get(0).getX() <= enemy.getX() - 5 && getAvailablWeapons().get(0).getX() <= enemy.getX() - 10);
+                // boolean left = (getAvailablWeapons().get(0).getX() >= enemy.getX() + 5 && getAvailablWeapons().get(0).getX() >= enemy.getX() + 10);
+                System.err.println("attacked: " + enemy.toRectangle().intersects(getAvailablWeapons().get(0).toRectangle()));
                 System.err.println("enemy hp: " + enemy.getHp());
-                if (getAvailablWeapons().get(0).isAttacked()) {
+                if (enemy.toRectangle().intersects(getAvailablWeapons().get(0).toRectangle())) {
                     // if enemy is alive
                     if (enemy.isAlive()) {
                         enemy.hurt(getDamage());
@@ -289,33 +326,88 @@ public class Hero extends Character implements Runnable{
                 index = index == 0 ? 1 : 0;
             }
             // detect status and assign the images of the status
-            switch (status) {
-                // move to left
-                case "move_left":
-                    image = StaticValue.hero_run_left_melee.get(index);
-                    break;
-                // move to right
-                case "move_right":
-                    image = StaticValue.hero_run_right_melee.get(index);
-                    break;
-                // stop and towards left
-                case "stop_left":
-                    image = StaticValue.melee_weapon_left;
-                    break;
-                // stop and towards right
-                case "stop_right":
-                    image = StaticValue.melee_weapon_right;
-                    break;
-                // jump to left
-                case "jump_left":
-                    image = StaticValue.jump_to_left;
-                    break;
-                // jump to right
-                case "jump_right":
-                    image = StaticValue.jump_to_right;
-                    break;
+            if (currentWeapon.equals(Armory.MELEE)) {
+                switch (status) {
+                    // move to left
+                    case "move_left":
+                        image = StaticValue.hero_run_left_melee.get(index);
+                        break;
+                    // move to right
+                    case "move_right":
+                        image = StaticValue.hero_run_right_melee.get(index);
+                        break;
+                    // stop and towards left
+                    case "stop_left":
+                        image = StaticValue.melee_weapon_left;
+                        break;
+                    // stop and towards right
+                    case "stop_right":
+                        image = StaticValue.melee_weapon_right;
+                        break;
+                    // jump to left
+                    case "jump_left":
+                        image = StaticValue.jump_to_left;
+                        break;
+                    // jump to right
+                    case "jump_right":
+                        image = StaticValue.jump_to_right;
+                        break;
+                }
+            } else if (currentWeapon.equals(Armory.RANGED)) {
+                switch (status) {
+                    // move to left
+                    case "move_left":
+                        image = StaticValue.hero_run_left_ranged.get(index);
+                        break;
+                    // move to right
+                    case "move_right":
+                        image = StaticValue.hero_run_right_ranged.get(index);
+                        break;
+                    // stop and towards left
+                    case "stop_left":
+                        image = StaticValue.ranged_weapon_left;
+                        break;
+                    // stop and towards right
+                    case "stop_right":
+                        image = StaticValue.ranged_weapon_right;
+                        break;
+                    // jump to left
+                    case "jump_left":
+                        image = StaticValue.jump_to_left;
+                        break;
+                    // jump to right
+                    case "jump_right":
+                        image = StaticValue.jump_to_right;
+                        break;
+                }
+            } else if (currentWeapon.equals(Armory.MAGIC)) {
+                switch (status) {
+                    // move to left
+                    case "move_left":
+                        image = StaticValue.hero_run_left_magic.get(index);
+                        break;
+                    // move to right
+                    case "move_right":
+                        image = StaticValue.hero_run_right_magic.get(index);
+                        break;
+                    // stop and towards left
+                    case "stop_left":
+                        image = StaticValue.magic_weapon_left;
+                        break;
+                    // stop and towards right
+                    case "stop_right":
+                        image = StaticValue.magic_weapon_right;
+                        break;
+                    // jump to left
+                    case "jump_left":
+                        image = StaticValue.jump_to_left;
+                        break;
+                    // jump to right
+                    case "jump_right":
+                        image = StaticValue.jump_to_right;
+                        break;
+                }
             }
-
             try {
                 Thread.sleep(50);
             } catch (InterruptedException e) {
@@ -405,6 +497,10 @@ public class Hero extends Character implements Runnable{
 
     public boolean isAlive() {
         return isAlive;
+    }
+
+    public List<Armory> getWeaponList() {
+        return weaponList;
     }
 
 }

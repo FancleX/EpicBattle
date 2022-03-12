@@ -165,6 +165,11 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
         }
         secondAttack = System.currentTimeMillis();
 
+        // press "Q" to change weapon
+        if (e.getKeyCode() == 81) {
+            hero.changeWeapon();
+        }
+
     }
 
     @Override
