@@ -13,6 +13,8 @@ public abstract class Character {
     protected int strenght;
     protected int hp;
     protected int mana;
+    protected int x;
+    protected int y;
     // weapon engaged
     private Weapon weapon;
     // background
@@ -25,6 +27,10 @@ public abstract class Character {
     private Armory currentWeapons = Armory.MELEE;
     // list of weapons
     private List<Weapon> availableWeapons = new ArrayList<>();
+    // character orientaion
+    protected boolean faceRight;
+    // damage caused
+    private int damage;
 
     //initialize weapons
     public Character() {
@@ -48,8 +54,7 @@ public abstract class Character {
                 break;
         }
         Random rd = new Random();
-        int damage = rd.nextInt(strenght);
-        hp -= damage;
+        damage = rd.nextInt(strenght);
     }
 
     public void stopAttacking() {
@@ -73,6 +78,23 @@ public abstract class Character {
         }
     }
 
+    // track effects position
+    // public void setEffectPosition() {
+    //     switch (currentWeapons) {
+    //         case MELEE:
+    //             ((Melee) availableWeapons.get(0)).setX(x, faceRight);
+    //             ((Melee) availableWeapons.get(0)).setY(y);
+    //             break;
+    //         case RANGED:
+    //             ((Ranged) availableWeapons.get(1)).setX(x);
+    //             ((Ranged) availableWeapons.get(1)).setY(y);
+    //             break;
+    //         case MAGIC:
+    //             ((Magic) availableWeapons.get(2)).setX(x);
+    //             ((Magic) availableWeapons.get(2)).setY(y);
+    //             break;     
+    //     }
+    // }
 
     public BufferedImage getCurrentEffects() {
         return currentEffects;
@@ -90,6 +112,8 @@ public abstract class Character {
         return availableWeapons;
     }
 
-
+    public int getDamage() {
+        return damage;
+    }
 
 }

@@ -60,21 +60,21 @@ public class Enemy extends Character implements Runnable{
     public Enemy(int x, int y, boolean face_right, int type, Background background) {
         switch (type) {
             case 0: 
-                super.strenght = 5;
-                super.hp = 100;
-                super.mana = 0;
+                super.strenght = this.strenght = 5;
+                super.hp = this.hp = 100;
+                super.mana = this.mana = 0;
                 currentImage = StaticValue.enemy_run_left_melee.get(0);
                 break;
             case 1:
-                super.strenght = 7;
-                super.hp = 50;
-                super.mana = 0;
+                super.strenght = this.strenght = 7;
+                super.hp = this.strenght = 50;
+                super.mana = this.mana = 0;
                 currentImage = StaticValue.enemy_run_left_ranged.get(0);
                 break;
             case 2:
-                super.strenght = 10;
-                super.hp = 20;
-                super.mana = Integer.MAX_VALUE;
+                super.strenght = this.strenght = 10;
+                super.hp = this.hp = 20;
+                super.mana = this.mana = Integer.MAX_VALUE;
                 currentImage = StaticValue.enemy_run_left_magic.get(0);
                 break;
         }
@@ -196,5 +196,12 @@ public class Enemy extends Character implements Runnable{
 
     public int getY() {
         return y;
+    }
+
+    public boolean isAlive() {
+        if (hp <= 0) {
+            return false;
+        }
+        return true;
     }
 }

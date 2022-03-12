@@ -34,7 +34,7 @@ public class Hero extends Character implements Runnable{
     */
     private String status;
     // the picture corresponding to the current status
-    private BufferedImage image = StaticValue.melee_weapon_left;
+    private BufferedImage image = StaticValue.melee_weapon_right;
     // get obstacle information
     private Background background = new Background();
     // hero UI
@@ -59,11 +59,16 @@ public class Hero extends Character implements Runnable{
     private int currentMana;
     // hero is alive
     private boolean isAlive = true;
+    // hero orientation
+    protected boolean faceRight;
 
     public Hero(String name, int strenght, int hp, int mana) {
         super.strenght = strenght;
         super.hp = hp;
         super.mana = mana;
+        super.x = this.x;
+        super.y = this.y;
+        super.faceRight = this.faceRight;
         this.name = name;
         this.strenght = strenght;
         this.hp = hp;
@@ -161,8 +166,10 @@ public class Hero extends Character implements Runnable{
     // hero orientation
     public boolean faceRight() {
         if (status.contains("right")) {
+            faceRight = true;
             return true;
         } else {
+            faceRight = false;
             return false;
         }
     }
@@ -170,6 +177,9 @@ public class Hero extends Character implements Runnable{
     @Override
     public void run() {
         while (true) {
+            // setEffectPosition();
+            getAvailablWeapons().get(0).setX(x, faceRight);
+            System.err.println("X: " + getAvailablWeapons().get(0).getX());
             // determine hero's action 
             boolean isOnObstacle = false;
             boolean passLeft = true;
@@ -211,12 +221,21 @@ public class Hero extends Character implements Runnable{
                 // }
             }
 
-            // // attack and injured from enemies
-            // for (int i = 0; i < background.getEnemies().size(); i++) {
-            //     Enemy enemy = background.getEnemies().get(i);
-            //     // if attack a enemy 
-            //     if ()
-            // }
+            // attack and injured from enemies
+            for (int i = 0; i < background.getEnemies().size(); i++) {
+                Enemy enemy = background.getEnemies().get(i);
+                // if attack a enemy 
+                System.err.println("attacked: " + getAvailablWeapons().get(0).isAttacked());
+                System.err.println("enemy hp: " + enemy.getHp());
+                if (getAvailablWeapons().get(0).isAttacked()) {
+                    // if enemy is alive
+                    if (enemy.isAlive()) {
+                        enemy.hurt(getDamage());
+                    } else {
+                        enemy.death();
+                    }
+                }
+            }
 
 
 

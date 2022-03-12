@@ -3,6 +3,7 @@ package Weapon;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
+import Frame.Background;
 import Frame.StaticValue;
 
 public class Ranged implements Weapon{
@@ -61,5 +62,38 @@ public class Ranged implements Weapon{
         }
         return currentImage;
     }
+
+    public void setX(int x) {
+        this.effectsX = x;
+    }
+
+    public void setY(int y) {
+        this.effectsY = y;
+    }
+
+    @Override
+    public void setBackground(Background currentBackground) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public boolean isAttacked() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public int getX() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public void setX(int x, boolean faceRight) {
+        // TODO Auto-generated method stub
+        
+    }
+
     
 }

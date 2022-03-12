@@ -5,7 +5,7 @@ import Frame.*;
 import Character.*;
 import java.awt.image.BufferedImage;
 
-public class Melee implements Weapon {
+public class Melee implements Weapon, Runnable {
     
     private int strenght;
     private int durability;
@@ -16,10 +16,21 @@ public class Melee implements Weapon {
     private BufferedImage currentImage = null;
     // weapon's orientation
     private boolean isRight;
+    // width
+    private int width = 41;
+    // height
+    private int height = 62;
+    // new thread
+    private Thread thread = new Thread(this);
+    // is attacked
+    private boolean isAttacked = false;
+    // background
+    private Background background = new Background();
 
     public Melee() {
         this.strenght = 2;
         this.durability = 100;
+        thread.start();
     }
 
     
@@ -46,7 +57,7 @@ public class Melee implements Weapon {
 
     @Override
     public Rectangle toRectangle() {
-        return null;
+        return new Rectangle(effectsX, effectsY, width, height);
     }
 
     public BufferedImage getCurrentImage(boolean isRight) {
@@ -58,4 +69,54 @@ public class Melee implements Weapon {
         }
         return currentImage;
     }
+
+    public void setX(int x, boolean isRight) {
+        if (isRight) {
+            this.effectsX = x + 35;
+        } else {
+            this.effectsX = x - 30;
+        }
+    }
+
+    public void setY(int y) {
+        this.effectsY = y - 10;
+    }
+
+    public int getX() {
+        return effectsX;
+    }
+
+    public boolean isAttacked() {
+        return isAttacked;
+    }
+
+    public void setBackground(Background background) {
+        this.background = background;
+    }
+
+    public Background getBackground() {
+        return background;
+    }
+
+
+
+    @Override
+    public void run() {
+        while (true) {
+            for (int i = 0; i < background.getEnemies().size(); i++) {
+                Enemy enemy = background.getEnemies().get(i);
+                System.err.println("is attacked: " + toRectangle().intersects(enemy.toRectangle()));
+                if (toRectangle().intersects(enemy.toRectangle())) {
+                    isAttacked = true;
+                } else {
+                    isAttacked = false;
+                }
+            }
+            
+
+        }
+        
+    }
+
+
 }

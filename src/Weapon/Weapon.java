@@ -3,6 +3,8 @@ package Weapon;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
+import Frame.Background;
+
 public interface Weapon {
     
     void crit();
@@ -16,4 +18,12 @@ public interface Weapon {
     Rectangle toRectangle();
 
     BufferedImage getCurrentImage(boolean attackRight);
+
+    void setBackground(Background currentBackground);
+
+    boolean isAttacked();
+
+    int getX();
+
+    void setX(int x, boolean faceRight);
 }
