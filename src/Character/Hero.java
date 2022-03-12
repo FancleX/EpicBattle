@@ -1,6 +1,7 @@
 package Character;
 
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.List;
 import java.awt.Rectangle;
 
@@ -68,7 +69,7 @@ public class Hero extends Character implements Runnable{
     // current weapon
     private Armory currentWeapon;
     // weapon list
-    private List<Armory> weaponList;
+    private List<Armory> weaponList = new ArrayList<>();
 
 
     public Hero(String name, int strenght, int hp, int mana) {
@@ -85,6 +86,7 @@ public class Hero extends Character implements Runnable{
         weaponList.add(Armory.MELEE);
         weaponList.add(Armory.RANGED);
         weaponList.add(Armory.MAGIC);
+        currentWeapon = Armory.MELEE;
 
         thread = new Thread(this);
         thread.start();
@@ -275,7 +277,6 @@ public class Hero extends Character implements Runnable{
             }
 
 
-
             // display the action of jumping
             // stand on the obstacle
             if (isOnObstacle && jumpingTime == 0) {
@@ -346,11 +347,11 @@ public class Hero extends Character implements Runnable{
                         break;
                     // jump to left
                     case "jump_left":
-                        image = StaticValue.jump_to_left;
+                        image = StaticValue.jump_to_left_melee;
                         break;
                     // jump to right
                     case "jump_right":
-                        image = StaticValue.jump_to_right;
+                        image = StaticValue.jump_to_right_melee;
                         break;
                 }
             } else if (currentWeapon.equals(Armory.RANGED)) {
@@ -373,11 +374,11 @@ public class Hero extends Character implements Runnable{
                         break;
                     // jump to left
                     case "jump_left":
-                        image = StaticValue.jump_to_left;
+                        image = StaticValue.jump_to_left_ranged;
                         break;
                     // jump to right
                     case "jump_right":
-                        image = StaticValue.jump_to_right;
+                        image = StaticValue.jump_to_right_ranged;
                         break;
                 }
             } else if (currentWeapon.equals(Armory.MAGIC)) {
@@ -400,11 +401,11 @@ public class Hero extends Character implements Runnable{
                         break;
                     // jump to left
                     case "jump_left":
-                        image = StaticValue.jump_to_left;
+                        image = StaticValue.jump_to_left_magic;
                         break;
                     // jump to right
                     case "jump_right":
-                        image = StaticValue.jump_to_right;
+                        image = StaticValue.jump_to_right_magic;
                         break;
                 }
             }
