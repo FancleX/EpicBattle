@@ -7,7 +7,7 @@ import java.awt.Rectangle;
 
 import Frame.*;
 
-public class Enemy extends Character implements Runnable{
+public class Enemy implements Runnable{
 
     // coordinate of hero
     private int x;
@@ -60,21 +60,21 @@ public class Enemy extends Character implements Runnable{
     public Enemy(int x, int y, boolean face_right, int type, Background background) {
         switch (type) {
             case 0: 
-                super.strenght = this.strenght = 5;
-                super.hp = this.hp = 100;
-                super.mana = this.mana = 0;
+                this.strenght = 5;
+                this.hp = 100;
+                this.mana = 0;
                 currentImage = StaticValue.enemy_run_left_melee.get(0);
                 break;
             case 1:
-                super.strenght = this.strenght = 7;
-                super.hp = this.strenght = 50;
-                super.mana = this.mana = 0;
+                this.strenght = 7;
+                this.strenght = 50;
+                this.mana = 0;
                 currentImage = StaticValue.enemy_run_left_ranged.get(0);
                 break;
             case 2:
-                super.strenght = this.strenght = 10;
-                super.hp = this.hp = 20;
-                super.mana = this.mana = Integer.MAX_VALUE;
+                this.strenght = 10;
+                this.hp = 20;
+                this.mana = Integer.MAX_VALUE;
                 currentImage = StaticValue.enemy_run_left_magic.get(0);
                 break;
         }
@@ -85,6 +85,23 @@ public class Enemy extends Character implements Runnable{
         this.background = background;
         thread.start();
     }
+
+     // death
+     public void death() {
+        currentImage = StaticValue.enemy_death;
+        background.getEnemies().remove(this);
+    }
+
+    // enemy hurted
+    public void hurted(int damage) {
+        if (hp - damage > 0) {
+            hp -= damage;
+        } else {
+            hp = 0;
+            death();
+        }
+    }
+
 
     @Override
     public void run() {
@@ -154,14 +171,7 @@ public class Enemy extends Character implements Runnable{
         }        
     }
 
-    // death
-    public void death() {
-        currentImage = StaticValue.enemy_death;
-        background.getEnemies().remove(this);
-    }
-
-
-
+   
     public int getStrength() {
         return strenght;
     }

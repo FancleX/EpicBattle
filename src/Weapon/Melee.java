@@ -119,4 +119,29 @@ public class Melee implements Weapon, Runnable {
     }
 
 
+    @Override
+    public int getStrength() {
+        return strenght;
+    }
+
+
+    @Override
+    public int getDurability() {
+        return durability;
+    }
+
+
+    @Override
+    public void setDurability(int cost) throws Exception {
+        if (durability - cost >= 0) {
+            durability -= cost;
+        } else {
+            durability = 0;
+            throw new Exception();
+        }
+
+    }
+
+    
+
 }

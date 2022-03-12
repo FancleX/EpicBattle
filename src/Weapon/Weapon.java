@@ -26,4 +26,10 @@ public interface Weapon {
     int getX();
 
     void setX(int x, boolean faceRight);
+
+    int getStrength();
+
+    int getDurability();
+
+    void setDurability(int cost) throws Exception;
 }

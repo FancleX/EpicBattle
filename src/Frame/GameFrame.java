@@ -62,7 +62,7 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
         currentBackground = allBackground.get(0);
         hero.setBackground(currentBackground);
         // weapon background
-        hero.getAvailablWeapons().get(0).setBackground(currentBackground);
+        hero.getWeapons().get(0).setBackground(currentBackground);
 
         // sketch background
         repaint();
@@ -118,9 +118,9 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
         // draw attack effects
         if (hero.isAttacking()) {
             if (hero.faceRight()) {
-                graphics.drawImage(hero.getCurrentEffects(), hero.getX() + 35, hero.getY() - 10, this);
+                graphics.drawImage(hero.getCurrentWeaponEffects(), hero.getX() + 35, hero.getY() - 10, this);
             } else {
-                graphics.drawImage(hero.getCurrentEffects(), hero.getX() - 30, hero.getY() - 10, this);
+                graphics.drawImage(hero.getCurrentWeaponEffects(), hero.getX() - 30, hero.getY() - 10, this);
             }
         } 
         
@@ -217,7 +217,7 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
                             hero.setX(20);
                             hero.setY(480);
                             // set weapon background
-                            hero.getAvailablWeapons().get(0).setBackground(currentBackground);
+                            hero.getWeapons().get(0).setBackground(currentBackground);
                         }
                         break;
                     // level 2

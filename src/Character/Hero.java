@@ -7,11 +7,13 @@ import java.awt.Rectangle;
 
 import Frame.*;
 import Weapon.Armory;
+import Weapon.Magic;
 import Weapon.Melee;
+import Weapon.Ranged;
 import Weapon.Weapon;
 
 
-public class Hero extends Character implements Runnable{
+public class Hero implements Runnable{
     
     private String name;
     private int strenght;
@@ -68,8 +70,16 @@ public class Hero extends Character implements Runnable{
     private boolean faceRight;
     // current weapon
     private Armory currentWeapon;
-    // weapon list
+    // weapon tag list
     private List<Armory> weaponList = new ArrayList<>();
+    // weapon list
+    private List<Weapon> weapons = new ArrayList<>();
+    // hero is attcking
+    private boolean isAttacking = false;
+    // weapon effects of current weapon
+    private BufferedImage currentWeaponEffects = null;
+    // if hero runs out of weapon then fail the game
+    private boolean isNoWeapon = false;
 
 
     public Hero(String name, int strenght, int hp, int mana) {
@@ -86,6 +96,9 @@ public class Hero extends Character implements Runnable{
         weaponList.add(Armory.MELEE);
         weaponList.add(Armory.RANGED);
         weaponList.add(Armory.MAGIC);
+        weapons.add(new Melee());
+        weapons.add(new Ranged());
+        weapons.add(new Magic());
         currentWeapon = Armory.MELEE;
 
         thread = new Thread(this);
@@ -210,13 +223,127 @@ public class Hero extends Character implements Runnable{
         }
     }
 
+    // hero attack
+    public void attack(boolean isRight) {
+        isAttacking = true;
+        switch (currentWeapon) {
+            case MELEE:
+                currentWeaponEffects = weapons.get(0).getCurrentImage(isRight);
+                break;
+            case RANGED:
+                currentWeaponEffects = weapons.get(1).getCurrentImage(isRight);
+                break;
+            case MAGIC:
+                currentWeaponEffects = weapons.get(2).getCurrentImage(isRight);
+                break;
+        }
+    }
+
+    // hero stops attacking
+    public void stopAttacking() {
+        isAttacking = false;
+        currentWeaponEffects = null;
+    }
+
+    // hero hurted
+    public void hurted(int damage) {
+        if (hp - damage > 0) {
+            hp -= damage;
+        } else {
+            hp = 0;
+            death();
+        }
+    }
+
+    // get damage by weapon bonus
+    public int causedDamage() {
+        int damage = 0;
+        int durabilityDeduction = 0;
+        Weapon weapon = null;
+        switch (currentWeapon) {
+
+            case MELEE:
+                weapon = weapons.get(0);
+                // bonus damage from the weapon
+                damage = this.strenght + weapon.getStrength();
+                durabilityDeduction = 5;
+                try {
+                    // decreaes weapon durability
+                    weapon.setDurability(weapon.getDurability() - durabilityDeduction);
+                } catch (Exception e) {
+                    // weapon durability down to 0, remove it 
+                    weaponList.remove(Armory.MELEE);
+                    weapons.remove(weapon);
+                    // change weapon to other weapons
+                    if (weaponList.contains(Armory.RANGED)) {
+                        currentWeapon = Armory.RANGED;
+                    } else if (weaponList.contains(Armory.MAGIC)) {
+                        currentWeapon = Armory.MAGIC;
+                    } else {
+                        isNoWeapon = true;
+                    }
+                    e.printStackTrace();
+                }
+                break;
+
+            case RANGED:
+                weapon = weapons.get(1);
+                // bonus damage from the weapon
+                damage = this.strenght + weapon.getStrength();
+                durabilityDeduction = 10;
+                try {
+                    // decreaes weapon durability
+                    weapon.setDurability(weapon.getDurability() - durabilityDeduction);
+                } catch (Exception e) {
+                    // weapon durability down to 0, remove it 
+                    weaponList.remove(Armory.RANGED);
+                    weapons.remove(weapon);
+                    // change weapon to other weapons
+                    if (weaponList.contains(Armory.MAGIC)) {
+                        currentWeapon = Armory.MAGIC;
+                    } else if (weaponList.contains(Armory.MELEE)) {
+                        currentWeapon = Armory.MELEE;
+                    } else {
+                        isNoWeapon = true;
+                    }
+                    e.printStackTrace();
+                }
+                break;
+
+            case MAGIC:
+                weapon = weapons.get(2);
+                // bonus damage from the weapon
+                damage = this.strenght + weapon.getStrength();
+                durabilityDeduction = 20;
+                try {
+                    // decreaes weapon durability
+                    weapon.setDurability(weapon.getDurability() - durabilityDeduction);
+                } catch (Exception e) {
+                    // weapon durability down to 0, remove it 
+                    weaponList.remove(Armory.MAGIC);
+                    weapons.remove(weapon);
+                    // change weapon to other weapons
+                    if (weaponList.contains(Armory.MELEE)) {
+                        currentWeapon = Armory.MELEE;
+                    } else if (weaponList.contains(Armory.RANGED)) {
+                        currentWeapon = Armory.RANGED;
+                    } else {
+                        isNoWeapon = true;
+                    }
+                    e.printStackTrace();
+                }
+                break;
+        }
+        return damage;
+    }
+
 
     @Override
     public void run() {
         while (true) {
             // setEffectPosition();
-            getAvailablWeapons().get(0).setX(x, faceRight);
-            System.err.println("X: " + getAvailablWeapons().get(0).getX());
+            weapons.get(0).setX(x, faceRight);
+            System.err.println("X: " + weapons.get(0).getX());
             // determine hero's action 
             boolean isOnObstacle = false;
             boolean passLeft = true;
@@ -258,21 +385,17 @@ public class Hero extends Character implements Runnable{
                 // }
             }
 
-            // attack and injured from enemies
+            // attack damage judgment
             for (int i = 0; i < background.getEnemies().size(); i++) {
                 Enemy enemy = background.getEnemies().get(i);
                 // if attack a enemy 
                 // boolean right = (getAvailablWeapons().get(0).getX() <= enemy.getX() - 5 && getAvailablWeapons().get(0).getX() <= enemy.getX() - 10);
                 // boolean left = (getAvailablWeapons().get(0).getX() >= enemy.getX() + 5 && getAvailablWeapons().get(0).getX() >= enemy.getX() + 10);
-                System.err.println("attacked: " + enemy.toRectangle().intersects(getAvailablWeapons().get(0).toRectangle()));
+                System.err.println("attacked: " + enemy.toRectangle().intersects(weapons.get(0).toRectangle()));
                 System.err.println("enemy hp: " + enemy.getHp());
-                if (enemy.toRectangle().intersects(getAvailablWeapons().get(0).toRectangle())) {
+                if (enemy.toRectangle().intersects(weapons.get(0).toRectangle())) {
                     // if enemy is alive
-                    if (enemy.isAlive()) {
-                        enemy.hurt(getDamage());
-                    } else {
-                        enemy.death();
-                    }
+                    enemy.hurted(causedDamage());
                 }
             }
 
@@ -502,6 +625,18 @@ public class Hero extends Character implements Runnable{
 
     public List<Armory> getWeaponList() {
         return weaponList;
+    }
+
+    public List<Weapon> getWeapons() {
+        return weapons;
+    }
+
+    public boolean isAttacking() {
+        return isAttacking;
+    }
+
+    public BufferedImage getCurrentWeaponEffects() {
+        return currentWeaponEffects;
     }
 
 }
