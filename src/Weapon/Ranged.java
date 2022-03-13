@@ -130,5 +130,11 @@ public class Ranged implements Weapon{
         return null;
     }
 
+    @Override
+    public void setIsAttacked(boolean b) {
+        // TODO Auto-generated method stub
+        
+    }
+
     
 }

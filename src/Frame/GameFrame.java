@@ -62,7 +62,7 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
         currentBackground = allBackground.get(0);
         hero.setBackground(currentBackground);
         // weapon background
-        hero.getWeapons().get(0).setBackground(currentBackground);
+        // hero.getWeapons().get(0).setBackground(currentBackground);
 
         // sketch background
         repaint();

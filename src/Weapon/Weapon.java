@@ -37,4 +37,6 @@ public interface Weapon {
     void pressAttackKey(boolean b);
 
     Enemy getInjuredEnemy();
+
+    void setIsAttacked(boolean b);
 }

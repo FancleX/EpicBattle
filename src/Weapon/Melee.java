@@ -94,6 +94,10 @@ public class Melee implements Weapon, Runnable {
         return isAttacked;
     }
 
+    public void setIsAttacked(boolean isAttacked) {
+        this.isAttacked = isAttacked;
+    }
+
     public void setBackground(Background background) {
         this.background = background;
     }
@@ -125,10 +129,9 @@ public class Melee implements Weapon, Runnable {
                 if (toRectangle().intersects(enemy.toRectangle()) && userAttack) {
                     isAttacked = true;
                     currentEnemy = enemy;
-                } else {
-                    isAttacked = false;
-                }
+                } 
             }
+
             try {
                 Thread.sleep(50);
             } catch (InterruptedException e) {

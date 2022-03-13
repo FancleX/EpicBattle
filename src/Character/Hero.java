@@ -358,12 +358,15 @@ public class Hero implements Runnable{
         switch (currentWeapon) {
             case MELEE:
                 weapons.get(0).setXY(x, y, faceRight);
+                weapons.get(0).setBackground(background);
                 break;
             case RANGED:
                 weapons.get(1).setXY(x, y, faceRight);
+                weapons.get(1).setBackground(background);
                 break;
             case MAGIC:
                 weapons.get(2).setXY(x, y, faceRight);
+                weapons.get(2).setBackground(background);
                 break;
         }
     }
@@ -426,6 +429,8 @@ public class Hero implements Runnable{
                     if (weapon.isAttacked()) {
                         Enemy enemy = weapon.getInjuredEnemy();
                         enemy.hurted(causedDamage());
+                        // finish attacking
+                        weapon.setIsAttacked(false);
                     }
                 }
             }
