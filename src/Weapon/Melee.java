@@ -28,6 +28,8 @@ public class Melee implements Weapon, Runnable {
     private Background background = new Background();
     // determine if user press "A" to attack
     private boolean userAttack = false;
+    // current enemy
+    private Enemy currentEnemy;
 
     public Melee(Background background) {
         this.strenght = 2;
@@ -73,17 +75,16 @@ public class Melee implements Weapon, Runnable {
         return currentImage;
     }
 
-    public void setX(int x, boolean isRight) {
+    // track coordinate
+    public void setXY(int x, int y, boolean isRight) {
         if (isRight) {
             this.effectsX = x + 35;
         } else {
             this.effectsX = x - 30;
         }
-    }
-
-    public void setY(int y) {
         this.effectsY = y - 10;
     }
+
 
     public int getX() {
         return effectsX;
@@ -105,6 +106,10 @@ public class Melee implements Weapon, Runnable {
         this.userAttack = userAttack;
     }
 
+    public Enemy getInjuredEnemy() {
+        return currentEnemy;
+    }
+
 
 
     @Override
@@ -112,14 +117,14 @@ public class Melee implements Weapon, Runnable {
         while (true) {
             for (int i = 0; i < background.getEnemies().size(); i++) {
                 Enemy enemy = background.getEnemies().get(i);
-                System.err.println("x: " + effectsX);
-                System.err.println("enemyX: " + enemy.getX());
+                System.err.println("x: " + effectsX + " y: " + effectsY);
+                System.err.println("enemyX: " + enemy.getX() + " enemyY: " + enemy.getY());
                 System.err.println("is attacked: " + isAttacked);
                 System.err.println("enemyhp: " + enemy.getHp());
-                // (effectsX <= enemy.getX() - 5 && effectsX >= enemy.getX() - 10)
+                // System.err.println("durability: " + durability);
                 if (toRectangle().intersects(enemy.toRectangle()) && userAttack) {
                     isAttacked = true;
-                    enemy.hurted(8);
+                    currentEnemy = enemy;
                 } else {
                     isAttacked = false;
                 }
@@ -130,10 +135,7 @@ public class Melee implements Weapon, Runnable {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            
-
-        }
-        
+        }   
     }
 
 

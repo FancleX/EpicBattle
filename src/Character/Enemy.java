@@ -223,4 +223,12 @@ public class Enemy implements Runnable{
     public Background getBackground() {
         return background;
     }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
 }

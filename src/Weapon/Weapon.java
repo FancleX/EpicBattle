@@ -3,6 +3,7 @@ package Weapon;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
+import Character.Enemy;
 import Frame.Background;
 
 public interface Weapon {
@@ -25,7 +26,7 @@ public interface Weapon {
 
     int getX();
 
-    void setX(int x, boolean faceRight);
+    void setXY(int x, int y, boolean faceRight);
 
     int getStrength();
 
@@ -34,4 +35,6 @@ public interface Weapon {
     void setDurability(int cost) throws Exception;
 
     void pressAttackKey(boolean b);
+
+    Enemy getInjuredEnemy();
 }

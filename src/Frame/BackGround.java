@@ -61,7 +61,7 @@ public class Background {
                 teleporterX = 750;
                 teleporterY = 450;
                 // add enemies
-                enemies.add(new Enemy(650, 480, false, 0, this));
+                enemies.add(new Enemy(650, 490, false, 0, this));
                 break;
 
             case 2:
@@ -78,7 +78,7 @@ public class Background {
                 teleporterX = 660;
                 teleporterY = 250;
                 // add enemies
-                enemies.add(new Enemy(650, 480, false, 0, this));
+                enemies.add(new Enemy(650, 490, false, 0, this));
                 break;
 
             case 3:

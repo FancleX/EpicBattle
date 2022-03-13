@@ -3,6 +3,7 @@ package Weapon;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
+import Character.Enemy;
 import Frame.Background;
 import Frame.StaticValue;
 
@@ -90,7 +91,7 @@ public class Magic implements Weapon{
 
 
     @Override
-    public void setX(int x, boolean faceRight) {
+    public void setXY(int x, int y, boolean faceRight) {
         // TODO Auto-generated method stub
         
     }
@@ -117,6 +118,12 @@ public class Magic implements Weapon{
     public void pressAttackKey(boolean b) {
         // TODO Auto-generated method stub
         
+    }
+
+    @Override
+    public Enemy getInjuredEnemy() {
+        // TODO Auto-generated method stub
+        return null;
     }
 
     

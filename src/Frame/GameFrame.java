@@ -51,7 +51,7 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
         // initialize static value
         StaticValue.initializer();
         // initialize hero with a specific coorindate
-        hero = new Hero("Jack", 100, 100, 100);
+        hero = new Hero("Jack", 10, 100, 100);
         hero.setX(20);
         hero.setY(480);
         // initialize all scences
@@ -161,7 +161,6 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
             if (secondAttack - firstAttack >= 200) {
                 firstAttack = System.currentTimeMillis();
                 hero.attack(hero.faceRight());
-                hero.getWeapons().get(0).pressAttackKey(true);
             }
         }
         secondAttack = System.currentTimeMillis();

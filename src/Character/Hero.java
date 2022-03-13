@@ -229,12 +229,15 @@ public class Hero implements Runnable{
         switch (currentWeapon) {
             case MELEE:
                 currentWeaponEffects = weapons.get(0).getCurrentImage(isRight);
+                weapons.get(0).pressAttackKey(true);
                 break;
             case RANGED:
                 currentWeaponEffects = weapons.get(1).getCurrentImage(isRight);
+                weapons.get(1).pressAttackKey(true);
                 break;
             case MAGIC:
                 currentWeaponEffects = weapons.get(2).getCurrentImage(isRight);
+                weapons.get(2).pressAttackKey(true);
                 break;
         }
     }
@@ -242,6 +245,17 @@ public class Hero implements Runnable{
     // hero stops attacking
     public void stopAttacking() {
         isAttacking = false;
+        switch (currentWeapon) {
+            case MELEE:
+                weapons.get(0).pressAttackKey(false);
+                break;
+            case RANGED:
+                weapons.get(0).pressAttackKey(false);
+                break;
+            case MAGIC:
+                weapons.get(0).pressAttackKey(false);
+                break;
+        }
         currentWeaponEffects = null;
     }
 
@@ -266,10 +280,11 @@ public class Hero implements Runnable{
                 weapon = weapons.get(0);
                 // bonus damage from the weapon
                 damage = this.strenght + weapon.getStrength();
+                // reduce durability
                 durabilityDeduction = 5;
                 try {
                     // decreaes weapon durability
-                    weapon.setDurability(weapon.getDurability() - durabilityDeduction);
+                    weapon.setDurability(durabilityDeduction);
                 } catch (Exception e) {
                     // weapon durability down to 0, remove it 
                     weaponList.remove(Armory.MELEE);
@@ -290,10 +305,11 @@ public class Hero implements Runnable{
                 weapon = weapons.get(1);
                 // bonus damage from the weapon
                 damage = this.strenght + weapon.getStrength();
+                // reduce durability
                 durabilityDeduction = 10;
                 try {
                     // decreaes weapon durability
-                    weapon.setDurability(weapon.getDurability() - durabilityDeduction);
+                    weapon.setDurability(durabilityDeduction);
                 } catch (Exception e) {
                     // weapon durability down to 0, remove it 
                     weaponList.remove(Armory.RANGED);
@@ -314,10 +330,11 @@ public class Hero implements Runnable{
                 weapon = weapons.get(2);
                 // bonus damage from the weapon
                 damage = this.strenght + weapon.getStrength();
+                // reduce durability
                 durabilityDeduction = 20;
                 try {
                     // decreaes weapon durability
-                    weapon.setDurability(weapon.getDurability() - durabilityDeduction);
+                    weapon.setDurability(durabilityDeduction);
                 } catch (Exception e) {
                     // weapon durability down to 0, remove it 
                     weaponList.remove(Armory.MAGIC);
@@ -345,7 +362,7 @@ public class Hero implements Runnable{
         while (true) {
             // setEffectPosition();
             // weapons.get(0).setBackground(background);
-            weapons.get(0).setX(x, faceRight);
+            weapons.get(0).setXY(x, y, faceRight);
             // System.err.println("X: " + weapons.get(0).getX());
             // determine hero's action 
             boolean isOnObstacle = false;
@@ -388,18 +405,17 @@ public class Hero implements Runnable{
                 // }
             }
 
-            // attack damage judgment
-            // for (int i = 0; i < background.getEnemies().size(); i++) {
-            //     Enemy enemy = background.getEnemies().get(i);
-            //     // if attack a enemy 
-            //     // boolean right = (getAvailablWeapons().get(0).getX() <= enemy.getX() - 5 && getAvailablWeapons().get(0).getX() <= enemy.getX() - 10);
-            //     // boolean left = (getAvailablWeapons().get(0).getX() >= enemy.getX() + 5 && getAvailablWeapons().get(0).getX() >= enemy.getX() + 10);
-            //     System.err.println("attacked: " + enemy.toRectangle().intersects(weapons.get(0).toRectangle()));
-            //     System.err.println("enemy hp: " + enemy.getHp());
-            //     if (enemy.toRectangle().intersects(weapons.get(0).toRectangle())) {
-            //         enemy.hurted(causedDamage());
-            //     }
-            // }
+            // attack damage calculation
+            if (!weaponList.isEmpty()) {
+                for (int i = 0; i < weapons.size(); i++) {
+                    Weapon weapon = weapons.get(i);
+                    System.err.println("durability: " + weapon.getDurability());
+                    if (weapon.isAttacked()) {
+                        Enemy enemy = weapon.getInjuredEnemy();
+                        enemy.hurted(causedDamage());
+                    }
+                }
+            }
 
 
             // display the action of jumping
