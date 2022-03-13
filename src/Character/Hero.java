@@ -250,10 +250,10 @@ public class Hero implements Runnable{
                 weapons.get(0).pressAttackKey(false);
                 break;
             case RANGED:
-                weapons.get(0).pressAttackKey(false);
+                weapons.get(1).pressAttackKey(false);
                 break;
             case MAGIC:
-                weapons.get(0).pressAttackKey(false);
+                weapons.get(2).pressAttackKey(false);
                 break;
         }
         currentWeaponEffects = null;
@@ -354,15 +354,28 @@ public class Hero implements Runnable{
         return damage;
     }
 
+    public void trackWeaponPosition() {
+        switch (currentWeapon) {
+            case MELEE:
+                weapons.get(0).setXY(x, y, faceRight);
+                break;
+            case RANGED:
+                weapons.get(1).setXY(x, y, faceRight);
+                break;
+            case MAGIC:
+                weapons.get(2).setXY(x, y, faceRight);
+                break;
+        }
+    }
 
 
 
     @Override
     public void run() {
         while (true) {
-            // setEffectPosition();
-            // weapons.get(0).setBackground(background);
-            weapons.get(0).setXY(x, y, faceRight);
+            // track weapon position
+            trackWeaponPosition();
+            
             // System.err.println("X: " + weapons.get(0).getX());
             // determine hero's action 
             boolean isOnObstacle = false;
