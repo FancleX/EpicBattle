@@ -18,7 +18,7 @@ public class Ranged implements Weapon, Runnable {
     // effects image
     private BufferedImage currentImage = null;
     // weapon's orientation
-    protected boolean isRight;
+    private boolean isRight;
     // width
     private int width = 300;
     // height
@@ -38,7 +38,7 @@ public class Ranged implements Weapon, Runnable {
 
     public Ranged(Background background) {
         this.strenght = 30;
-        this.durability = 50;
+        this.durability = 70;
         this.background = background;
         thread.start();
     }
@@ -73,6 +73,7 @@ public class Ranged implements Weapon, Runnable {
     public void setDurability(int cost) throws Exception {
         if (durability - cost >= 0) {
             durability -= cost;
+            System.err.println("durabilityRanged: " + durability);
         } else {
             durability = 0;
             throw new Exception();

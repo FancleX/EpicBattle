@@ -361,115 +361,73 @@ public class Hero implements Runnable{
             // attack damage calculation
             if (!weaponList.isEmpty() && isAttacking) {
                 int durabilityDeduction = 0;
-                Weapon weapon = null;
                 switch (currentWeapon) {
                     case MELEE:
-                        weapon = weapons.get(0);
-                        if (weapon.isAttacked()) {
-                            Enemy enemy = weapon.getInjuredEnemy();
+                        Weapon melee = weapons.get(0);
+                        if (melee.isAttacked()) {
+                            Enemy enemy = melee.getInjuredEnemy();
                             enemy.hurted(causedDamage());
                             // finish attacking
-                            weapon.setIsAttacked(false);
+                            melee.setIsAttacked(false);
                         }
                         // reduce durability
                         durabilityDeduction = 5;
                         try {
                             // decreaes weapon durability
-                            weapon.setDurability(durabilityDeduction);
+                            melee.setDurability(durabilityDeduction);
                         } catch (Exception e) {
-                            // change weapon to other weapons
-                            if (weaponList.contains(Armory.RANGED)) {
-                                currentWeapon = Armory.RANGED;
-                                currentWeaponEffects = weapons.get(1).getCurrentImage(faceRight());
-                            } else if (weaponList.contains(Armory.MAGIC)) {
-                                currentWeapon = Armory.MAGIC;
-                                currentWeaponEffects = weapons.get(2).getCurrentImage(faceRight());
-                            } else {
-                                isNoWeapon = true;
-                            }
+                            changeWeapon();
                              // weapon durability down to 0, remove it 
                              weaponList.remove(Armory.MELEE);
-                             weapons.remove(weapon);
                             e.printStackTrace();
                         }
                         // System.err.println("durability: " + weapon.getDurability());
                         break;
                     case RANGED:
-                        weapon = weapons.get(1);
-                        if (weapon.isAttacked()) {
-                            Enemy enemy = weapon.getInjuredEnemy();
+                        Weapon ranged = weapons.get(1);
+                        System.err.println("durability: " + ranged.getDurability());
+                        if (ranged.isAttacked()) {
+                            Enemy enemy = ranged.getInjuredEnemy();
                             enemy.hurted(causedDamage());
                             // finish attacking
-                            weapon.setIsAttacked(false);
+                            ranged.setIsAttacked(false);
                         }
                         // reduce durability
-                        durabilityDeduction = 0;
+                        durabilityDeduction = 10;
                         try {
                             // decreaes weapon durability
-                            weapon.setDurability(durabilityDeduction);
+                            ranged.setDurability(durabilityDeduction);
                         } catch (Exception e) {
-                            // change weapon to other weapons
-                            if (weaponList.contains(Armory.MAGIC)) {
-                                currentWeapon = Armory.MAGIC;
-                                currentWeaponEffects = weapons.get(2).getCurrentImage(faceRight());
-                            } else if (weaponList.contains(Armory.MELEE)) {
-                                currentWeapon = Armory.MELEE;
-                                currentWeaponEffects = weapons.get(0).getCurrentImage(faceRight());
-                            } else {
-                                isNoWeapon = true;
-                            }
+                            changeWeapon();
                             // weapon durability down to 0, remove it 
                             weaponList.remove(Armory.RANGED);
-                            weapons.remove(weapon);
                             e.printStackTrace();
                         }
-                        System.err.println("durability: " + weapon.getDurability());
                         break;
                     case MAGIC:
-                        weapon = weapons.get(2);
-                        if (weapon.isAttacked()) {
-                            Enemy enemy = weapon.getInjuredEnemy();
+                        Weapon magic = weapons.get(2);
+                        if (magic.isAttacked()) {
+                            Enemy enemy = magic.getInjuredEnemy();
                             enemy.hurted(causedDamage());
                             // finish attacking
-                            weapon.setIsAttacked(false);
+                            magic.setIsAttacked(false);
                         }
                         // reduce durability
                         durabilityDeduction = 20;
                         try {
                             // decreaes weapon durability
-                            weapon.setDurability(durabilityDeduction);
+                            magic.setDurability(durabilityDeduction);
                         } catch (Exception e) {
-                            // change weapon to other weapons
-                            if (weaponList.contains(Armory.MELEE)) {
-                                currentWeapon = Armory.MELEE;
-                                currentWeaponEffects = weapons.get(0).getCurrentImage(faceRight());
-                            } else if (weaponList.contains(Armory.RANGED)) {
-                                currentWeapon = Armory.RANGED;
-                                currentWeaponEffects = weapons.get(1).getCurrentImage(faceRight());
-                            } else {
-                                isNoWeapon = true;
-                            }
+                            changeWeapon();
                             // weapon durability down to 0, remove it 
                             weaponList.remove(Armory.MAGIC);
-                            weapons.remove(weapon);
                             e.printStackTrace();
                         }
                         break;
                 }
-
-
-                // for (int i = 0; i < weapons.size(); i++) {
-                //     Weapon weapon = weapons.get(i);
-                //     System.err.println("durability: " + weapon.getDurability());
-                //     if (weapon.isAttacked()) {
-                //         Enemy enemy = weapon.getInjuredEnemy();
-                //         enemy.hurted(causedDamage());
-                //         // finish attacking
-                //         weapon.setIsAttacked(false);
-                //     }
-                // }
+            } else if (weaponList.isEmpty()) {
+                isNoWeapon = true;
             }
-
 
             // display the action of jumping
             // stand on the obstacle
