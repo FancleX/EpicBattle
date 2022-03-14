@@ -1,6 +1,7 @@
 package Frame;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.Image;
@@ -13,6 +14,8 @@ import javax.swing.JOptionPane;
 
 import Character.Enemy;
 import Character.Hero;
+import Weapon.Bullet;
+import Weapon.Weapon;
 
 public class GameFrame extends JFrame implements KeyListener, Runnable {
 
@@ -27,11 +30,11 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
     // create a thread to do hero action
     private Thread thread = new Thread(this);
     // limit jumping gap
-    long firstJump = 0;
-    long secondJump = 1500;
+    private long firstJump = 0;
+    private long secondJump = 1500;
     // limit attack gap
-    long firstAttack = 0;
-    long secondAttack = 200;
+    private long firstAttack = 0;
+    private long secondAttack = 200;
 
     public GameFrame() {
         // set window's size
@@ -114,13 +117,63 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
         }
 
         // draw attack effects
-        if (hero.isAttacking()) {
-            if (hero.faceRight()) {
-                graphics.drawImage(hero.getCurrentWeaponEffects(), hero.getX() + 35, hero.getY() - 10, this);
-            } else {
-                graphics.drawImage(hero.getCurrentWeaponEffects(), hero.getX() - 30, hero.getY() - 10, this);
-            }
-        } 
+        switch (hero.getCurrentWeapon()) {
+            case MELEE:
+                if (hero.faceRight()) {
+                    graphics.drawImage(hero.getCurrentWeaponEffects(), hero.getX() + 35, hero.getY() - 10, this);
+                } else {
+                    graphics.drawImage(hero.getCurrentWeaponEffects(), hero.getX() - 30, hero.getY() - 10, this);
+                }
+
+
+                break;
+            case RANGED:
+                if (hero.faceRight()) {
+                    graphics.drawImage(hero.getCurrentWeaponEffects(), hero.getX() + 50, hero.getY(), this);
+                } else {
+                    graphics.drawImage(hero.getCurrentWeaponEffects(), hero.getX() - 300, hero.getY(), this);
+                }
+
+                    
+                    // the bullet reaches the maximum position or encounters the enemy to explode
+                    // if (!(weapon.isAttacked())) {
+                    //     // for (int i = 0; i < 300; i += 60) {
+                    //     //     graphics.drawImage(hero.getCurrentWeaponEffects(), x + i, weapon.getY(), this);
+                    //     // }
+                        
+                    //     weapon.getBullet().paint(graphics);}}
+                        
+                        // x += 60;
+                //     } else {
+                //             // draw explosion
+                //             graphics.drawImage(hero.getWeapons().get(1).getExplosionImage(), weapon.getX(), weapon.getY(), this);
+                //             // graphics.drawImage(null, x, y, this);
+                //     }
+                // } else {
+                //     int x = hero.getX() - 135;
+                //     int y = hero.getY() + 10;
+                //     Weapon weapon = hero.getWeapons().get(1);
+                //     weapon.setXY(x, y);
+                //     // the bullet reaches the maximum position or encounters the enemy to explode
+                //     if (!(weapon.isAttacked())) {
+                //         graphics.drawImage(hero.getCurrentWeaponEffects(), x, y, this);
+                //         weapon.setXY(x, y);
+                //         x += 60;
+                //     }
+                //     // draw explosion
+                //     graphics.drawImage(hero.getWeapons().get(1).getExplosionImage(), x, y, this);
+                //     graphics.drawImage(null, x, y, this);
+                // }
+                // break;
+            case MAGIC:
+                // if (hero.faceRight()) {
+                //     graphics.drawImage(hero.getCurrentWeaponEffects(), hero.getX() + 35, hero.getY() - 10, this);
+                // } else {
+                //     graphics.drawImage(hero.getCurrentWeaponEffects(), hero.getX() - 30, hero.getY() - 10, this);
+                // }
+                break;
+        }
+
         
         // connect off screen image to window
         g.drawImage(offScreenImage, 0, 0, this);
@@ -256,8 +309,6 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
         GameFrame gameFrame = new GameFrame();
 
     }
-
-
 
 
 }

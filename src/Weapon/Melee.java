@@ -1,5 +1,6 @@
 package Weapon;
 
+import java.awt.Image;
 import java.awt.Rectangle;
 import Frame.*;
 import Character.*;
@@ -45,6 +46,7 @@ public class Melee implements Weapon, Runnable {
         
     }
 
+    @Override
     public BufferedImage getCurrentImage(boolean isRight) {
         this.isRight = isRight;
         if (isRight) {
@@ -56,6 +58,7 @@ public class Melee implements Weapon, Runnable {
     }
 
     // track coordinate
+    @Override
     public void setXY(int x, int y) {
         if (isRight) {
             this.effectsX = x + 35;
@@ -81,10 +84,10 @@ public class Melee implements Weapon, Runnable {
         while (true) {
             for (int i = 0; i < background.getEnemies().size(); i++) {
                 Enemy enemy = background.getEnemies().get(i);
-                System.err.println("x: " + effectsX + " y: " + effectsY);
-                System.err.println("enemyX: " + enemy.getX() + " enemyY: " + enemy.getY());
-                System.err.println("is attacked: " + isAttacked);
-                System.err.println("enemyhp: " + enemy.getHp());
+                // System.err.println("x: " + effectsX + " y: " + effectsY);
+                // System.err.println("enemyX: " + enemy.getX() + " enemyY: " + enemy.getY());
+                // System.err.println("is attacked: " + isAttacked);
+                // System.err.println("enemyhp: " + enemy.getHp());
                 // System.err.println("durability: " + durability);
                 if (toRectangle().intersects(enemy.toRectangle()) && userAttack) {
                     isAttacked = true;
@@ -134,14 +137,26 @@ public class Melee implements Weapon, Runnable {
         return strenght;
     }
 
-
     @Override
     public int getDurability() {
         return durability;
     }
 
+	@Override
+	public BufferedImage getExplosionImage() {
+		return null;
+	}
+
+    @Override
+    public int getX() {
+        return effectsX;
+    }
+
+    @Override
+    public int getY() {
+        return effectsY;
+    }
 
 
-    
 
 }

@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 
 import Character.Enemy;
 import Frame.Background;
+import Frame.GameFrame;
 import Frame.StaticValue;
 
 public class Magic implements Weapon, Runnable{
@@ -78,10 +79,10 @@ public class Magic implements Weapon, Runnable{
         while (true) {
             for (int i = 0; i < background.getEnemies().size(); i++) {
                 Enemy enemy = background.getEnemies().get(i);
-                System.err.println("x: " + effectsX + " y: " + effectsY);
-                System.err.println("enemyX: " + enemy.getX() + " enemyY: " + enemy.getY());
-                System.err.println("is attacked: " + isAttacked);
-                System.err.println("enemyhp: " + enemy.getHp());
+                // System.err.println("x: " + effectsX + " y: " + effectsY);
+                // System.err.println("enemyX: " + enemy.getX() + " enemyY: " + enemy.getY());
+                // System.err.println("is attacked: " + isAttacked);
+                // System.err.println("enemyhp: " + enemy.getHp());
                 // System.err.println("durability: " + durability);
                 if (toRectangle().intersects(enemy.toRectangle()) && userAttack) {
                     isAttacked = true;
@@ -136,5 +137,23 @@ public class Magic implements Weapon, Runnable{
     public int getDurability() {
         return durability;
     }
+
+    @Override
+    public BufferedImage getExplosionImage() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public int getX() {
+        return effectsX;
+    }
+
+    @Override
+    public int getY() {
+        return effectsY;
+    }
+
+
     
 }

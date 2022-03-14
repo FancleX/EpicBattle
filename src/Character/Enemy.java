@@ -61,7 +61,7 @@ public class Enemy implements Runnable{
         switch (type) {
             case 0: 
                 this.strenght = 5;
-                this.hp = 100;
+                this.hp = 1000;
                 this.mana = 0;
                 currentImage = StaticValue.enemy_run_left_melee.get(0);
                 break;

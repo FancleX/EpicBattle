@@ -1,10 +1,12 @@
 package Weapon;
 
+import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import Character.Enemy;
 import Frame.Background;
+import Frame.GameFrame;
 
 public interface Weapon {
     
@@ -31,5 +33,11 @@ public interface Weapon {
     int getStrength();
 
     int getDurability();
+
+    BufferedImage getExplosionImage();
+
+    int getX();
+
+    int getY();
 
 }
