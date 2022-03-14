@@ -10,33 +10,26 @@ public interface Weapon {
     
     void crit();
 
-    void destory();
+    BufferedImage getCurrentImage(boolean attackRight);
 
-    void damageEffect();
+    void setXY(int x, int y);
 
-    Armory getType();
+    void setDurability(int cost) throws Exception;
 
     Rectangle toRectangle();
 
-    BufferedImage getCurrentImage(boolean attackRight);
+    boolean isAttacked();
+
+    void setIsAttacked(boolean isAttacked);
 
     void setBackground(Background currentBackground);
 
-    boolean isAttacked();
+    void pressAttackKey(boolean userAttack);
 
-    int getX();
-
-    void setXY(int x, int y, boolean faceRight);
+    Enemy getInjuredEnemy();
 
     int getStrength();
 
     int getDurability();
 
-    void setDurability(int cost) throws Exception;
-
-    void pressAttackKey(boolean b);
-
-    Enemy getInjuredEnemy();
-
-    void setIsAttacked(boolean b);
 }

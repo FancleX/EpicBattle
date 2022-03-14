@@ -275,7 +275,6 @@ public class Hero implements Runnable{
         int durabilityDeduction = 0;
         Weapon weapon = null;
         switch (currentWeapon) {
-
             case MELEE:
                 weapon = weapons.get(0);
                 // bonus damage from the weapon
@@ -300,7 +299,6 @@ public class Hero implements Runnable{
                     e.printStackTrace();
                 }
                 break;
-
             case RANGED:
                 weapon = weapons.get(1);
                 // bonus damage from the weapon
@@ -325,7 +323,6 @@ public class Hero implements Runnable{
                     e.printStackTrace();
                 }
                 break;
-
             case MAGIC:
                 weapon = weapons.get(2);
                 // bonus damage from the weapon
@@ -357,15 +354,15 @@ public class Hero implements Runnable{
     public void trackWeaponPosition() {
         switch (currentWeapon) {
             case MELEE:
-                weapons.get(0).setXY(x, y, faceRight);
+                weapons.get(0).setXY(x, y);
                 weapons.get(0).setBackground(background);
                 break;
             case RANGED:
-                weapons.get(1).setXY(x, y, faceRight);
+                weapons.get(1).setXY(x, y);
                 weapons.get(1).setBackground(background);
                 break;
             case MAGIC:
-                weapons.get(2).setXY(x, y, faceRight);
+                weapons.get(2).setXY(x, y);
                 weapons.get(2).setBackground(background);
                 break;
         }

@@ -61,8 +61,6 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
         // set first scence to current scence
         currentBackground = allBackground.get(0);
         hero.setBackground(currentBackground);
-        // weapon background
-        // hero.getWeapons().get(0).setBackground(currentBackground);
 
         // sketch background
         repaint();
@@ -216,8 +214,6 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
                             // reset hero postition
                             hero.setX(20);
                             hero.setY(480);
-                            // set weapon background
-                            hero.getWeapons().get(0).setBackground(currentBackground);
                         }
                         break;
                     // level 2

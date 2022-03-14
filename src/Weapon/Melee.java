@@ -44,26 +44,6 @@ public class Melee implements Weapon, Runnable {
         // TODO Auto-generated method stub
         
     }
-    @Override
-    public void destory() {
-        // TODO Auto-generated method stub
-        
-    }
-    @Override
-    public void damageEffect() {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public Armory getType() {
-        return Armory.MELEE;
-    }
-
-    @Override
-    public Rectangle toRectangle() {
-        return new Rectangle(effectsX, effectsY, width, height);
-    }
 
     public BufferedImage getCurrentImage(boolean isRight) {
         this.isRight = isRight;
@@ -76,7 +56,7 @@ public class Melee implements Weapon, Runnable {
     }
 
     // track coordinate
-    public void setXY(int x, int y, boolean isRight) {
+    public void setXY(int x, int y) {
         if (isRight) {
             this.effectsX = x + 35;
         } else {
@@ -85,36 +65,16 @@ public class Melee implements Weapon, Runnable {
         this.effectsY = y - 10;
     }
 
+    @Override
+    public void setDurability(int cost) throws Exception {
+        if (durability - cost >= 0) {
+            durability -= cost;
+        } else {
+            durability = 0;
+            throw new Exception();
+        }
 
-    public int getX() {
-        return effectsX;
     }
-
-    public boolean isAttacked() {
-        return isAttacked;
-    }
-
-    public void setIsAttacked(boolean isAttacked) {
-        this.isAttacked = isAttacked;
-    }
-
-    public void setBackground(Background background) {
-        this.background = background;
-    }
-
-    public Background getBackground() {
-        return background;
-    }
-
-    public void pressAttackKey(boolean userAttack) {
-        this.userAttack = userAttack;
-    }
-
-    public Enemy getInjuredEnemy() {
-        return currentEnemy;
-    }
-
-
 
     @Override
     public void run() {
@@ -141,6 +101,33 @@ public class Melee implements Weapon, Runnable {
         }   
     }
 
+    @Override
+    public Rectangle toRectangle() {
+        return new Rectangle(effectsX, effectsY, width, height);
+    }
+   public boolean isAttacked() {
+        return isAttacked;
+    }
+
+    @Override
+    public void setIsAttacked(boolean isAttacked) {
+        this.isAttacked = isAttacked;
+    }
+
+    @Override
+    public void setBackground(Background background) {
+        this.background = background;
+    }
+
+    @Override
+    public void pressAttackKey(boolean userAttack) {
+        this.userAttack = userAttack;
+    }
+
+    @Override
+    public Enemy getInjuredEnemy() {
+        return currentEnemy;
+    }
 
     @Override
     public int getStrength() {
@@ -154,16 +141,6 @@ public class Melee implements Weapon, Runnable {
     }
 
 
-    @Override
-    public void setDurability(int cost) throws Exception {
-        if (durability - cost >= 0) {
-            durability -= cost;
-        } else {
-            durability = 0;
-            throw new Exception();
-        }
-
-    }
 
     
 
