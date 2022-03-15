@@ -105,6 +105,9 @@ public class StaticValue {
     // death
     public static BufferedImage enemy_death = null;
 
+    // enemy dialog
+    public static BufferedImage enemy_dialog = null;
+
     // path define
     public static String path = System.getProperty("user.dir") + "/src/images/";
 
@@ -221,10 +224,11 @@ public class StaticValue {
                 e.printStackTrace();
             }
         }
-        // death and hp bar
+        // death, hp bar, dialog
         try {
             enemy_death = ImageIO.read(new File(path + "enemy_death.gif"));
             enemy_hp = ImageIO.read(new File(path + "enemy_ui.png"));
+            enemy_dialog = ImageIO.read(new File(path + "enemy_dialog.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

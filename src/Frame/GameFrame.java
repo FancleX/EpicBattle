@@ -110,10 +110,31 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
         // draw mana
         graphics.setColor(Color.BLUE);
         graphics.fillRect(110, 87, (int) ((float) hero.getCurrentMana() / hero.getMana() * 165), 5);
+        // draw weapon durability
+        switch (hero.getCurrentWeapon()) {
+            case MELEE:
+                graphics.setColor(Color.GREEN);
+                graphics.fillRoundRect(105, 54, (int) ((float) hero.getWeapons().get(0).getDurability() / 100 * 26), 12, 17, 17);
+                break;
+            case RANGED:
+                graphics.setColor(Color.GREEN);
+                graphics.fillRoundRect(105, 54, (int) ((float) hero.getWeapons().get(1).getDurability() / 70 * 26), 12, 17, 17);
+                break;
+            case MAGIC:
+                graphics.setColor(Color.GREEN);
+                graphics.fillRoundRect(105, 54, (int) ((float) hero.getWeapons().get(2).getDurability() / 100 * 26), 12, 17, 17);
+                break;   
+        }
 
         // draw enemies
         for (Enemy enemy : currentBackground.getEnemies()) {
             graphics.drawImage(enemy.getCurrentImage(), enemy.getX(), enemy.getY(), this);
+            // draw enemy speaking dialog
+            graphics.drawImage(enemy.getDialog(), enemy.getX() - 20, enemy.getY() - 75, this);
+            // draw message
+            graphics.setColor(Color.ORANGE);
+            graphics.setFont(new Font("TimesRoman", Font.BOLD, 11));
+            graphics.drawString(enemy.speak(), enemy.getX() - 10, enemy.getY() - 40);
             // draw enemy hp bar
             graphics.drawImage(enemy.getHpBar(), enemy.getX() - 10, enemy.getY() - 20, this);
             graphics.setColor(Color.RED);

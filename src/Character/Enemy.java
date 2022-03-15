@@ -3,6 +3,7 @@ package Character;
 import java.awt.image.BufferedImage;
 import java.nio.Buffer;
 import java.util.List;
+import java.util.Random;
 import java.awt.Rectangle;
 
 import Frame.*;
@@ -41,6 +42,10 @@ public class Enemy implements Runnable{
     private BufferedImage hpBar = StaticValue.enemy_hp;
     // total hp
     private int totalHP;
+    // dialog
+    private BufferedImage dialog = StaticValue.enemy_dialog;
+    // determine if the enemy is first released
+    private boolean firstAppearance = true;
 
     /* 
         enemy with melee info:
@@ -95,7 +100,7 @@ public class Enemy implements Runnable{
      public void death() {
         currentImage = StaticValue.enemy_death;
         try {
-            Thread.sleep(10);
+            Thread.sleep(50);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -110,6 +115,13 @@ public class Enemy implements Runnable{
             hp = 0;
             death();
         }
+    }
+
+    // speak 
+    public String speak() {
+        String[] texts = {"You're a loser!", "Cringe"};
+        Random rd = new Random();
+        return texts[rd.nextInt(texts.length)];
     }
 
 
@@ -150,7 +162,6 @@ public class Enemy implements Runnable{
             // determine if enemy can walk right and left
             boolean walkRight = true;
             boolean walkLeft = true;
-
             for (int i = 0; i < background.getObstacleList().size(); i++) {
                 Obstacle obstacle = background.getObstacleList().get(i);
                 // if can walk right
@@ -243,6 +254,18 @@ public class Enemy implements Runnable{
 
     public int totalHP() {
         return totalHP;
+    }
+
+    public BufferedImage getDialog() {
+        return dialog;
+    }
+
+    public boolean isFirstAppearance() {
+        return firstAppearance;
+    }
+
+    public void setFirstAppearance(boolean firstAppearance) {
+        this.firstAppearance = firstAppearance;
     }
 
 }
