@@ -103,7 +103,7 @@ public class StaticValue {
     public static BufferedImage enemy_hp = null;
 
     // death
-    public static BufferedImage enemy_death = null;
+    public static List<BufferedImage> enemy_death = new ArrayList<>();
 
     // enemy dialog
     public static BufferedImage enemy_dialog = null;
@@ -226,7 +226,9 @@ public class StaticValue {
         }
         // death, hp bar, dialog
         try {
-            enemy_death = ImageIO.read(new File(path + "enemy_death.gif"));
+            for (int i = 1; i <= 14; i++) {
+                enemy_death.add(ImageIO.read(new File(path + "enemy_death" + i + ".gif")));
+            }
             enemy_hp = ImageIO.read(new File(path + "enemy_ui.png"));
             enemy_dialog = ImageIO.read(new File(path + "enemy_dialog.png"));
         } catch (IOException e) {

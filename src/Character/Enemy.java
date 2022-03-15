@@ -103,13 +103,7 @@ public class Enemy implements Runnable{
 
      // death
      public void death() {
-        currentImage = StaticValue.enemy_death;
-        try {
-            Thread.sleep(50);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        background.getEnemies().remove(this);
+        currentImage = StaticValue.enemy_death.get(0);
     }
 
     // enemy hurted
@@ -130,7 +124,7 @@ public class Enemy implements Runnable{
 
     @Override
     public void run() {
-        while (true) {
+        while (isAlive()) {
             iterator = iterator == 0 ? 1 : 0;
             switch (type) {
                 case 0:

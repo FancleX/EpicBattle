@@ -3,6 +3,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.awt.Image;
 import java.awt.Color;
@@ -37,6 +38,11 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
     private long secondAttack = 200;
     // use for dialog drawing
     private int count = 0;
+    // use for enemy death animation
+    private int count1 = 0;
+    // final x y
+    private int finalX;
+    private int finalY;
 
     public GameFrame() {
         // set window's size
@@ -129,24 +135,44 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
         }
 
         // draw enemies
-        for (Enemy enemy : currentBackground.getEnemies()) {
-            graphics.drawImage(enemy.getCurrentImage(), enemy.getX(), enemy.getY(), this);
-            // draw enemy phrases
-            if (count < 20) {
-                // draw enemy speaking dialog
-                graphics.drawImage(enemy.getDialog(), enemy.getX() - 20, enemy.getY() - 75, this);
-                // draw message
-                graphics.setFont(new Font("TimesRoman", Font.BOLD, 11));
-                graphics.setColor(Color.ORANGE);
-                graphics.drawString(enemy.speak(), enemy.getX() - 10, enemy.getY() - 40);
-            }                                                                                 
-            count++;
-        
-            // draw enemy hp bar
-            graphics.drawImage(enemy.getHpBar(), enemy.getX() - 10, enemy.getY() - 20, this);
-            graphics.setColor(Color.RED);
-            graphics.fillRect(enemy.getX() - 7, enemy.getY() - 14, (int) ((float) enemy.getHp() / enemy.totalHP() * 55), 8);
+        Iterator<Enemy> iterator = currentBackground.getEnemies().iterator();
+        while (iterator.hasNext()) {
+            Enemy enemy = iterator.next();
+            // determine if enemy is died
+            if (!enemy.isAlive()) {
+                if (count1 == 0) {
+                    finalX = enemy.getX();
+                    finalY = enemy.getY();
+                    
+                }
+                if (count1 < 14) {
+                    graphics.drawImage(StaticValue.enemy_death.get(count1), finalX, finalY - 30, this);
+                    count1++;
+                } else {
+                    iterator.remove();
+                }
+            } else {
+                // draw enemy phrases
+                if (count < 20) {
+                    // draw enemy speaking dialog
+                    graphics.drawImage(enemy.getDialog(), enemy.getX() - 20, enemy.getY() - 75, this);
+                    // draw message
+                    graphics.setFont(new Font("TimesRoman", Font.BOLD, 11));
+                    graphics.setColor(Color.ORANGE);
+                    graphics.drawString(enemy.speak(), enemy.getX() - 10, enemy.getY() - 40);
+                    count++;
+                }                                                                                 
+            
+                // draw enemy hp bar
+                graphics.drawImage(enemy.getHpBar(), enemy.getX() - 10, enemy.getY() - 20, this);
+                graphics.setColor(Color.RED);
+                graphics.fillRect(enemy.getX() - 7, enemy.getY() - 14, (int) ((float) enemy.getHp() / enemy.totalHP() * 55), 8);
+                
+                graphics.drawImage(enemy.getCurrentImage(), enemy.getX(), enemy.getY(), this);
+            }
+
         }
+
 
 
         // draw attack effects
