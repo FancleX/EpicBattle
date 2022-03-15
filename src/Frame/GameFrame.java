@@ -35,6 +35,8 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
     // limit attack gap
     private long firstAttack = 0;
     private long secondAttack = 200;
+    // use for dialog drawing
+    private int count = 0;
 
     public GameFrame() {
         // set window's size
@@ -129,12 +131,17 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
         // draw enemies
         for (Enemy enemy : currentBackground.getEnemies()) {
             graphics.drawImage(enemy.getCurrentImage(), enemy.getX(), enemy.getY(), this);
-            // draw enemy speaking dialog
-            graphics.drawImage(enemy.getDialog(), enemy.getX() - 20, enemy.getY() - 75, this);
-            // draw message
-            graphics.setColor(Color.ORANGE);
-            graphics.setFont(new Font("TimesRoman", Font.BOLD, 11));
-            graphics.drawString(enemy.speak(), enemy.getX() - 10, enemy.getY() - 40);
+            // draw enemy phrases
+            if (count < 20) {
+                // draw enemy speaking dialog
+                graphics.drawImage(enemy.getDialog(), enemy.getX() - 20, enemy.getY() - 75, this);
+                // draw message
+                graphics.setFont(new Font("TimesRoman", Font.BOLD, 11));
+                graphics.setColor(Color.ORANGE);
+                graphics.drawString(enemy.speak(), enemy.getX() - 10, enemy.getY() - 40);
+            }                                                                                 
+            count++;
+        
             // draw enemy hp bar
             graphics.drawImage(enemy.getHpBar(), enemy.getX() - 10, enemy.getY() - 20, this);
             graphics.setColor(Color.RED);

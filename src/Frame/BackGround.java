@@ -2,6 +2,7 @@ package Frame;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import Character.Enemy;
 import Weapon.Weapon;
@@ -61,7 +62,8 @@ public class Background {
                 teleporterX = 750;
                 teleporterY = 450;
                 // add enemies
-                enemies.add(new Enemy(650, 490, false, 0, this));
+                Random rd = new Random();
+                enemies.add(new Enemy(650, 490, false, 0, this, rd.nextInt(3)));
                 break;
 
             case 2:
@@ -78,7 +80,8 @@ public class Background {
                 teleporterX = 660;
                 teleporterY = 250;
                 // add enemies
-                enemies.add(new Enemy(650, 490, false, 0, this));
+                Random rd1 = new Random();
+                enemies.add(new Enemy(650, 490, false, 0, this, rd1.nextInt(3)));
                 break;
 
             case 3:

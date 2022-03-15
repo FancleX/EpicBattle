@@ -46,6 +46,10 @@ public class Enemy implements Runnable{
     private BufferedImage dialog = StaticValue.enemy_dialog;
     // determine if the enemy is first released
     private boolean firstAppearance = true;
+    // speaking phases
+    private String[] texts = {"You're a loser!", "Cringe guy!", "Darkness!"};
+    // message type
+    private int messageType;
 
     /* 
         enemy with melee info:
@@ -66,7 +70,7 @@ public class Enemy implements Runnable{
         hp = 20
         mana = Infinite
     */
-    public Enemy(int x, int y, boolean faceRight, int type, Background background) {
+    public Enemy(int x, int y, boolean faceRight, int type, Background background, int message) {
         switch (type) {
             case 0: 
                 this.strenght = 5;
@@ -93,6 +97,7 @@ public class Enemy implements Runnable{
         this.faceRight = faceRight;
         this.type = type;
         this.background = background;
+        this.messageType = message;
         thread.start();
     }
 
@@ -119,9 +124,7 @@ public class Enemy implements Runnable{
 
     // speak 
     public String speak() {
-        String[] texts = {"You're a loser!", "Cringe"};
-        Random rd = new Random();
-        return texts[rd.nextInt(texts.length)];
+        return texts[messageType];
     }
 
 
