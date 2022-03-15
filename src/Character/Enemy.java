@@ -15,7 +15,7 @@ public class Enemy implements Runnable{
     // type of enemy
     private int type;
     // determine the moving direction of enemy, true: face to right, false: face to left
-    private boolean face_right = true;
+    private boolean faceRight = true;
     // display current enemy pictures
     private BufferedImage currentImage;
     // determine background
@@ -37,6 +37,10 @@ public class Enemy implements Runnable{
     private int height = 60;
     // width
     private int width = 40;
+    // hp bar
+    private BufferedImage hpBar = StaticValue.enemy_hp;
+    // total hp
+    private int totalHP;
 
     /* 
         enemy with melee info:
@@ -57,12 +61,13 @@ public class Enemy implements Runnable{
         hp = 20
         mana = Infinite
     */
-    public Enemy(int x, int y, boolean face_right, int type, Background background) {
+    public Enemy(int x, int y, boolean faceRight, int type, Background background) {
         switch (type) {
             case 0: 
                 this.strenght = 5;
-                this.hp = 1000;
+                this.hp = 100;
                 this.mana = 0;
+                totalHP = 100;
                 currentImage = StaticValue.enemy_run_left_melee.get(0);
                 break;
             case 1:
@@ -80,7 +85,7 @@ public class Enemy implements Runnable{
         }
         this.x = x;
         this.y = y;
-        this.face_right = face_right;
+        this.faceRight = faceRight;
         this.type = type;
         this.background = background;
         thread.start();
@@ -114,7 +119,7 @@ public class Enemy implements Runnable{
             iterator = iterator == 0 ? 1 : 0;
             switch (type) {
                 case 0:
-                    if (face_right) {
+                    if (faceRight) {
                         currentImage = StaticValue.enemy_run_right_melee.get(iterator);
                         x += 3;
                     } else {
@@ -123,7 +128,7 @@ public class Enemy implements Runnable{
                     }
                     break;
                 case 1:
-                    if (face_right) {
+                    if (faceRight) {
                         currentImage = StaticValue.enemy_run_right_ranged.get(iterator);
                         x += 3;
                     } else {
@@ -132,7 +137,7 @@ public class Enemy implements Runnable{
                     }
                     break;
                 case 2:
-                    if (face_right) {
+                    if (faceRight) {
                         currentImage = StaticValue.enemy_run_right_magic.get(iterator);
                         x += 3;
                     } else {
@@ -160,12 +165,12 @@ public class Enemy implements Runnable{
 
             // change path if meet an obstacle
             // if can not walk right or reach right boundary
-            if ((face_right && (!walkRight)) || x > maxRight) {
-                face_right = false;
+            if ((faceRight && (!walkRight)) || x > maxRight) {
+                faceRight = false;
             }
             // if can't walk left or reach left boundary
-            else if (((!face_right) && (!walkLeft)) || x < maxLeft) {
-                face_right = true;
+            else if (((!faceRight) && (!walkLeft)) || x < maxLeft) {
+                faceRight = true;
             }
 
             try {
@@ -231,4 +236,13 @@ public class Enemy implements Runnable{
     public int getHeight() {
         return height;
     }
+
+    public BufferedImage getHpBar() {
+        return hpBar;
+    }
+
+    public int totalHP() {
+        return totalHP;
+    }
+
 }

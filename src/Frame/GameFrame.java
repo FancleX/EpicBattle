@@ -114,7 +114,12 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
         // draw enemies
         for (Enemy enemy : currentBackground.getEnemies()) {
             graphics.drawImage(enemy.getCurrentImage(), enemy.getX(), enemy.getY(), this);
+            // draw enemy hp bar
+            graphics.drawImage(enemy.getHpBar(), enemy.getX() - 10, enemy.getY() - 20, this);
+            graphics.setColor(Color.RED);
+            graphics.fillRect(enemy.getX() - 7, enemy.getY() - 14, (int) ((float) enemy.getHp() / enemy.totalHP() * 55), 8);
         }
+
 
         // draw attack effects
         switch (hero.getCurrentWeapon()) {
@@ -124,8 +129,6 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
                 } else {
                     graphics.drawImage(hero.getCurrentWeaponEffects(), hero.getX() - 30, hero.getY() - 10, this);
                 }
-
-
                 break;
             case RANGED:
                 if (hero.faceRight()) {

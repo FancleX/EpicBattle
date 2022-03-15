@@ -99,6 +99,9 @@ public class StaticValue {
     // character run to left with magic weapon
     public static List<BufferedImage> enemy_run_left_magic = new ArrayList<>();
 
+    // enemy hp bar
+    public static BufferedImage enemy_hp = null;
+
     // death
     public static BufferedImage enemy_death = null;
 
@@ -218,9 +221,10 @@ public class StaticValue {
                 e.printStackTrace();
             }
         }
-        // death
+        // death and hp bar
         try {
             enemy_death = ImageIO.read(new File(path + "enemy_death.gif"));
+            enemy_hp = ImageIO.read(new File(path + "enemy_ui.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
