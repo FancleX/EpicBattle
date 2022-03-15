@@ -173,8 +173,6 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
 
         }
 
-
-
         // draw attack effects
         switch (hero.getCurrentWeapon()) {
             case MELEE:
