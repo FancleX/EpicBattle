@@ -2,6 +2,7 @@ package Frame;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -18,6 +19,8 @@ import Character.Hero;
 import Weapon.Armory;
 import Weapon.Bullet;
 import Weapon.Weapon;
+import javazoom.jl.decoder.JavaLayerException;
+import music.Music;
 
 public class GameFrame extends JFrame implements KeyListener, Runnable {
 
@@ -44,8 +47,10 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
     // final x y
     private int finalX;
     private int finalY;
-
+    // last scence
     private Background lastScence;
+    // determine if user read the message
+    private boolean click = false;
 
     public GameFrame() {
         // set window's size
@@ -80,6 +85,12 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
         repaint();
         // start thread
         thread.start();
+        // add music
+        // try {
+        //     new Music();
+        // } catch (FileNotFoundException | JavaLayerException e) {
+        //     e.printStackTrace();
+        // }
     }
 
     @Override
@@ -136,7 +147,7 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
                 graphics.fillRoundRect(105, 54, (int) ((float) hero.getWeapons().get(2).getDurability() / 60 * 26), 12, 17, 17);
                 break;   
         }
-
+        
         // draw attack effects
         Weapon weapon = null;
         switch (hero.getCurrentWeapon()) {
@@ -201,7 +212,6 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
 
         // connect offscreen image to window
         g.drawImage(offScreenImage, 0, 0, this);
-
     }
 
     @Override
@@ -266,7 +276,6 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
         
     }
 
-
     @Override
     public void run() {
         while (true) {
@@ -284,6 +293,14 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
                 switch (currentLevel) {
                     // level 1
                     case 1:
+                        // tips
+                        if (!click) {
+                            JOptionPane.showMessageDialog(this, "Tips: Grean bar is your current weapon's durability, red bar is your current hp, blue bar is your current mana."
+                            + "Weapon will lose if the durability drop to zero. If you run out of weapons, you fail the battle!");  
+                            JOptionPane.getRootFrame().dispose();
+                            click = true;
+                        }
+                        // level 1 pass condition
                         if ((hero.getX() >= 740 && hero.getY() >= 460 && hero.getY() <= 550) && currentBackground.getEnemies().isEmpty()) {
                             currentBackground = allBackground.get(currentBackground.getCurrentScence());
                             // send the background to hero
@@ -295,6 +312,7 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
                         break;
                     // level 2
                     case 2:
+                    // level 2 pass condition
                         if ((hero.getX() >= 650 && hero.getY() >= 260 && hero.getY() <= 350) && currentBackground.getEnemies().isEmpty()) {
                             currentBackground = allBackground.get(currentBackground.getCurrentScence());
                             // send the background to hero
@@ -306,6 +324,7 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
                         break;
                     // level 3
                     case 3:
+                        // level 3 pass condition
                         if (hero.getX() >= 680 && hero.getY() >= 445 && hero.getY() <= 565) {
                             // currentBackground = allBackground.get(currentBackground.getCurrentScence());
                             // // send the background to hero
