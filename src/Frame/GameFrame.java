@@ -149,19 +149,28 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
         }
         
         // draw attack effects
-        Weapon weapon = null;
         switch (hero.getCurrentWeapon()) {
             case MELEE:
-                weapon = hero.getWeapons().get(0);
-                graphics.drawImage(hero.getCurrentWeaponEffects(), weapon.getX(), weapon.getY(), this);
+                if (hero.faceRight()) {
+                    graphics.drawImage(hero.getCurrentWeaponEffects(), hero.getX() + 35, hero.getY() - 10, this);
+                } else {
+                    graphics.drawImage(hero.getCurrentWeaponEffects(), hero.getX() - 30, hero.getY() - 10, this);
+                }
+                
                 break;
             case RANGED:
-                weapon = hero.getWeapons().get(1);
-                graphics.drawImage(hero.getCurrentWeaponEffects(), weapon.getX(), weapon.getY(), this);
+                if (hero.faceRight()) {
+                    graphics.drawImage(hero.getCurrentWeaponEffects(), hero.getX() + 50, hero.getY(), this);
+                } else {
+                    graphics.drawImage(hero.getCurrentWeaponEffects(), hero.getX() - 300, hero.getY(), this);
+                }
                 break;
             case MAGIC:
-                weapon = hero.getWeapons().get(2);
-                graphics.drawImage(hero.getCurrentWeaponEffects(), weapon.getX(), weapon.getY(), this);
+                if (hero.faceRight()) {
+                    graphics.drawImage(hero.getCurrentWeaponEffects(), hero.getX() + 300, hero.getY() - 220, this);
+                } else {
+                    graphics.drawImage(hero.getCurrentWeaponEffects(), hero.getX() - 450, hero.getY() - 220, this);
+                }
                 break;
         }
 
