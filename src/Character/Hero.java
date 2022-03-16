@@ -197,6 +197,7 @@ public class Hero implements Runnable{
 
     // hero change weapon
     public void changeWeapon() {
+        currentWeaponEffects = null;
         switch (currentWeapon) {
             case MELEE:
                 if (weaponList.contains(Armory.RANGED)) {
@@ -244,6 +245,7 @@ public class Hero implements Runnable{
     // hero stops attacking
     public void stopAttacking() {
         isAttacking = false;
+        currentWeaponEffects = null;
         switch (currentWeapon) {
             case MELEE:
                 weapons.get(0).pressAttackKey(false);
@@ -255,7 +257,6 @@ public class Hero implements Runnable{
                 weapons.get(2).pressAttackKey(false);
                 break;
         }
-        currentWeaponEffects = null;
     }
 
     // hero hurted
@@ -314,9 +315,7 @@ public class Hero implements Runnable{
     @Override
     public void run() {
         while (true) {
-            // track weapon position
-            trackWeaponPosition();    
-            // System.err.println("X: " + weapons.get(0).getX());
+           
             // determine hero's action 
             boolean isOnObstacle = false;
             boolean passLeft = true;
@@ -360,10 +359,14 @@ public class Hero implements Runnable{
 
             // attack damage calculation
             if (!weaponList.isEmpty() && isAttacking) {
+                // track weapon position
+                trackWeaponPosition(); 
                 int durabilityDeduction = 0;
                 switch (currentWeapon) {
                     case MELEE:
                         Weapon melee = weapons.get(0);
+                        // melee.setXY(x, y);
+                        // melee.setBackground(background);
                         if (melee.isAttacked()) {
                             Enemy enemy = melee.getInjuredEnemy();
                             enemy.hurted(causedDamage());
@@ -385,6 +388,8 @@ public class Hero implements Runnable{
                         break;
                     case RANGED:
                         Weapon ranged = weapons.get(1);
+                        // ranged.setXY(x, y);
+                        // ranged.setBackground(background);
                         System.err.println("durability: " + ranged.getDurability());
                         if (ranged.isAttacked()) {
                             Enemy enemy = ranged.getInjuredEnemy();
@@ -406,6 +411,8 @@ public class Hero implements Runnable{
                         break;
                     case MAGIC:
                         Weapon magic = weapons.get(2);
+                        // magic.setXY(x, y);
+                        // magic.setBackground(background);
                         if (magic.isAttacked()) {
                             Enemy enemy = magic.getInjuredEnemy();
                             enemy.hurted(causedDamage());
@@ -413,7 +420,7 @@ public class Hero implements Runnable{
                             magic.setIsAttacked(false);
                         }
                         // reduce durability
-                        durabilityDeduction = 20;
+                        durabilityDeduction = 0;
                         try {
                             // decreaes weapon durability
                             magic.setDurability(durabilityDeduction);

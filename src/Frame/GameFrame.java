@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 
 import Character.Enemy;
 import Character.Hero;
+import Weapon.Armory;
 import Weapon.Bullet;
 import Weapon.Weapon;
 
@@ -132,8 +133,25 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
                 break;
             case MAGIC:
                 graphics.setColor(Color.GREEN);
-                graphics.fillRoundRect(105, 54, (int) ((float) hero.getWeapons().get(2).getDurability() / 100 * 26), 12, 17, 17);
+                graphics.fillRoundRect(105, 54, (int) ((float) hero.getWeapons().get(2).getDurability() / 60 * 26), 12, 17, 17);
                 break;   
+        }
+
+        // draw attack effects
+        Weapon weapon = null;
+        switch (hero.getCurrentWeapon()) {
+            case MELEE:
+                weapon = hero.getWeapons().get(0);
+                graphics.drawImage(hero.getCurrentWeaponEffects(), weapon.getX(), weapon.getY(), this);
+                break;
+            case RANGED:
+                weapon = hero.getWeapons().get(1);
+                graphics.drawImage(hero.getCurrentWeaponEffects(), weapon.getX(), weapon.getY(), this);
+                break;
+            case MAGIC:
+                weapon = hero.getWeapons().get(2);
+                graphics.drawImage(hero.getCurrentWeaponEffects(), weapon.getX(), weapon.getY(), this);
+                break;
         }
 
         // if background changed, reset all counter
@@ -175,69 +193,13 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
                 graphics.setColor(Color.RED);
                 graphics.fillRect(enemy.getX() - 7, enemy.getY() - 14, (int) ((float) enemy.getHp() / enemy.totalHP() * 55), 8);
                 
+                // draw enemy itself
                 graphics.drawImage(enemy.getCurrentImage(), enemy.getX(), enemy.getY(), this);
             }
 
         }
 
-        // draw attack effects
-        switch (hero.getCurrentWeapon()) {
-            case MELEE:
-                if (hero.faceRight()) {
-                    graphics.drawImage(hero.getCurrentWeaponEffects(), hero.getX() + 35, hero.getY() - 10, this);
-                } else {
-                    graphics.drawImage(hero.getCurrentWeaponEffects(), hero.getX() - 30, hero.getY() - 10, this);
-                }
-                break;
-            case RANGED:
-                if (hero.faceRight()) {
-                    graphics.drawImage(hero.getCurrentWeaponEffects(), hero.getX() + 50, hero.getY(), this);
-                } else {
-                    graphics.drawImage(hero.getCurrentWeaponEffects(), hero.getX() - 300, hero.getY(), this);
-                }
-
-                    
-                    // the bullet reaches the maximum position or encounters the enemy to explode
-                    // if (!(weapon.isAttacked())) {
-                    //     // for (int i = 0; i < 300; i += 60) {
-                    //     //     graphics.drawImage(hero.getCurrentWeaponEffects(), x + i, weapon.getY(), this);
-                    //     // }
-                        
-                    //     weapon.getBullet().paint(graphics);}}
-                        
-                        // x += 60;
-                //     } else {
-                //             // draw explosion
-                //             graphics.drawImage(hero.getWeapons().get(1).getExplosionImage(), weapon.getX(), weapon.getY(), this);
-                //             // graphics.drawImage(null, x, y, this);
-                //     }
-                // } else {
-                //     int x = hero.getX() - 135;
-                //     int y = hero.getY() + 10;
-                //     Weapon weapon = hero.getWeapons().get(1);
-                //     weapon.setXY(x, y);
-                //     // the bullet reaches the maximum position or encounters the enemy to explode
-                //     if (!(weapon.isAttacked())) {
-                //         graphics.drawImage(hero.getCurrentWeaponEffects(), x, y, this);
-                //         weapon.setXY(x, y);
-                //         x += 60;
-                //     }
-                //     // draw explosion
-                //     graphics.drawImage(hero.getWeapons().get(1).getExplosionImage(), x, y, this);
-                //     graphics.drawImage(null, x, y, this);
-                // }
-                // break;
-            case MAGIC:
-                // if (hero.faceRight()) {
-                //     graphics.drawImage(hero.getCurrentWeaponEffects(), hero.getX() + 35, hero.getY() - 10, this);
-                // } else {
-                //     graphics.drawImage(hero.getCurrentWeaponEffects(), hero.getX() - 30, hero.getY() - 10, this);
-                // }
-                break;
-        }
-
-        
-        // connect off screen image to window
+        // connect offscreen image to window
         g.drawImage(offScreenImage, 0, 0, this);
 
     }
@@ -322,7 +284,7 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
                 switch (currentLevel) {
                     // level 1
                     case 1:
-                        if (hero.getX() >= 740 && hero.getY() >= 460 && hero.getY() <= 550) {
+                        if ((hero.getX() >= 740 && hero.getY() >= 460 && hero.getY() <= 550) && currentBackground.getEnemies().isEmpty()) {
                             currentBackground = allBackground.get(currentBackground.getCurrentScence());
                             // send the background to hero
                             hero.setBackground(currentBackground);
@@ -333,7 +295,7 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
                         break;
                     // level 2
                     case 2:
-                        if (hero.getX() >= 650 && hero.getY() >= 260 && hero.getY() <= 350) {
+                        if ((hero.getX() >= 650 && hero.getY() >= 260 && hero.getY() <= 350) && currentBackground.getEnemies().isEmpty()) {
                             currentBackground = allBackground.get(currentBackground.getCurrentScence());
                             // send the background to hero
                             hero.setBackground(currentBackground);

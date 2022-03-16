@@ -26,6 +26,8 @@ public class Background {
     private BufferedImage end = null;
     // enemies
     private List<Enemy> enemies = new ArrayList<>();
+    // random 
+    private Random rd = new Random();
     
     public Background() {}
 
@@ -62,7 +64,6 @@ public class Background {
                 teleporterX = 750;
                 teleporterY = 450;
                 // add enemies
-                Random rd = new Random();
                 enemies.add(new Enemy(650, 490, false, 0, this, rd.nextInt(3)));
                 break;
 
@@ -80,8 +81,7 @@ public class Background {
                 teleporterX = 660;
                 teleporterY = 250;
                 // add enemies
-                Random rd1 = new Random();
-                enemies.add(new Enemy(650, 490, false, 0, this, rd1.nextInt(3)));
+                enemies.add(new Enemy(650, 490, false, 0, this, rd.nextInt(3)));
                 break;
 
             case 3:

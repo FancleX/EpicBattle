@@ -125,8 +125,8 @@ public class StaticValue {
             meleeWeaponRight = ImageIO.read(new File(path + "character_stand_right_melee.png"));
             rangedWeaponLeft = ImageIO.read(new File(path + "character_stand_left_ranged.png"));
             rangedWeaponRight = ImageIO.read(new File(path + "character_stand_right_ranged.png"));
-            // magic_weapon_left = ImageIO.read(new File(path + ""));
-            // magic_weapon_right = ImageIO.read(new File(path + ""));
+            magicWeaponLeft = ImageIO.read(new File(path + "character_stand_left_magic.png"));
+            magicWeaponRight = ImageIO.read(new File(path + "character_stand_right_magic.png"));
 
             // initialize teleporter
             teleporter = ImageIO.read(new File(path + "teleporter.png"));
@@ -142,8 +142,8 @@ public class StaticValue {
             jumpToLeftRanged = ImageIO.read(new File(path + "jump_to_left_ranged.png"));
             jumpToRightRanged = ImageIO.read(new File(path + "jump_to_right_ranged.png"));
             // magic
-            // jumpToLeftMgic = ImageIO.read(new File(path + "jump_to_left_magic.png"));
-            // jumpToRightMagic = ImageIO.read(new File(path + "jump_to_right_magic.png"));
+            jumpToLeftMagic = ImageIO.read(new File(path + "jump_to_left_magic.png"));
+            jumpToRightMagic = ImageIO.read(new File(path + "jump_to_right_magic.png"));
 
             // initialize UI
             heroUI = ImageIO.read(new File(path + "hero_ui.png"));
@@ -158,7 +158,7 @@ public class StaticValue {
             try {
                 heroRunLeftMelee.add(ImageIO.read(new File(path + "hero_run" + i + "_left_melee.png")));
                 heroRunLeftRanged.add(ImageIO.read(new File(path + "hero_run" + i + "_left_ranged.png")));
-                // heroRunLeftMagic.add(ImageIO.read(new File(path + "hero_run" + i + "_left_magic.png")));
+                heroRunLeftMagic.add(ImageIO.read(new File(path + "hero_run" + i + "_left_magic.png")));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -168,7 +168,7 @@ public class StaticValue {
             try {
                 heroRunRightMelee.add(ImageIO.read(new File(path + "hero_run" + i + "_right_melee.png")));
                 heroRunRightRanged.add(ImageIO.read(new File(path + "hero_run" + i + "_right_ranged.png")));
-                // heroRunRightMagic.add(ImageIO.read(new File(path + "hero_run" + i + "_right_magic.png")));
+                heroRunRightMagic.add(ImageIO.read(new File(path + "hero_run" + i + "_right_magic.png")));
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -20,9 +20,9 @@ public class Magic implements Weapon, Runnable{
     // weapon's orientation
     private boolean isRight;
     // width
-    private int width = 41;
+    private int width = 190;
     // height
-    private int height = 62;
+    private int height = 298;
     // new thread
     private Thread thread = new Thread(this);
     // is attacked
@@ -35,8 +35,8 @@ public class Magic implements Weapon, Runnable{
     private Enemy currentEnemy;
 
     public Magic(Background background) {
-        this.strenght = 10;
-        this.durability = 100;
+        this.strenght = 50;
+        this.durability = 60;
         this.background = background;
         thread.start();
     }
@@ -56,11 +56,11 @@ public class Magic implements Weapon, Runnable{
     // track coordinate
     public void setXY(int x, int y) {
         if (isRight) {
-            this.effectsX = x + 35;
+            this.effectsX = x + 300;
         } else {
-            this.effectsX = x - 30;
+            this.effectsX = x - 450;
         }
-        this.effectsY = y - 10;
+        this.effectsY = y - 220;
     }
 
     @Override
