@@ -49,7 +49,7 @@ public class Magic implements Weapon, Runnable{
 
     public BufferedImage getCurrentImage(boolean isRight) {
         this.isRight = isRight;
-        currentImage = StaticValue.magic_effects.get(0);
+        currentImage = StaticValue.magicEffects.get(0);
         return currentImage;
     }
 
@@ -136,12 +136,6 @@ public class Magic implements Weapon, Runnable{
     @Override
     public int getDurability() {
         return durability;
-    }
-
-    @Override
-    public BufferedImage getExplosionImage() {
-        // TODO Auto-generated method stub
-        return null;
     }
 
     @Override

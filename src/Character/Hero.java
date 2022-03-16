@@ -41,7 +41,7 @@ public class Hero implements Runnable{
     */
     private String status;
     // the picture corresponding to the current status
-    private BufferedImage image = StaticValue.melee_weapon_right;
+    private BufferedImage image = StaticValue.meleeWeaponRight;
     // get obstacle information
     private Background background = new Background();
     // hero UI
@@ -89,9 +89,9 @@ public class Hero implements Runnable{
         this.currentHp = hp;
         this.currentMana = mana;
 
-        image = StaticValue.melee_weapon_right;
+        image = StaticValue.meleeWeaponRight;
         this.status = "melee_weapon_right";
-        ui = StaticValue.hero_ui;
+        ui = StaticValue.heroUI;
         weaponList.add(Armory.MELEE);
         weaponList.add(Armory.RANGED);
         weaponList.add(Armory.MAGIC);
@@ -180,7 +180,7 @@ public class Hero implements Runnable{
 
     // death
     public void death() {
-        image = StaticValue.hero_death;
+        image = StaticValue.heroDeath;
         isAlive = false;
     }
 
@@ -188,10 +188,10 @@ public class Hero implements Runnable{
     public boolean faceRight() {
         if (status.contains("right")) {
             faceRight = true;
-            return true;
+            return faceRight;
         } else {
             faceRight = false;
-            return false;
+            return faceRight;
         }
     }
 
@@ -483,81 +483,81 @@ public class Hero implements Runnable{
                 switch (status) {
                     // move to left
                     case "move_left":
-                        image = StaticValue.hero_run_left_melee.get(index);
+                        image = StaticValue.heroRunLeftMelee.get(index);
                         break;
                     // move to right
                     case "move_right":
-                        image = StaticValue.hero_run_right_melee.get(index);
+                        image = StaticValue.heroRunRightMelee.get(index);
                         break;
                     // stop and towards left
                     case "stop_left":
-                        image = StaticValue.melee_weapon_left;
+                        image = StaticValue.meleeWeaponLeft;
                         break;
                     // stop and towards right
                     case "stop_right":
-                        image = StaticValue.melee_weapon_right;
+                        image = StaticValue.meleeWeaponRight;
                         break;
                     // jump to left
                     case "jump_left":
-                        image = StaticValue.jump_to_left_melee;
+                        image = StaticValue.jumpToLeftMelee;
                         break;
                     // jump to right
                     case "jump_right":
-                        image = StaticValue.jump_to_right_melee;
+                        image = StaticValue.jumpToRightMelee;
                         break;
                 }
             } else if (currentWeapon.equals(Armory.RANGED)) {
                 switch (status) {
                     // move to left
                     case "move_left":
-                        image = StaticValue.hero_run_left_ranged.get(index);
+                        image = StaticValue.heroRunLeftRanged.get(index);
                         break;
                     // move to right
                     case "move_right":
-                        image = StaticValue.hero_run_right_ranged.get(index);
+                        image = StaticValue.heroRunRightRanged.get(index);
                         break;
                     // stop and towards left
                     case "stop_left":
-                        image = StaticValue.ranged_weapon_left;
+                        image = StaticValue.rangedWeaponLeft;
                         break;
                     // stop and towards right
                     case "stop_right":
-                        image = StaticValue.ranged_weapon_right;
+                        image = StaticValue.rangedWeaponRight;
                         break;
                     // jump to left
                     case "jump_left":
-                        image = StaticValue.jump_to_left_ranged;
+                        image = StaticValue.jumpToLeftRanged;
                         break;
                     // jump to right
                     case "jump_right":
-                        image = StaticValue.jump_to_right_ranged;
+                        image = StaticValue.jumpToRightRanged;
                         break;
                 }
             } else if (currentWeapon.equals(Armory.MAGIC)) {
                 switch (status) {
                     // move to left
                     case "move_left":
-                        image = StaticValue.hero_run_left_magic.get(index);
+                        image = StaticValue.heroRunLeftMagic.get(index);
                         break;
                     // move to right
                     case "move_right":
-                        image = StaticValue.hero_run_right_magic.get(index);
+                        image = StaticValue.heroRunRightMagic.get(index);
                         break;
                     // stop and towards left
                     case "stop_left":
-                        image = StaticValue.magic_weapon_left;
+                        image = StaticValue.magicWeaponLeft;
                         break;
                     // stop and towards right
                     case "stop_right":
-                        image = StaticValue.magic_weapon_right;
+                        image = StaticValue.magicWeaponRight;
                         break;
                     // jump to left
                     case "jump_left":
-                        image = StaticValue.jump_to_left_magic;
+                        image = StaticValue.jumpToLeftMagic;
                         break;
                     // jump to right
                     case "jump_right":
-                        image = StaticValue.jump_to_right_magic;
+                        image = StaticValue.jumpToRightMagic;
                         break;
                 }
             }

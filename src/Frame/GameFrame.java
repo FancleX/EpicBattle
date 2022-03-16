@@ -44,6 +44,8 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
     private int finalX;
     private int finalY;
 
+    private Background lastScence;
+
     public GameFrame() {
         // set window's size
         this.setSize(800, 600);
@@ -134,6 +136,13 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
                 break;   
         }
 
+        // if background changed, reset all counter
+        if (lastScence != currentBackground) {
+            count = 0;
+            count1 = 0;
+            lastScence = currentBackground;
+        }
+
         // draw enemies
         Iterator<Enemy> iterator = currentBackground.getEnemies().iterator();
         while (iterator.hasNext()) {
@@ -143,10 +152,9 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
                 if (count1 == 0) {
                     finalX = enemy.getX();
                     finalY = enemy.getY();
-                    
                 }
                 if (count1 < 14) {
-                    graphics.drawImage(StaticValue.enemy_death.get(count1), finalX, finalY - 30, this);
+                    graphics.drawImage(StaticValue.enemyDeath.get(count1), finalX, finalY - 30, this);
                     count1++;
                 } else {
                     iterator.remove();
@@ -161,8 +169,7 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
                     graphics.setColor(Color.ORANGE);
                     graphics.drawString(enemy.speak(), enemy.getX() - 10, enemy.getY() - 40);
                     count++;
-                }                                                                                 
-            
+                }                                                                                
                 // draw enemy hp bar
                 graphics.drawImage(enemy.getHpBar(), enemy.getX() - 10, enemy.getY() - 20, this);
                 graphics.setColor(Color.RED);

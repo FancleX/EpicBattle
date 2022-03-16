@@ -4,7 +4,6 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import Character.Enemy;
-import Character.Hero;
 import Frame.Background;
 import Frame.StaticValue;
 
@@ -33,8 +32,6 @@ public class Ranged implements Weapon, Runnable {
     private boolean userAttack = false;
     // current enemy
     private Enemy currentEnemy;
-    // explosion image
-    private BufferedImage explosion = StaticValue.ranged_effects.get(2);
 
     public Ranged(Background background) {
         this.strenght = 30;
@@ -52,9 +49,9 @@ public class Ranged implements Weapon, Runnable {
     public BufferedImage getCurrentImage(boolean isRight) {
         this.isRight = isRight;
         if (isRight) {
-            currentImage = StaticValue.ranged_effects.get(0);
+            currentImage = StaticValue.rangedEffects.get(0);
         } else {
-            currentImage = StaticValue.ranged_effects.get(1);
+            currentImage = StaticValue.rangedEffects.get(1);
         }
         return currentImage;
     }
@@ -145,10 +142,6 @@ public class Ranged implements Weapon, Runnable {
         return durability;
     }
     
-    public BufferedImage getExplosionImage() {
-        return explosion;
-    }
-
     public int getX() {
         return effectsX;
     }

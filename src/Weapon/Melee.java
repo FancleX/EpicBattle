@@ -1,6 +1,5 @@
 package Weapon;
 
-import java.awt.Image;
 import java.awt.Rectangle;
 import Frame.*;
 import Character.*;
@@ -50,9 +49,9 @@ public class Melee implements Weapon, Runnable {
     public BufferedImage getCurrentImage(boolean isRight) {
         this.isRight = isRight;
         if (isRight) {
-            currentImage = StaticValue.melee_effects.get(0);
+            currentImage = StaticValue.meleeEffects.get(0);
         } else {
-            currentImage = StaticValue.melee_effects.get(1);
+            currentImage = StaticValue.meleeEffects.get(1);
         }
         return currentImage;
     }
@@ -141,11 +140,6 @@ public class Melee implements Weapon, Runnable {
     public int getDurability() {
         return durability;
     }
-
-	@Override
-	public BufferedImage getExplosionImage() {
-		return null;
-	}
 
     @Override
     public int getX() {

@@ -39,11 +39,11 @@ public class Enemy implements Runnable{
     // width
     private int width = 40;
     // hp bar
-    private BufferedImage hpBar = StaticValue.enemy_hp;
+    private BufferedImage hpBar = StaticValue.enemyHP;
     // total hp
     private int totalHP;
     // dialog
-    private BufferedImage dialog = StaticValue.enemy_dialog;
+    private BufferedImage dialog = StaticValue.enemyDialog;
     // determine if the enemy is first released
     private boolean firstAppearance = true;
     // speaking phases
@@ -77,19 +77,19 @@ public class Enemy implements Runnable{
                 this.hp = 100;
                 this.mana = 0;
                 totalHP = 100;
-                currentImage = StaticValue.enemy_run_left_melee.get(0);
+                currentImage = StaticValue.enemyRunLeftMelee.get(0);
                 break;
             case 1:
                 this.strenght = 7;
                 this.strenght = 50;
                 this.mana = 0;
-                currentImage = StaticValue.enemy_run_left_ranged.get(0);
+                currentImage = StaticValue.enemyRunLeftRanged.get(0);
                 break;
             case 2:
                 this.strenght = 10;
                 this.hp = 20;
                 this.mana = Integer.MAX_VALUE;
-                currentImage = StaticValue.enemy_run_left_magic.get(0);
+                currentImage = StaticValue.enemyRunLeftMagic.get(0);
                 break;
         }
         this.x = x;
@@ -103,7 +103,7 @@ public class Enemy implements Runnable{
 
      // death
      public void death() {
-        currentImage = StaticValue.enemy_death.get(0);
+        currentImage = StaticValue.enemyDeath.get(0);
     }
 
     // enemy hurted
@@ -129,28 +129,28 @@ public class Enemy implements Runnable{
             switch (type) {
                 case 0:
                     if (faceRight) {
-                        currentImage = StaticValue.enemy_run_right_melee.get(iterator);
+                        currentImage = StaticValue.enemyRunRightMelee.get(iterator);
                         x += 3;
                     } else {
-                        currentImage = StaticValue.enemy_run_left_melee.get(iterator);
+                        currentImage = StaticValue.enemyRunLeftMelee.get(iterator);
                         x -= 3;
                     }
                     break;
                 case 1:
                     if (faceRight) {
-                        currentImage = StaticValue.enemy_run_right_ranged.get(iterator);
+                        currentImage = StaticValue.enemyRunRightRanged.get(iterator);
                         x += 3;
                     } else {
-                        currentImage = StaticValue.enemy_run_left_ranged.get(iterator);
+                        currentImage = StaticValue.enemyRunLeftRanged.get(iterator);
                         x -= 3;
                     }
                     break;
                 case 2:
                     if (faceRight) {
-                        currentImage = StaticValue.enemy_run_right_magic.get(iterator);
+                        currentImage = StaticValue.enemyRunRightMagic.get(iterator);
                         x += 3;
                     } else {
-                        currentImage = StaticValue.enemy_run_left_magic.get(iterator);
+                        currentImage = StaticValue.enemyRunLeftMagic.get(iterator);
                         x -= 3;
                     }
                     break;

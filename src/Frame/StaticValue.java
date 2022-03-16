@@ -14,27 +14,27 @@ public class StaticValue {
     public static BufferedImage background3 = null;
 
     // character stand with melee weapon
-    public static BufferedImage melee_weapon_left = null;
-    public static BufferedImage melee_weapon_right = null;
+    public static BufferedImage meleeWeaponLeft = null;
+    public static BufferedImage meleeWeaponRight = null;
 
     // character stand with ranged weapon
-    public static BufferedImage ranged_weapon_left = null;
-    public static BufferedImage ranged_weapon_right = null;
+    public static BufferedImage rangedWeaponLeft = null;
+    public static BufferedImage rangedWeaponRight = null;
 
     // character stand with magic weapon
-    public static BufferedImage magic_weapon_left = null;
-    public static BufferedImage magic_weapon_right = null;
+    public static BufferedImage magicWeaponLeft = null;
+    public static BufferedImage magicWeaponRight = null;
 
     // hero jumps to right and left
     // melee
-    public static BufferedImage jump_to_right_melee = null;
-    public static BufferedImage jump_to_left_melee = null;
+    public static BufferedImage jumpToRightMelee = null;
+    public static BufferedImage jumpToLeftMelee = null;
     // ranged
-    public static BufferedImage jump_to_right_ranged = null;
-    public static BufferedImage jump_to_left_ranged = null;
+    public static BufferedImage jumpToRightRanged = null;
+    public static BufferedImage jumpToLeftRanged = null;
     // magic
-    public static BufferedImage jump_to_right_magic = null;
-    public static BufferedImage jump_to_left_magic = null;
+    public static BufferedImage jumpToRightMagic = null;
+    public static BufferedImage jumpToLeftMagic = null;
 
     // teleporter
     public static BufferedImage teleporter = null;
@@ -47,66 +47,66 @@ public class StaticValue {
 
     // hero
     // character run to right with melee weapon
-    public static List<BufferedImage> hero_run_right_melee = new ArrayList<>();
+    public static List<BufferedImage> heroRunRightMelee = new ArrayList<>();
 
     // character run to left with melee weapon
-    public static List<BufferedImage> hero_run_left_melee = new ArrayList<>();
+    public static List<BufferedImage> heroRunLeftMelee = new ArrayList<>();
 
     // character run to right with ranged weapon
-    public static List<BufferedImage> hero_run_right_ranged = new ArrayList<>();
+    public static List<BufferedImage> heroRunRightRanged = new ArrayList<>();
 
     // character run to left with melee weapon
-    public static List<BufferedImage> hero_run_left_ranged = new ArrayList<>();
+    public static List<BufferedImage> heroRunLeftRanged = new ArrayList<>();
 
     // character run to right with magic weapon
-    public static List<BufferedImage> hero_run_right_magic = new ArrayList<>();
+    public static List<BufferedImage> heroRunRightMagic = new ArrayList<>();
 
     // character run to left with magic weapon
-    public static List<BufferedImage> hero_run_left_magic = new ArrayList<>();
+    public static List<BufferedImage> heroRunLeftMagic = new ArrayList<>();
 
     // UI
-    public static BufferedImage hero_ui = null;
+    public static BufferedImage heroUI = null;
 
     // hero death
-    public static BufferedImage hero_death = null;
+    public static BufferedImage heroDeath = null;
 
     // melee weapon effect
-    public static List<BufferedImage> melee_effects = new ArrayList<>();
+    public static List<BufferedImage> meleeEffects = new ArrayList<>();
 
     // ranged weapon effect
-    public static List<BufferedImage> ranged_effects = new ArrayList<>();
+    public static List<BufferedImage> rangedEffects = new ArrayList<>();
 
     // magic weapon effect
-    public static List<BufferedImage> magic_effects = new ArrayList<>();
+    public static List<BufferedImage> magicEffects = new ArrayList<>();
 
 
     // ememy
     // character run to right with melee weapon
-    public static List<BufferedImage> enemy_run_right_melee = new ArrayList<>();
+    public static List<BufferedImage> enemyRunRightMelee = new ArrayList<>();
 
     // character run to left with melee weapon
-    public static List<BufferedImage> enemy_run_left_melee = new ArrayList<>();
+    public static List<BufferedImage> enemyRunLeftMelee = new ArrayList<>();
 
     // character run to right with ranged weapon
-    public static List<BufferedImage> enemy_run_right_ranged = new ArrayList<>();
+    public static List<BufferedImage> enemyRunRightRanged = new ArrayList<>();
 
     // character run to left with melee weapon
-    public static List<BufferedImage> enemy_run_left_ranged = new ArrayList<>();
+    public static List<BufferedImage> enemyRunLeftRanged = new ArrayList<>();
 
     // character run to right with magic weapon
-    public static List<BufferedImage> enemy_run_right_magic = new ArrayList<>();
+    public static List<BufferedImage> enemyRunRightMagic = new ArrayList<>();
 
     // character run to left with magic weapon
-    public static List<BufferedImage> enemy_run_left_magic = new ArrayList<>();
+    public static List<BufferedImage> enemyRunLeftMagic = new ArrayList<>();
 
     // enemy hp bar
-    public static BufferedImage enemy_hp = null;
+    public static BufferedImage enemyHP = null;
 
     // death
-    public static List<BufferedImage> enemy_death = new ArrayList<>();
+    public static List<BufferedImage> enemyDeath = new ArrayList<>();
 
     // enemy dialog
-    public static BufferedImage enemy_dialog = null;
+    public static BufferedImage enemyDialog = null;
 
     // path define
     public static String path = System.getProperty("user.dir") + "/src/images/";
@@ -121,10 +121,10 @@ public class StaticValue {
             background3 = ImageIO.read(new File(path + "background3.jpg"));
 
             // initialize hero stands up with different weapon images
-            melee_weapon_left = ImageIO.read(new File(path + "character_stand_left_melee.png"));
-            melee_weapon_right = ImageIO.read(new File(path + "character_stand_right_melee.png"));
-            ranged_weapon_left = ImageIO.read(new File(path + "character_stand_left_ranged.png"));
-            ranged_weapon_right = ImageIO.read(new File(path + "character_stand_right_ranged.png"));
+            meleeWeaponLeft = ImageIO.read(new File(path + "character_stand_left_melee.png"));
+            meleeWeaponRight = ImageIO.read(new File(path + "character_stand_right_melee.png"));
+            rangedWeaponLeft = ImageIO.read(new File(path + "character_stand_left_ranged.png"));
+            rangedWeaponRight = ImageIO.read(new File(path + "character_stand_right_ranged.png"));
             // magic_weapon_left = ImageIO.read(new File(path + ""));
             // magic_weapon_right = ImageIO.read(new File(path + ""));
 
@@ -136,17 +136,17 @@ public class StaticValue {
 
             // initialize jump
             // melee
-            jump_to_left_melee = ImageIO.read(new File(path + "jump_to_left_melee.png"));
-            jump_to_right_melee = ImageIO.read(new File(path + "jump_to_right_melee.png"));
+            jumpToLeftMelee = ImageIO.read(new File(path + "jump_to_left_melee.png"));
+            jumpToRightMelee = ImageIO.read(new File(path + "jump_to_right_melee.png"));
             // ranged
-            jump_to_left_ranged = ImageIO.read(new File(path + "jump_to_left_ranged.png"));
-            jump_to_right_ranged = ImageIO.read(new File(path + "jump_to_right_ranged.png"));
+            jumpToLeftRanged = ImageIO.read(new File(path + "jump_to_left_ranged.png"));
+            jumpToRightRanged = ImageIO.read(new File(path + "jump_to_right_ranged.png"));
             // magic
-            // jump_to_left_magic = ImageIO.read(new File(path + "jump_to_left_magic.png"));
-            // jump_to_right_magic = ImageIO.read(new File(path + "jump_to_right_magic.png"));
+            // jumpToLeftMgic = ImageIO.read(new File(path + "jump_to_left_magic.png"));
+            // jumpToRightMagic = ImageIO.read(new File(path + "jump_to_right_magic.png"));
 
             // initialize UI
-            hero_ui = ImageIO.read(new File(path + "hero_ui.png"));
+            heroUI = ImageIO.read(new File(path + "hero_ui.png"));
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -156,9 +156,9 @@ public class StaticValue {
         // initialize hero running left
         for (int i = 1; i <= 2; i++) {
             try {
-                hero_run_left_melee.add(ImageIO.read(new File(path + "hero_run" + i + "_left_melee.png")));
-                hero_run_left_ranged.add(ImageIO.read(new File(path + "hero_run" + i + "_left_ranged.png")));
-                // hero_run_left_magic.add(ImageIO.read(new File(path + "hero_run" + i + "_left_magic.png")));
+                heroRunLeftMelee.add(ImageIO.read(new File(path + "hero_run" + i + "_left_melee.png")));
+                heroRunLeftRanged.add(ImageIO.read(new File(path + "hero_run" + i + "_left_ranged.png")));
+                // heroRunLeftMagic.add(ImageIO.read(new File(path + "hero_run" + i + "_left_magic.png")));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -166,9 +166,9 @@ public class StaticValue {
         // initialize hero running right
         for (int i = 1; i <= 2; i++) {
             try {
-                hero_run_right_melee.add(ImageIO.read(new File(path + "hero_run" + i + "_right_melee.png")));
-                hero_run_right_ranged.add(ImageIO.read(new File(path + "hero_run" + i + "_right_ranged.png")));
-                // hero_run_right_magic.add(ImageIO.read(new File(path + "hero_run" + i + "_right_magic.png")));
+                heroRunRightMelee.add(ImageIO.read(new File(path + "hero_run" + i + "_right_melee.png")));
+                heroRunRightRanged.add(ImageIO.read(new File(path + "hero_run" + i + "_right_ranged.png")));
+                // heroRunRightMagic.add(ImageIO.read(new File(path + "hero_run" + i + "_right_magic.png")));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -184,7 +184,7 @@ public class StaticValue {
         }
         // hero death
         try {
-            hero_death = ImageIO.read(new File(path + "hero_death.png"));
+            heroDeath = ImageIO.read(new File(path + "hero_death.png"));
         } catch (IOException e1) {
             e1.printStackTrace();
         }
@@ -192,15 +192,15 @@ public class StaticValue {
         try {
             // melee effects
             for (int i = 1; i <= 2; i++) {
-                melee_effects.add(ImageIO.read(new File(path + "melee_effects" + i + ".png")));
+                meleeEffects.add(ImageIO.read(new File(path + "melee_effects" + i + ".png")));
             }
             // ranged effects
             for (int i = 1; i <= 3; i++) {
-                ranged_effects.add(ImageIO.read(new File(path + "ranged_effects" + i + ".png")));
+                rangedEffects.add(ImageIO.read(new File(path + "ranged_effects" + i + ".png")));
             }
             // magic effects
             for (int i = 1; i <= 2; i++) {
-                magic_effects.add(ImageIO.read(new File(path + "magic_effects" + i + ".png")));
+                magicEffects.add(ImageIO.read(new File(path + "magic_effects" + i + ".png")));
             }
 
         } catch (IOException e1) {
@@ -211,7 +211,7 @@ public class StaticValue {
         // right
         for (int i = 1; i <= 2; i++) {
             try {
-                enemy_run_right_melee.add(ImageIO.read(new File(path + "enemy_run" + i + "_right_melee.png")));
+                enemyRunRightMelee.add(ImageIO.read(new File(path + "enemy_run" + i + "_right_melee.png")));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -219,7 +219,7 @@ public class StaticValue {
         // left
         for (int i = 1; i <= 2; i++) {
             try {
-                enemy_run_left_melee.add(ImageIO.read(new File(path + "enemy_run" + i + "_left_melee.png")));
+                enemyRunLeftMelee.add(ImageIO.read(new File(path + "enemy_run" + i + "_left_melee.png")));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -227,10 +227,10 @@ public class StaticValue {
         // death, hp bar, dialog
         try {
             for (int i = 1; i <= 14; i++) {
-                enemy_death.add(ImageIO.read(new File(path + "enemy_death" + i + ".gif")));
+                enemyDeath.add(ImageIO.read(new File(path + "enemy_death" + i + ".gif")));
             }
-            enemy_hp = ImageIO.read(new File(path + "enemy_ui.png"));
-            enemy_dialog = ImageIO.read(new File(path + "enemy_dialog.png"));
+            enemyHP = ImageIO.read(new File(path + "enemy_ui.png"));
+            enemyDialog = ImageIO.read(new File(path + "enemy_dialog.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

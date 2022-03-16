@@ -34,8 +34,6 @@ public interface Weapon {
 
     int getDurability();
 
-    BufferedImage getExplosionImage();
-
     int getX();
 
     int getY();
