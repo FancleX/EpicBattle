@@ -2,6 +2,7 @@ package Weapon;
 
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.util.Random;
 
 import Character.Enemy;
 import Frame.Background;
@@ -32,6 +33,10 @@ public class Ranged implements Weapon, Runnable {
     private boolean userAttack = false;
     // current enemy
     private Enemy currentEnemy;
+    // current strength
+    private int currentStrength;
+    // random
+    private Random rd = new Random();
 
     public Ranged(Background background) {
         this.strenght = 30;
@@ -40,10 +45,11 @@ public class Ranged implements Weapon, Runnable {
         thread.start();
     }
 
+    // weapon can crit up to 2 times damage
     @Override
     public void crit() {
-        // TODO Auto-generated method stub
-        
+        int type = rd.nextInt(3);
+        currentStrength = strenght * type; 
     }
 
     public BufferedImage getCurrentImage(boolean isRight) {
@@ -133,7 +139,14 @@ public class Ranged implements Weapon, Runnable {
 
     @Override
     public int getStrength() {
-        return strenght;
+        int chance = rd.nextInt(4);
+        if (chance != 0) {
+            crit();
+            return currentStrength;
+        } else {
+            return 0;
+        }
+
     }
 
 

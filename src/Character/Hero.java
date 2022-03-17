@@ -3,6 +3,7 @@ package Character;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.awt.Rectangle;
 
 import Frame.*;
@@ -80,6 +81,8 @@ public class Hero implements Runnable{
     private BufferedImage currentWeaponEffects = null;
     // if hero runs out of weapon then fail the game
     private boolean isNoWeapon = false;
+    // random
+    Random rd = new Random();
 
     public Hero(String name, int strenght, int hp, int mana) {
         this.name = name;
@@ -277,17 +280,23 @@ public class Hero implements Runnable{
             case MELEE:
                 weapon = weapons.get(0);
                 // bonus damage from the weapon
-                damage = this.strenght + weapon.getStrength();
+                damage = rd.nextInt(this.strenght + 1) + weapon.getStrength();
                 break;
             case RANGED:
                 weapon = weapons.get(1);
                 // bonus damage from the weapon
-                damage = this.strenght + weapon.getStrength();
+                // determine if the weapon missing the attack, 25% possibility
+                int chance = weapon.getStrength();
+                if (chance == 0) {
+                    damage = 0;
+                } else {
+                    damage =  rd.nextInt(this.strenght + 1) + chance;
+                }
                 break;
             case MAGIC:
                 weapon = weapons.get(2);
                 // bonus damage from the weapon
-                damage = this.strenght + weapon.getStrength();
+                damage =  rd.nextInt(this.strenght + 1) + weapon.getStrength();
                 break;
         }
         return damage;

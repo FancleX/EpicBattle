@@ -4,6 +4,7 @@ import java.awt.Rectangle;
 import Frame.*;
 import Character.*;
 import java.awt.image.BufferedImage;
+import java.util.Random;
 
 public class Melee implements Weapon, Runnable {
     
@@ -30,6 +31,10 @@ public class Melee implements Weapon, Runnable {
     private boolean userAttack = false;
     // current enemy
     private Enemy currentEnemy;
+    // current strength
+    private int currentStrength;
+    // random
+    private Random rd = new Random();
 
     public Melee(Background background) {
         this.strenght = 2;
@@ -38,11 +43,11 @@ public class Melee implements Weapon, Runnable {
         thread.start();
     }
 
-    
+    // weapon can crit up to 2 times damage
     @Override
     public void crit() {
-        // TODO Auto-generated method stub
-        
+        int type = rd.nextInt(3);
+        currentStrength = strenght * type; 
     }
 
     @Override
@@ -133,7 +138,8 @@ public class Melee implements Weapon, Runnable {
 
     @Override
     public int getStrength() {
-        return strenght;
+        crit();
+        return currentStrength;
     }
 
     @Override
