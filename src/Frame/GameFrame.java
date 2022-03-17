@@ -128,23 +128,23 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
         // draw hp
         graphics.setColor(Color.RED);
         // hero.setCurrentHp(73);
-        graphics.fillRect(110, 75, (int) ((float) hero.getCurrentlHp() / hero.getHp() * 165), 5);
+        graphics.fillRect(110, 76, (int) ((float) hero.getCurrentlHp() / hero.getHp() * 165), 5);
         // draw mana
         graphics.setColor(Color.BLUE);
-        graphics.fillRect(110, 87, (int) ((float) hero.getCurrentMana() / hero.getMana() * 165), 5);
+        graphics.fillRect(110, 88, (int) ((float) hero.getCurrentMana() / hero.getMana() * 165), 5);
         // draw weapon durability
         switch (hero.getCurrentWeapon()) {
             case MELEE:
                 graphics.setColor(Color.GREEN);
-                graphics.fillRoundRect(105, 54, (int) ((float) hero.getWeapons().get(0).getDurability() / 100 * 26), 12, 17, 17);
+                graphics.fillRoundRect(106, 54, (int) ((float) hero.getWeapons().get(0).getDurability() / 100 * 26), 13, 17, 17);
                 break;
             case RANGED:
                 graphics.setColor(Color.GREEN);
-                graphics.fillRoundRect(105, 54, (int) ((float) hero.getWeapons().get(1).getDurability() / 70 * 26), 12, 17, 17);
+                graphics.fillRoundRect(106, 54, (int) ((float) hero.getWeapons().get(1).getDurability() / 70 * 26), 13, 17, 17);
                 break;
             case MAGIC:
                 graphics.setColor(Color.GREEN);
-                graphics.fillRoundRect(105, 54, (int) ((float) hero.getWeapons().get(2).getDurability() / 100 * 26), 12, 17, 17);
+                graphics.fillRoundRect(106, 54, (int) ((float) hero.getWeapons().get(2).getDurability() / 100 * 26), 13, 17, 17);
                 break;   
         }
         
