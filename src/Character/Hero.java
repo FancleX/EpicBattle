@@ -435,6 +435,7 @@ public class Hero implements Runnable{
             } else if (weaponList.isEmpty()) {
                 isNoWeapon = true;
             }
+            // recover mana
             if (currentMana < 100) {
                 currentMana += 1;
             }

@@ -16,10 +16,6 @@ import javax.swing.JOptionPane;
 
 import Character.Enemy;
 import Character.Hero;
-import Weapon.Armory;
-import Weapon.Bullet;
-import Weapon.Weapon;
-import javazoom.jl.decoder.JavaLayerException;
 import music.Music;
 
 public class GameFrame extends JFrame implements KeyListener, Runnable {
@@ -49,8 +45,6 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
     private int finalY;
     // last scence
     private Background lastScence;
-    // determine if user read the message
-    private boolean click = false;
 
     public GameFrame() {
         // set window's size
@@ -80,17 +74,15 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
         // set first scence to current scence
         currentBackground = allBackground.get(0);
         hero.setBackground(currentBackground);
-
         // sketch background
         repaint();
+        // show tips
+        JOptionPane.showMessageDialog(this, "Tips: Grean bar is your current weapon's durability, \n red bar is your current hp, \n blue bar is your current mana. \n"
+            + "Weapon will lose if the durability drop to zero. \n If you run out of weapons, you fail the battle!");  
         // start thread
         thread.start();
         // add music
-        // try {
-        //     new Music();
-        // } catch (FileNotFoundException | JavaLayerException e) {
-        //     e.printStackTrace();
-        // }
+        new Music();
     }
 
     @Override
@@ -302,13 +294,6 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
                 switch (currentLevel) {
                     // level 1
                     case 1:
-                        // tips
-                        if (!click) {
-                            JOptionPane.showMessageDialog(this, "Tips: Grean bar is your current weapon's durability, red bar is your current hp, blue bar is your current mana."
-                            + "Weapon will lose if the durability drop to zero. If you run out of weapons, you fail the battle!");  
-                            JOptionPane.getRootFrame().dispose();
-                            click = true;
-                        }
                         // level 1 pass condition
                         if ((hero.getX() >= 740 && hero.getY() >= 460 && hero.getY() <= 550) && currentBackground.getEnemies().isEmpty()) {
                             currentBackground = allBackground.get(currentBackground.getCurrentScence());
