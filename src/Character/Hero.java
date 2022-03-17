@@ -365,8 +365,6 @@ public class Hero implements Runnable{
                 switch (currentWeapon) {
                     case MELEE:
                         Weapon melee = weapons.get(0);
-                        // melee.setXY(x, y);
-                        // melee.setBackground(background);
                         if (melee.isAttacked()) {
                             Enemy enemy = melee.getInjuredEnemy();
                             enemy.hurted(causedDamage());
@@ -388,9 +386,7 @@ public class Hero implements Runnable{
                         break;
                     case RANGED:
                         Weapon ranged = weapons.get(1);
-                        // ranged.setXY(x, y);
-                        // ranged.setBackground(background);
-                        System.err.println("durability: " + ranged.getDurability());
+                        // System.err.println("durability: " + ranged.getDurability());
                         if (ranged.isAttacked()) {
                             Enemy enemy = ranged.getInjuredEnemy();
                             enemy.hurted(causedDamage());
@@ -411,8 +407,6 @@ public class Hero implements Runnable{
                         break;
                     case MAGIC:
                         Weapon magic = weapons.get(2);
-                        // magic.setXY(x, y);
-                        // magic.setBackground(background);
                         if (magic.isAttacked()) {
                             Enemy enemy = magic.getInjuredEnemy();
                             enemy.hurted(causedDamage());
@@ -420,23 +414,31 @@ public class Hero implements Runnable{
                             magic.setIsAttacked(false);
                         }
                         // reduce mana
-                        currentMana -= 15;
+                        currentMana -= 40;
                         // reduce durability
-                        durabilityDeduction = 15;
-                        try {
-                            // decreaes weapon durability
-                            magic.setDurability(durabilityDeduction);
-                        } catch (Exception e) {
+                        durabilityDeduction = 10;
+                        if (currentMana <= 0 && weaponList.size() != 1) {
                             changeWeapon();
-                            // weapon durability down to 0, remove it 
-                            weaponList.remove(Armory.MAGIC);
-                            e.printStackTrace();
+                        } else {
+                            try {
+                                // decreaes weapon durability
+                                magic.setDurability(durabilityDeduction);
+                            } catch (Exception e) {
+                                changeWeapon();
+                                // weapon durability down to 0, remove it 
+                                weaponList.remove(Armory.MAGIC);
+                                e.printStackTrace();
+                            }
                         }
                         break;
                 }
             } else if (weaponList.isEmpty()) {
                 isNoWeapon = true;
             }
+            if (currentMana < 100) {
+                currentMana += 1;
+            }
+
 
             // display the action of jumping
             // stand on the obstacle
