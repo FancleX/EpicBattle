@@ -144,7 +144,7 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
                 break;
             case MAGIC:
                 graphics.setColor(Color.GREEN);
-                graphics.fillRoundRect(105, 54, (int) ((float) hero.getWeapons().get(2).getDurability() / 60 * 26), 12, 17, 17);
+                graphics.fillRoundRect(105, 54, (int) ((float) hero.getWeapons().get(2).getDurability() / 100 * 26), 12, 17, 17);
                 break;   
         }
         

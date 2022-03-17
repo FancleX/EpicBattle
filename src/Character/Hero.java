@@ -419,8 +419,10 @@ public class Hero implements Runnable{
                             // finish attacking
                             magic.setIsAttacked(false);
                         }
+                        // reduce mana
+                        currentMana -= 15;
                         // reduce durability
-                        durabilityDeduction = 0;
+                        durabilityDeduction = 15;
                         try {
                             // decreaes weapon durability
                             magic.setDurability(durabilityDeduction);

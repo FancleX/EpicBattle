@@ -36,7 +36,7 @@ public class Magic implements Weapon, Runnable{
 
     public Magic(Background background) {
         this.strenght = 50;
-        this.durability = 60;
+        this.durability = 100;
         this.background = background;
         thread.start();
     }
