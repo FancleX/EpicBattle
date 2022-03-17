@@ -82,22 +82,14 @@ public class StaticValue {
 
     // ememy
     // character run to right with melee weapon
-    public static List<BufferedImage> enemyRunRightMelee = new ArrayList<>();
+    public static List<BufferedImage> enemyRunRight = new ArrayList<>();
 
     // character run to left with melee weapon
-    public static List<BufferedImage> enemyRunLeftMelee = new ArrayList<>();
+    public static List<BufferedImage> enemyRunLeft = new ArrayList<>();
 
-    // character run to right with ranged weapon
-    public static List<BufferedImage> enemyRunRightRanged = new ArrayList<>();
-
-    // character run to left with melee weapon
-    public static List<BufferedImage> enemyRunLeftRanged = new ArrayList<>();
-
-    // character run to right with magic weapon
-    public static List<BufferedImage> enemyRunRightMagic = new ArrayList<>();
-
-    // character run to left with magic weapon
-    public static List<BufferedImage> enemyRunLeftMagic = new ArrayList<>();
+    // bullet
+    public static BufferedImage bulletLeft = null;
+    public static BufferedImage bulletRight = null;
 
     // enemy hp bar
     public static BufferedImage enemyHP = null;
@@ -195,7 +187,7 @@ public class StaticValue {
                 meleeEffects.add(ImageIO.read(new File(path + "melee_effects" + i + ".png")));
             }
             // ranged effects
-            for (int i = 1; i <= 3; i++) {
+            for (int i = 1; i <= 2; i++) {
                 rangedEffects.add(ImageIO.read(new File(path + "ranged_effects" + i + ".png")));
             }
             // magic effects
@@ -208,40 +200,27 @@ public class StaticValue {
         }
 
         // initialize enemy
-        // right
+        // walk right and left
         for (int i = 1; i <= 2; i++) {
             try {
-                enemyRunRightMelee.add(ImageIO.read(new File(path + "enemy_run" + i + "_right_melee.png")));
+                enemyRunRight.add(ImageIO.read(new File(path + "enemy_run" + i + "_right_melee.png")));
+                enemyRunLeft.add(ImageIO.read(new File(path + "enemy_run" + i + "_left_melee.png")));
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        // left
-        for (int i = 1; i <= 2; i++) {
-            try {
-                enemyRunLeftMelee.add(ImageIO.read(new File(path + "enemy_run" + i + "_left_melee.png")));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        // death, hp bar, dialog
+
+        // death, hp bar, dialog, bullet
         try {
             for (int i = 1; i <= 14; i++) {
                 enemyDeath.add(ImageIO.read(new File(path + "enemy_death" + i + ".gif")));
             }
             enemyHP = ImageIO.read(new File(path + "enemy_ui.png"));
             enemyDialog = ImageIO.read(new File(path + "enemy_dialog.png"));
+            bulletLeft = ImageIO.read(new File(path + "bullet_left.png"));
+            bulletRight = ImageIO.read(new File(path + "bullet_right.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
-
-
-        
-
     }
-
-
-
 }

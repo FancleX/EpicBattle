@@ -107,7 +107,7 @@ public class Magic implements Weapon, Runnable{
 
     @Override
     public Rectangle toRectangle() {
-        return new Rectangle(effectsX, effectsY, width, height);
+        return new Rectangle(effectsX - 5, effectsY - 5, width + 10, height + 10);
     }
    public boolean isAttacked() {
         return isAttacked;

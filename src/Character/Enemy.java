@@ -7,6 +7,7 @@ import java.util.Random;
 import java.awt.Rectangle;
 
 import Frame.*;
+import Weapon.Bullet;
 
 public class Enemy implements Runnable{
 
@@ -44,12 +45,12 @@ public class Enemy implements Runnable{
     private int totalHP;
     // dialog
     private BufferedImage dialog = StaticValue.enemyDialog;
-    // determine if the enemy is first released
-    private boolean firstAppearance = true;
     // speaking phases
     private String[] texts = {"You're a loser!", "Cringe guy!", "Darkness!"};
     // message type
     private int messageType;
+    // bullet
+    Bullet bullet = new Bullet(300, 400, faceRight);
 
     /* 
         enemy with melee info:
@@ -71,27 +72,33 @@ public class Enemy implements Runnable{
         mana = Infinite
     */
     public Enemy(int x, int y, boolean faceRight, int type, Background background, int message) {
-        switch (type) {
-            case 0: 
-                this.strenght = 5;
-                this.hp = 100;
-                this.mana = 0;
-                totalHP = 100;
-                currentImage = StaticValue.enemyRunLeftMelee.get(0);
-                break;
-            case 1:
-                this.strenght = 7;
-                this.strenght = 50;
-                this.mana = 0;
-                currentImage = StaticValue.enemyRunLeftRanged.get(0);
-                break;
-            case 2:
-                this.strenght = 10;
-                this.hp = 20;
-                this.mana = Integer.MAX_VALUE;
-                currentImage = StaticValue.enemyRunLeftMagic.get(0);
-                break;
-        }
+        // switch (type) {
+        //     case 0: 
+        //         this.strenght = 5;
+        //         this.hp = 100;
+        //         this.mana = 0;
+        //         totalHP = 100;
+        //         currentImage = StaticValue.enemyRunLeftMelee.get(0);
+        //         break;
+        //     case 1:
+        //         this.strenght = 7;
+        //         this.strenght = 50;
+        //         this.mana = 0;
+        //         currentImage = StaticValue.enemyRunLeftRanged.get(0);
+        //         break;
+        //     case 2:
+        //         this.strenght = 10;
+        //         this.hp = 20;
+        //         this.mana = Integer.MAX_VALUE;
+        //         currentImage = StaticValue.enemyRunLeftMagic.get(0);
+        //         break;
+        // }
+        this.strenght = 5;
+        this.hp = 100;
+        this.mana = 0;
+        totalHP = 100;
+        currentImage = StaticValue.enemyRunLeft.get(0);
+
         this.x = x;
         this.y = y;
         this.faceRight = faceRight;
@@ -126,34 +133,42 @@ public class Enemy implements Runnable{
     public void run() {
         while (isAlive()) {
             iterator = iterator == 0 ? 1 : 0;
-            switch (type) {
-                case 0:
-                    if (faceRight) {
-                        currentImage = StaticValue.enemyRunRightMelee.get(iterator);
-                        x += 3;
-                    } else {
-                        currentImage = StaticValue.enemyRunLeftMelee.get(iterator);
-                        x -= 3;
-                    }
-                    break;
-                case 1:
-                    if (faceRight) {
-                        currentImage = StaticValue.enemyRunRightRanged.get(iterator);
-                        x += 3;
-                    } else {
-                        currentImage = StaticValue.enemyRunLeftRanged.get(iterator);
-                        x -= 3;
-                    }
-                    break;
-                case 2:
-                    if (faceRight) {
-                        currentImage = StaticValue.enemyRunRightMagic.get(iterator);
-                        x += 3;
-                    } else {
-                        currentImage = StaticValue.enemyRunLeftMagic.get(iterator);
-                        x -= 3;
-                    }
-                    break;
+            // switch (type) {
+            //     case 0:
+            //         if (faceRight) {
+            //             currentImage = StaticValue.enemyRunRightMelee.get(iterator);
+            //             x += 3;
+            //         } else {
+            //             currentImage = StaticValue.enemyRunLeftMelee.get(iterator);
+            //             x -= 3;
+            //         }
+            //         break;
+            //     case 1:
+            //         if (faceRight) {
+            //             currentImage = StaticValue.enemyRunRightRanged.get(iterator);
+            //             x += 3;
+            //         } else {
+            //             currentImage = StaticValue.enemyRunLeftRanged.get(iterator);
+            //             x -= 3;
+            //         }
+            //         break;
+            //     case 2:
+            //         if (faceRight) {
+            //             currentImage = StaticValue.enemyRunRightMagic.get(iterator);
+            //             x += 3;
+            //         } else {
+            //             currentImage = StaticValue.enemyRunLeftMagic.get(iterator);
+            //             x -= 3;
+            //         }
+            //         break;
+            // }
+
+            if (faceRight) {
+                currentImage = StaticValue.enemyRunRight.get(iterator);
+                x += 3;
+            } else {
+                currentImage = StaticValue.enemyRunLeft.get(iterator);
+                x -= 3;
             }
 
             // determine if enemy can walk right and left
@@ -161,11 +176,11 @@ public class Enemy implements Runnable{
             boolean walkLeft = true;
             for (int i = 0; i < background.getObstacleList().size(); i++) {
                 Obstacle obstacle = background.getObstacleList().get(i);
-                // if can walk right
+                // can't walk right
                 if (obstacle.toRectangle().intersects(toRectangle()) && (obstacle.getY() > this.y - 5 && obstacle.getY() < this.y + 55)) {
                     walkRight = false;
                 }
-                // if can walk left
+                // can't walk left
                 if (obstacle.toRectangle().intersects(toRectangle()) && (obstacle.getY() > this.y - 5 && obstacle.getY() < this.y + 55)) {
                     walkLeft = false;
                 }
@@ -180,6 +195,9 @@ public class Enemy implements Runnable{
             else if (((!faceRight) && (!walkLeft)) || x < maxLeft) {
                 faceRight = true;
             }
+
+            // bullet
+            // bullet = new Bullet(x, y, faceRight);
 
             try {
                 Thread.sleep(50);
@@ -257,12 +275,8 @@ public class Enemy implements Runnable{
         return dialog;
     }
 
-    public boolean isFirstAppearance() {
-        return firstAppearance;
-    }
-
-    public void setFirstAppearance(boolean firstAppearance) {
-        this.firstAppearance = firstAppearance;
+    public Bullet getBullet() {
+        return bullet;
     }
 
 }

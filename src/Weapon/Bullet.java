@@ -2,7 +2,10 @@ package Weapon;
 
 import Frame.Background;
 import Frame.GameFrame;
+import Frame.StaticValue;
+
 import java.awt.image.BufferedImage;
+
 
 import java.awt.Graphics;
 
@@ -11,29 +14,33 @@ public class Bullet {
     private int x;
     private int y;
     private boolean isRight = true;
+    private BufferedImage bulletLeft = StaticValue.bulletLeft;
+    private BufferedImage bulletRight = StaticValue.bulletRight;
 
     public Bullet(int x, int y, boolean isRight) {
         this.x = x;
         this.y = y;
         this.isRight = isRight;
+        bulletMoving();
     }
 
-    // public void paint(Graphics graphics) {
-    //     if (isRight) {
-    //         graphics.drawImage(image, x, y, frame);
-    //         x += 60;
-    //     } else {
-    //         graphics.drawImage(image, x, y, frame);
-    //         x -= 60;
-    //     }
-    // }
+    public void paint(Graphics graphics) {
+        if (isRight) {
+            graphics.drawImage(bulletRight, x, y, null);
+            x += 5;
+        } else {
+            graphics.drawImage(bulletLeft, x, y, null);
+            x -= 5;
+        }
+    }
     
     public void bulletMoving() {
         if (isRight) {
-            x += 150;
+            x += 60;
         } else {
             x -= 60;
         }
+        y += 20;
     }
 
     public void setX(int x) {
@@ -59,6 +66,7 @@ public class Bullet {
     public boolean isRight() {
         return isRight;
     }
+
 
     
 

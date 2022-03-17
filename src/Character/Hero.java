@@ -81,8 +81,6 @@ public class Hero implements Runnable{
     private BufferedImage currentWeaponEffects = null;
     // if hero runs out of weapon then fail the game
     private boolean isNoWeapon = false;
-    // random
-    Random rd = new Random();
 
     public Hero(String name, int strenght, int hp, int mana) {
         this.name = name;
@@ -280,7 +278,7 @@ public class Hero implements Runnable{
             case MELEE:
                 weapon = weapons.get(0);
                 // bonus damage from the weapon
-                damage = rd.nextInt(this.strenght + 1) + weapon.getStrength();
+                damage = this.strenght + weapon.getStrength();
                 break;
             case RANGED:
                 weapon = weapons.get(1);
@@ -290,13 +288,13 @@ public class Hero implements Runnable{
                 if (chance == 0) {
                     damage = 0;
                 } else {
-                    damage =  rd.nextInt(this.strenght + 1) + chance;
+                    damage = this.strenght + chance;
                 }
                 break;
             case MAGIC:
                 weapon = weapons.get(2);
                 // bonus damage from the weapon
-                damage =  rd.nextInt(this.strenght + 1) + weapon.getStrength();
+                damage = this.strenght + weapon.getStrength();
                 break;
         }
         return damage;

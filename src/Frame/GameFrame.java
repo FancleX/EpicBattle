@@ -66,7 +66,7 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
         // initialize hero with a specific coorindate
         hero = new Hero("Jack", 10, 100, 100);
         hero.setX(20);
-        hero.setY(480);
+        hero.setY(465);
         // initialize all scences
         for (int i = 1; i <= 3; i++) {
             allBackground.add(new Background(i, i == 3 ? true : false));
@@ -173,7 +173,7 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
             lastScence = currentBackground;
         }
 
-        // draw enemies
+        // draw enemy 
         Iterator<Enemy> iterator = currentBackground.getEnemies().iterator();
         while (iterator.hasNext()) {
             Enemy enemy = iterator.next();
@@ -207,6 +207,9 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
                 
                 // draw enemy itself
                 graphics.drawImage(enemy.getCurrentImage(), enemy.getX(), enemy.getY(), this);
+
+                // draw enemy bullet
+                enemy.getBullet().paint(graphics);
             }
 
         }
@@ -301,7 +304,7 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
                             hero.setBackground(currentBackground);
                             // reset hero postition
                             hero.setX(20);
-                            hero.setY(480);
+                            hero.setY(465);
                         }
                         break;
                     // level 2
@@ -313,7 +316,7 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
                             hero.setBackground(currentBackground);
                             // reset hero postition
                             hero.setX(20);
-                            hero.setY(480);
+                            hero.setY(465);
                         } 
                         break;
                     // level 3
