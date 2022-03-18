@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Random;
 
 import Character.Enemy;
-import Weapon.Weapon;
 
 public class Background {
     
@@ -64,8 +63,9 @@ public class Background {
                 teleporterX = 750;
                 teleporterY = 450;
                 // add enemies
-                enemies.add(new Enemy(650, 492, false, 0, this, rd.nextInt(3)));
-                // enemies.add(new Enemy(645, 492, false, 0, this, rd.nextInt(3)));
+                enemies.add(new Enemy(500, 492, false, this, rd.nextInt(3)));
+                enemies.add(new Enemy(600, 492, false, this, rd.nextInt(3)));
+                enemies.add(new Enemy(700, 492, false, this, rd.nextInt(3)));
                 break;
 
             case 2:
@@ -82,7 +82,7 @@ public class Background {
                 teleporterX = 660;
                 teleporterY = 250;
                 // add enemies
-                enemies.add(new Enemy(650, 492, false, 0, this, rd.nextInt(3)));
+                enemies.add(new Enemy(650, 492, false, this, rd.nextInt(3)));
                 break;
 
             case 3:
@@ -90,6 +90,9 @@ public class Background {
                 obstacleList.add(new Obstacle(0, 550, 800, 50, 0, this));
                 // end teleporter
                 end = StaticValue.end;
+                // add enemies
+                enemies.add(new Enemy(650, 492, false, this, rd.nextInt(3)));
+                enemies.add(new Enemy(600, 492, false, this, rd.nextInt(3)));
                 break;
         }
     }

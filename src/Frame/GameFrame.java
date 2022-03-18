@@ -158,13 +158,17 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
                 bullet.paint(graphics);
                 // damage of bullet
                 if (bullet.toRectangle().intersects(hero.toRectangle())) {
-                    hero.hurted(5);
+                    hero.hurted(1);
                 }
             }
         }
         
         // draw hero
-        graphics.drawImage(hero.getImage(), hero.getX(), hero.getY(), this);
+        if (!hero.isAlive()) {
+            graphics.drawImage(hero.getImage(), hero.getX(), hero.getY() + 20, this);
+        } else {
+            graphics.drawImage(hero.getImage(), hero.getX(), hero.getY(), this);
+        }
         // draw hero's info
         graphics.drawImage(hero.getUI(), 20, 40, this);
         graphics.setFont(new Font("TimesRoman", Font.BOLD, 27));
@@ -311,14 +315,8 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
                     // level 3
                     case 3:
                         // level 3 pass condition
-                        if (hero.getX() >= 680 && hero.getY() >= 445 && hero.getY() <= 565) {
-                            // currentBackground = allBackground.get(currentBackground.getCurrentScence());
-                            // // send the background to hero
-                            // hero.setBackground(currentBackground);
-                            // // reset hero postition
-                            // hero.setX(20);
-                            // hero.setY(495);
-                            System.out.println("you win");
+                        if (hero.getX() >= 680 && hero.getY() >= 445 && hero.getY() <= 565 && currentBackground.getEnemies().isEmpty()) {
+                            // System.out.println("you win");
                             JOptionPane.showMessageDialog(this, "Congrats, you win the battle!");
                             System.exit(0);
                         }

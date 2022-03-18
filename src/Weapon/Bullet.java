@@ -1,7 +1,5 @@
 package Weapon;
 
-import Frame.Background;
-import Frame.GameFrame;
 import Frame.StaticValue;
 
 import java.awt.image.BufferedImage;
@@ -11,11 +9,14 @@ import java.awt.Graphics;
 
 public class Bullet {
 
+    // coordinate of bullet
     private int x;
     private int y;
+    // orientation of bullet
     private boolean isRight = true;
     private BufferedImage bulletLeft = StaticValue.bulletLeft;
     private BufferedImage bulletRight = StaticValue.bulletRight;
+    // collision volume of bullet
     private int width = 56;
     private int height = 24;
 
@@ -26,6 +27,7 @@ public class Bullet {
         setBulletPosition();
     }
 
+    // draw motion of bullet
     public void paint(Graphics graphics) {
         if (isRight) {
             graphics.drawImage(bulletRight, x, y, null);
@@ -36,6 +38,7 @@ public class Bullet {
         }
     }
     
+    // relocate the bullet to a proper location
     public void setBulletPosition() {
         if (isRight) {
             x += 60;

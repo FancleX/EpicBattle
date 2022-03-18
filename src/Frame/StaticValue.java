@@ -68,7 +68,7 @@ public class StaticValue {
     public static BufferedImage heroUI = null;
 
     // hero death
-    public static BufferedImage heroDeath = null;
+    public static List<BufferedImage> heroDeath = new ArrayList<>();
 
     // melee weapon effect
     public static List<BufferedImage> meleeEffects = new ArrayList<>();
@@ -176,7 +176,9 @@ public class StaticValue {
         }
         // hero death
         try {
-            heroDeath = ImageIO.read(new File(path + "hero_death.png"));
+            for (int i = 1; i <= 3; i++) {
+                heroDeath.add(ImageIO.read(new File(path + "hero_death" + i + ".png"))); 
+            }
         } catch (IOException e1) {
             e1.printStackTrace();
         }

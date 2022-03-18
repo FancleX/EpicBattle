@@ -181,7 +181,17 @@ public class Hero implements Runnable{
 
     // death
     public void death() {
-        image = StaticValue.heroDeath;
+        switch (currentWeapon) {
+            case MELEE:
+                image = StaticValue.heroDeath.get(0);
+                break;
+            case RANGED:
+                image = StaticValue.heroDeath.get(1);
+                break;
+            case MAGIC:
+                image = StaticValue.heroDeath.get(2);
+                break;
+        }
         isAlive = false;
     }
 
@@ -337,7 +347,7 @@ public class Hero implements Runnable{
                 // System.err.println("obstacleY: " + obstacle.getY() + " obstacleType: " + obstacle.getType());
                 // System.err.println("heroY: " + this.y);
                 // obstacle.getY() > this.y + 45 && obstacle.getY() < this.y + 55
-                if ((obstacle.toRectangle().intersects(toRectangle())) && (this.x > obstacle.getX() - 15 && this.x < obstacle.getY() + obstacle.getWidth() + 15)) {
+                if ((obstacle.toRectangle().intersects(toRectangle())) && (this.x > obstacle.getX() - 15 && this.x < obstacle.getY() + obstacle.getWidth() + 15) && (this.y <= obstacle.getY() - 3)) {
                     isOnObstacle = true;
                 }
                 // determine if hero can walk right head: 494  ground: 550 hero width: 70
@@ -489,6 +499,14 @@ public class Hero implements Runnable{
                 else if (x > 750) {
                     x = 750;
                 }
+            }
+            // avoid being stuck by obstacles 
+            else if (!passLeft) {
+                y -= 3;
+                x -= 3;
+            } else if (!passRight) {
+                y -= 3;
+                x += 3;
             }
 
             // connect images with moving status

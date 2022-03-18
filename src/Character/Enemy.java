@@ -1,21 +1,16 @@
 package Character;
 
 import java.awt.image.BufferedImage;
-import java.nio.Buffer;
-import java.util.List;
-import java.util.Random;
 import java.awt.Rectangle;
 
 import Frame.*;
 import Weapon.Bullet;
 
-public class Enemy implements Runnable{
+public class Enemy implements Runnable {
 
     // coordinate of hero
     private int x;
     private int y;
-    // type of enemy
-    private int type;
     // determine the moving direction of enemy, true: face to right, false: face to left
     private boolean faceRight = true;
     // display current enemy pictures
@@ -51,59 +46,18 @@ public class Enemy implements Runnable{
     private int messageType;
     // bullet
     Bullet bullet;
+    // count for controlling speed of bullet generation
     private int count = 0;
 
-    /* 
-        enemy with melee info:
-        type = 0
-        strength = 5
-        hp = 100
-        mana = 0
-
-        enemy with ranged weapon info:
-        type = 1
-        strength = 7
-        hp = 50
-        mana = 0
-
-        enemy with magic weapon info:
-        type = 2
-        strength = 10
-        hp = 20
-        mana = Infinite
-    */
-    public Enemy(int x, int y, boolean faceRight, int type, Background background, int message) {
-        // switch (type) {
-        //     case 0: 
-        //         this.strenght = 5;
-        //         this.hp = 100;
-        //         this.mana = 0;
-        //         totalHP = 100;
-        //         currentImage = StaticValue.enemyRunLeftMelee.get(0);
-        //         break;
-        //     case 1:
-        //         this.strenght = 7;
-        //         this.strenght = 50;
-        //         this.mana = 0;
-        //         currentImage = StaticValue.enemyRunLeftRanged.get(0);
-        //         break;
-        //     case 2:
-        //         this.strenght = 10;
-        //         this.hp = 20;
-        //         this.mana = Integer.MAX_VALUE;
-        //         currentImage = StaticValue.enemyRunLeftMagic.get(0);
-        //         break;
-        // }
+    public Enemy(int x, int y, boolean faceRight, Background background, int message) {
         this.strenght = 5;
         this.hp = 100;
         this.mana = 0;
         totalHP = 100;
         currentImage = StaticValue.enemyRunLeft.get(0);
-
         this.x = x;
         this.y = y;
         this.faceRight = faceRight;
-        this.type = type;
         this.background = background;
         this.messageType = message;
         thread.start();
@@ -134,36 +88,7 @@ public class Enemy implements Runnable{
     public void run() {
         while (isAlive()) {
             iterator = iterator == 0 ? 1 : 0;
-            // switch (type) {
-            //     case 0:
-            //         if (faceRight) {
-            //             currentImage = StaticValue.enemyRunRightMelee.get(iterator);
-            //             x += 3;
-            //         } else {
-            //             currentImage = StaticValue.enemyRunLeftMelee.get(iterator);
-            //             x -= 3;
-            //         }
-            //         break;
-            //     case 1:
-            //         if (faceRight) {
-            //             currentImage = StaticValue.enemyRunRightRanged.get(iterator);
-            //             x += 3;
-            //         } else {
-            //             currentImage = StaticValue.enemyRunLeftRanged.get(iterator);
-            //             x -= 3;
-            //         }
-            //         break;
-            //     case 2:
-            //         if (faceRight) {
-            //             currentImage = StaticValue.enemyRunRightMagic.get(iterator);
-            //             x += 3;
-            //         } else {
-            //             currentImage = StaticValue.enemyRunLeftMagic.get(iterator);
-            //             x -= 3;
-            //         }
-            //         break;
-            // }
-
+            // orietation of enemy
             if (faceRight) {
                 currentImage = StaticValue.enemyRunRight.get(iterator);
                 x += 3;
@@ -202,8 +127,6 @@ public class Enemy implements Runnable{
                 bullet = new Bullet(x, y, faceRight);
             }
             count++;
-
-
 
             try {
                 Thread.sleep(50);
