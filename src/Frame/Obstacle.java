@@ -12,7 +12,7 @@ public class Obstacle {
     // render image
     private BufferedImage image = null;
     // current scence
-    private Background background = null;
+    private Background background = new Background();
     // height
     private int height;
     // width
