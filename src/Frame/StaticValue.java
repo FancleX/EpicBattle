@@ -1,4 +1,5 @@
 package Frame;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -79,7 +80,6 @@ public class StaticValue {
     // magic weapon effect
     public static List<BufferedImage> magicEffects = new ArrayList<>();
 
-
     // ememy
     // character run to right with melee weapon
     public static List<BufferedImage> enemyRunRight = new ArrayList<>();
@@ -102,7 +102,6 @@ public class StaticValue {
 
     // path define
     public static String path = System.getProperty("user.dir") + "/src/images/";
-
 
     // initialize
     public static void initializer() {
@@ -177,7 +176,7 @@ public class StaticValue {
         // hero death
         try {
             for (int i = 1; i <= 3; i++) {
-                heroDeath.add(ImageIO.read(new File(path + "hero_death" + i + ".png"))); 
+                heroDeath.add(ImageIO.read(new File(path + "hero_death" + i + ".png")));
             }
         } catch (IOException e1) {
             e1.printStackTrace();

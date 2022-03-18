@@ -49,7 +49,7 @@ public class Ranged implements Weapon, Runnable {
     @Override
     public void crit() {
         int type = rd.nextInt(3);
-        currentStrength = strenght * type; 
+        currentStrength = strenght * type;
     }
 
     public BufferedImage getCurrentImage(boolean isRight) {
@@ -97,7 +97,7 @@ public class Ranged implements Weapon, Runnable {
                 if (toRectangle().intersects(enemy.toRectangle()) && userAttack) {
                     isAttacked = true;
                     currentEnemy = enemy;
-                } 
+                }
             }
 
             try {
@@ -106,14 +106,15 @@ public class Ranged implements Weapon, Runnable {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-        }   
+        }
     }
 
     @Override
     public Rectangle toRectangle() {
         return new Rectangle(effectsX - 5, effectsY - 5, width + 10, height + 10);
     }
-   public boolean isAttacked() {
+
+    public boolean isAttacked() {
         return isAttacked;
     }
 
@@ -152,7 +153,7 @@ public class Ranged implements Weapon, Runnable {
     public int getDurability() {
         return durability;
     }
-    
+
     public int getX() {
         return effectsX;
     }
@@ -160,6 +161,5 @@ public class Ranged implements Weapon, Runnable {
     public int getY() {
         return effectsY;
     }
-
 
 }

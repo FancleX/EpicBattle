@@ -1,4 +1,5 @@
 package Frame;
+
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +8,7 @@ import java.util.Random;
 import Character.Enemy;
 
 public class Background {
-    
+
     // current background
     private BufferedImage backgroundImage = null;
     // current scence
@@ -21,19 +22,20 @@ public class Background {
     // teleporter location
     private int teleporterX;
     private int teleporterY;
-    // end 
+    // end
     private BufferedImage end = null;
     // enemies
     private List<Enemy> enemies = new ArrayList<>();
-    // random 
+    // random
     private Random rd = new Random();
-    
-    public Background() {}
+
+    public Background() {
+    }
 
     public Background(int currentScence, boolean isFinal) {
         this.currentScence = currentScence;
         this.isFinal = isFinal;
-        
+
         if (isFinal) {
             backgroundImage = StaticValue.background3;
         } else {
@@ -45,12 +47,13 @@ public class Background {
         }
 
         // level settings
-        switch (currentScence){
-             /* draw ground and obstacles of the first scence 
-                ground: type 0
-                obstacle1: type 1
-                obstacle2: type 2
-            */
+        switch (currentScence) {
+            /*
+             * draw ground and obstacles of the first scence
+             * ground: type 0
+             * obstacle1: type 1
+             * obstacle2: type 2
+             */
             case 1:
                 // ground
                 obstacleList.add(new Obstacle(0, 550, 800, 50, 0, this));

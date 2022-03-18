@@ -1,8 +1,7 @@
 package Frame;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.image.BufferedImage;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -78,8 +77,9 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
         // sketch background
         repaint();
         // show tips
-        JOptionPane.showMessageDialog(this, "Tips: Grean bar is your current weapon's durability, \n red bar is your current hp, \n blue bar is your current mana. \n"
-            + "Weapon will lose if the durability drop to zero. \n If you run out of weapons, you fail the battle!");  
+        JOptionPane.showMessageDialog(this,
+                "Tips: Grean bar is your current weapon's durability, \n red bar is your current hp, \n blue bar is your current mana. \n"
+                        + "Weapon will lose if the durability drop to zero. \n If you run out of weapons, you fail the battle!");
         // start thread
         thread.start();
         // add music
@@ -104,7 +104,8 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
 
         if (!(currentBackground.getIsFinal())) {
             // draw teleporter
-            graphics.drawImage(currentBackground.getTeleporter(), currentBackground.getTeleporterX(), currentBackground.getTeleporterY(), this);
+            graphics.drawImage(currentBackground.getTeleporter(), currentBackground.getTeleporterX(),
+                    currentBackground.getTeleporterY(), this);
         } else {
             // draw end teleporter
             graphics.drawImage(currentBackground.getEnd(), 620, 445, this);
@@ -117,7 +118,7 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
             lastScence = currentBackground;
         }
 
-        // draw enemy 
+        // draw enemy
         Iterator<Enemy> iterator = currentBackground.getEnemies().iterator();
         while (iterator.hasNext()) {
             Enemy enemy = iterator.next();
@@ -144,12 +145,13 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
                     graphics.setColor(Color.ORANGE);
                     graphics.drawString(enemy.speak(), enemy.getX() - 10, enemy.getY() - 40);
                     count++;
-                }                                                                                
+                }
                 // draw enemy hp bar
                 graphics.drawImage(enemy.getHpBar(), enemy.getX() - 10, enemy.getY() - 20, this);
                 graphics.setColor(Color.RED);
-                graphics.fillRect(enemy.getX() - 7, enemy.getY() - 14, (int) ((float) enemy.getHp() / enemy.totalHP() * 55), 8);
-                
+                graphics.fillRect(enemy.getX() - 7, enemy.getY() - 14,
+                        (int) ((float) enemy.getHp() / enemy.totalHP() * 55), 8);
+
                 // draw enemy itself
                 graphics.drawImage(enemy.getCurrentImage(), enemy.getX(), enemy.getY(), this);
 
@@ -162,7 +164,7 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
                 }
             }
         }
-        
+
         // draw hero
         if (!hero.isAlive()) {
             graphics.drawImage(hero.getImage(), hero.getX(), hero.getY() + 20, this);
@@ -185,7 +187,8 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
         graphics.setColor(Color.GREEN);
         switch (hero.getCurrentWeapon()) {
             case MELEE:
-                graphics.fillRoundRect(106, 54, (int) ((float) hero.getWeapons().get(0).getDurability() / 100 * 26), 13, 17, 17);
+                graphics.fillRoundRect(106, 54, (int) ((float) hero.getWeapons().get(0).getDurability() / 100 * 26), 13,
+                        17, 17);
                 // draw attack effects if attack
                 if (hero.faceRight()) {
                     graphics.drawImage(hero.getCurrentWeaponEffects(), hero.getX() + 35, hero.getY() - 10, this);
@@ -194,7 +197,8 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
                 }
                 break;
             case RANGED:
-                graphics.fillRoundRect(106, 54, (int) ((float) hero.getWeapons().get(1).getDurability() / 70 * 26), 13, 17, 17);
+                graphics.fillRoundRect(106, 54, (int) ((float) hero.getWeapons().get(1).getDurability() / 70 * 26), 13,
+                        17, 17);
                 // draw attack effects if attack
                 if (hero.faceRight()) {
                     graphics.drawImage(hero.getCurrentWeaponEffects(), hero.getX() + 50, hero.getY(), this);
@@ -203,21 +207,23 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
                 }
                 break;
             case MAGIC:
-                graphics.fillRoundRect(106, 54, (int) ((float) hero.getWeapons().get(2).getDurability() / 100 * 26), 13, 17, 17);
+                graphics.fillRoundRect(106, 54, (int) ((float) hero.getWeapons().get(2).getDurability() / 100 * 26), 13,
+                        17, 17);
                 // draw attack effects if attack
                 if (hero.faceRight()) {
                     graphics.drawImage(hero.getCurrentWeaponEffects(), hero.getX() + 300, hero.getY() - 220, this);
                 } else {
                     graphics.drawImage(hero.getCurrentWeaponEffects(), hero.getX() - 450, hero.getY() - 220, this);
                 }
-                break;   
+                break;
         }
         // connect offscreen image to window
         g.drawImage(offScreenImage, 0, 0, this);
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {}
+    public void keyTyped(KeyEvent e) {
+    }
 
     @Override
     public void keyPressed(KeyEvent e) {
@@ -270,7 +276,7 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
         // if release "A", then stop attacking
         if (e.getKeyCode() == 65) {
             hero.stopAttacking();
-        }  
+        }
     }
 
     @Override
@@ -281,7 +287,7 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
             try {
                 Thread.sleep(50);
                 // determine if hero is alive, otherwise end the game
-                if ((!hero.isAlive()) ||  hero.isNoWeapon()) {
+                if ((!hero.isAlive()) || hero.isNoWeapon()) {
                     JOptionPane.showMessageDialog(this, "You lost!");
                     System.exit(0);
                 }
@@ -291,7 +297,8 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
                     // level 1
                     case 1:
                         // level 1 pass condition
-                        if ((hero.getX() >= 740 && hero.getY() >= 460 && hero.getY() <= 550) && currentBackground.getEnemies().isEmpty()) {
+                        if ((hero.getX() >= 740 && hero.getY() >= 460 && hero.getY() <= 550)
+                                && currentBackground.getEnemies().isEmpty()) {
                             currentBackground = allBackground.get(currentBackground.getCurrentScence());
                             // send the background to hero
                             hero.setBackground(currentBackground);
@@ -302,20 +309,22 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
                         break;
                     // level 2
                     case 2:
-                    // level 2 pass condition
-                        if ((hero.getX() >= 650 && hero.getY() >= 260 && hero.getY() <= 350) && currentBackground.getEnemies().isEmpty()) {
+                        // level 2 pass condition
+                        if ((hero.getX() >= 650 && hero.getY() >= 260 && hero.getY() <= 350)
+                                && currentBackground.getEnemies().isEmpty()) {
                             currentBackground = allBackground.get(currentBackground.getCurrentScence());
                             // send the background to hero
                             hero.setBackground(currentBackground);
                             // reset hero postition
                             hero.setX(20);
                             hero.setY(465);
-                        } 
+                        }
                         break;
                     // level 3
                     case 3:
                         // level 3 pass condition
-                        if (hero.getX() >= 680 && hero.getY() >= 445 && hero.getY() <= 565 && currentBackground.getEnemies().isEmpty()) {
+                        if (hero.getX() >= 680 && hero.getY() >= 445 && hero.getY() <= 565
+                                && currentBackground.getEnemies().isEmpty()) {
                             // System.out.println("you win");
                             JOptionPane.showMessageDialog(this, "Congrats, you win the battle!");
                             System.exit(0);
@@ -325,12 +334,12 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        }  
+        }
     }
+
     public static void main(String[] args) {
         GameFrame gameFrame = new GameFrame();
 
     }
-
 
 }

@@ -37,7 +37,7 @@ public class Bullet {
             x -= 10;
         }
     }
-    
+
     // relocate the bullet to a proper location
     public void setBulletPosition() {
         if (isRight) {
@@ -49,7 +49,7 @@ public class Bullet {
     }
 
     public void setX(int x) {
-        this.x = x;        
+        this.x = x;
     }
 
     public int getX() {
@@ -57,7 +57,7 @@ public class Bullet {
     }
 
     public void setY(int y) {
-        this.y = y;        
+        this.y = y;
     }
 
     public int getY() {
@@ -75,12 +75,4 @@ public class Bullet {
     public Rectangle toRectangle() {
         return new Rectangle(x, y, width, height);
     }
-
-    
-
-
-
-
-
-    
 }

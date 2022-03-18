@@ -6,12 +6,13 @@ import java.awt.Rectangle;
 import Frame.*;
 import Weapon.Bullet;
 
-public class Enemy implements Runnable {
+public class Enemy extends Character implements Runnable {
 
     // coordinate of hero
     private int x;
     private int y;
-    // determine the moving direction of enemy, true: face to right, false: face to left
+    // determine the moving direction of enemy, true: face to right, false: face to
+    // left
     private boolean faceRight = true;
     // display current enemy pictures
     private BufferedImage currentImage;
@@ -41,7 +42,7 @@ public class Enemy implements Runnable {
     // dialog
     private BufferedImage dialog = StaticValue.enemyDialog;
     // speaking phases
-    private String[] texts = {"You're a loser!", "Cringe guy!", "Darkness!"};
+    private String[] texts = { "You're a loser!", "Cringe guy!", "Darkness!" };
     // message type
     private int messageType;
     // bullet
@@ -63,8 +64,8 @@ public class Enemy implements Runnable {
         thread.start();
     }
 
-     // death
-     public void death() {
+    // death
+    public void death() {
         currentImage = StaticValue.enemyDeath.get(0);
     }
 
@@ -78,11 +79,10 @@ public class Enemy implements Runnable {
         }
     }
 
-    // speak 
+    // speak
     public String speak() {
         return texts[messageType];
     }
-
 
     @Override
     public void run() {
@@ -103,11 +103,13 @@ public class Enemy implements Runnable {
             for (int i = 0; i < background.getObstacleList().size(); i++) {
                 Obstacle obstacle = background.getObstacleList().get(i);
                 // can't walk right
-                if (obstacle.toRectangle().intersects(toRectangle()) && (obstacle.getY() > this.y - 5 && obstacle.getY() < this.y + 55)) {
+                if (obstacle.toRectangle().intersects(toRectangle())
+                        && (obstacle.getY() > this.y - 5 && obstacle.getY() < this.y + 55)) {
                     walkRight = false;
                 }
                 // can't walk left
-                if (obstacle.toRectangle().intersects(toRectangle()) && (obstacle.getY() > this.y - 5 && obstacle.getY() < this.y + 55)) {
+                if (obstacle.toRectangle().intersects(toRectangle())
+                        && (obstacle.getY() > this.y - 5 && obstacle.getY() < this.y + 55)) {
                     walkLeft = false;
                 }
             }
@@ -133,10 +135,9 @@ public class Enemy implements Runnable {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        }        
+        }
     }
 
-   
     public int getStrength() {
         return strenght;
     }

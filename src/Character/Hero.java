@@ -3,7 +3,6 @@ package Character;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.awt.Rectangle;
 
 import Frame.*;
@@ -13,9 +12,8 @@ import Weapon.Melee;
 import Weapon.Ranged;
 import Weapon.Weapon;
 
+public class Hero extends Character implements Runnable {
 
-public class Hero implements Runnable{
-    
     private String name;
     private int strenght;
     private int hp;
@@ -25,21 +23,22 @@ public class Hero implements Runnable{
     private int x;
     private int y;
     // current status
-    /* status can be 
-    "melee_weapon_right": hero holds melee weapon and towards right
-    "melee_weapon_left": hero holds melee weapon and towards left
-    "ranged_weapon_right": hero holds ranged weapon and towards right
-    "ranged_weapon_left": hero holds ranged weapon and towards left
-    "magic_weapon_right": hero holds magic weapon and towards right
-    "magic_weapon_left": hero holds magic weapon and towards left
-    "jump" : is jumping right now
-    "jump_left": jump to left
-    "jump_right": jump to right
-    "move_left": move to left
-    "move_right": move to right
-    "stop_left": stop and towards left
-    "stop_right": stop and towards right
-    */
+    /*
+     * status can be
+     * "melee_weapon_right": hero holds melee weapon and towards right
+     * "melee_weapon_left": hero holds melee weapon and towards left
+     * "ranged_weapon_right": hero holds ranged weapon and towards right
+     * "ranged_weapon_left": hero holds ranged weapon and towards left
+     * "magic_weapon_right": hero holds magic weapon and towards right
+     * "magic_weapon_left": hero holds magic weapon and towards left
+     * "jump" : is jumping right now
+     * "jump_left": jump to left
+     * "jump_right": jump to right
+     * "move_left": move to left
+     * "move_right": move to right
+     * "stop_left": stop and towards left
+     * "stop_right": stop and towards right
+     */
     private String status;
     // the picture corresponding to the current status
     private BufferedImage image = StaticValue.meleeWeaponRight;
@@ -107,7 +106,7 @@ public class Hero implements Runnable{
 
     // hero moves to left
     public void moveLeft() {
-        // change speed to nagative 
+        // change speed to nagative
         xSpeed = -10;
         // if the hero is jumping
         if (status != "jump") {
@@ -163,7 +162,7 @@ public class Hero implements Runnable{
             jumpingTime = 10;
             int height = ySpeed * jumpingTime;
             y += height;
-        }  
+        }
     }
 
     // hero falls down
@@ -222,7 +221,7 @@ public class Hero implements Runnable{
                     currentWeapon = Armory.MAGIC;
                 } else if (weaponList.contains(Armory.MELEE)) {
                     currentWeapon = Armory.MELEE;
-                } 
+                }
                 break;
             case MAGIC:
                 if (weaponList.contains(Armory.MELEE)) {
@@ -271,6 +270,7 @@ public class Hero implements Runnable{
     }
 
     // hero hurted
+    @Override
     public void hurted(int damage) {
         if (currentHp - damage > 0) {
             currentHp -= damage;
@@ -327,57 +327,63 @@ public class Hero implements Runnable{
         }
     }
 
-
-
     @Override
     public void run() {
         while (true) {
-           
-            // determine hero's action 
+            // determine hero's action
             boolean isOnObstacle = false;
             boolean passLeft = true;
             boolean passRight = true;
-            // iterate obstacles 
+            // iterate obstacles
             for (int i = 0; i < background.getObstacleList().size(); i++) {
                 Obstacle obstacle = background.getObstacleList().get(i);
                 // determine if hero is on obstacles
                 // if (obstacle.toRectangle().intersects(toRectangle())) {
-                //     isOnObstacle = true;
+                // isOnObstacle = true;
                 // }
-                // System.err.println("obstacleY: " + obstacle.getY() + " obstacleType: " + obstacle.getType());
+                // System.err.println("obstacleY: " + obstacle.getY() + " obstacleType: " +
+                // obstacle.getType());
                 // System.err.println("heroY: " + this.y);
                 // obstacle.getY() > this.y + 45 && obstacle.getY() < this.y + 55
-                if ((obstacle.toRectangle().intersects(toRectangle())) && (this.x > obstacle.getX() - 15 && this.x < obstacle.getY() + obstacle.getWidth() + 15) && (this.y <= obstacle.getY() - 3)) {
+                if ((obstacle.toRectangle().intersects(toRectangle()))
+                        && (this.x > obstacle.getX() - 15 && this.x < obstacle.getY() + obstacle.getWidth() + 15)
+                        && (this.y <= obstacle.getY() - 3)) {
                     isOnObstacle = true;
                 }
-                // determine if hero can walk right head: 494  ground: 550 hero width: 70
-                // System.err.println("obstacleY: " + obstacle.getY() + " type: " + obstacle.getType());
+                // determine if hero can walk right head: 494 ground: 550 hero width: 70
+                // System.err.println("obstacleY: " + obstacle.getY() + " type: " +
+                // obstacle.getType());
                 // System.err.println("heroY: " + y);
                 // obstacle.getX() == this.x + 70
                 // (obstacle.getY() > this.y - 5 && obstacle.getY() < this.y + 55)
-                if (obstacle.toRectangle().intersects(toRectangle()) && (obstacle.getY() > this.y - 5 && obstacle.getY() < this.y + 55)) {
+                if (obstacle.toRectangle().intersects(toRectangle())
+                        && (obstacle.getY() > this.y - 5 && obstacle.getY() < this.y + 55)) {
                     passRight = false;
                 }
                 // determine if hero can walk left
                 // System.err.println("obstacleX: " + obstacle.getX());
                 // System.err.println("heroX: " + this.x);
-                // System.err.println("obstacleWidth: " + obstacle.getWidth() + " obstacleType: " + obstacle.getType());
+                // System.err.println("obstacleWidth: " + obstacle.getWidth() + " obstacleType:
+                // " + obstacle.getType());
                 // obstacle.getX() == this.x - obstacle.getWidth() - 30
                 // (obstacle.getY() > this.y - 5 && obstacle.getY() < this.y + 55)
-                if (obstacle.toRectangle().intersects(toRectangle()) && (obstacle.getY() > this.y - 5 && obstacle.getY() < this.y + 55)) {
+                if (obstacle.toRectangle().intersects(toRectangle())
+                        && (obstacle.getY() > this.y - 5 && obstacle.getY() < this.y + 55)) {
                     passLeft = false;
                 }
                 // System.err.println(passRight);
                 // determine if hero is on the bottom of the obstacle
-                // if ((obstacle.getY() <= this.y - obstacle.getHeight() - 5 && obstacle.getY() >= this.y - 5 ) && (this.x > obstacle.getX() - 15 && this.x < obstacle.getY() + obstacle.getWidth() + 15)) {
-                //     jumpingTime = 0;
+                // if ((obstacle.getY() <= this.y - obstacle.getHeight() - 5 && obstacle.getY()
+                // >= this.y - 5 ) && (this.x > obstacle.getX() - 15 && this.x < obstacle.getY()
+                // + obstacle.getWidth() + 15)) {
+                // jumpingTime = 0;
                 // }
             }
 
             // attack damage calculation
             if (!weaponList.isEmpty() && isAttacking) {
                 // track weapon position
-                trackWeaponPosition(); 
+                trackWeaponPosition();
                 int durabilityDeduction = 0;
                 switch (currentWeapon) {
                     case MELEE:
@@ -395,8 +401,8 @@ public class Hero implements Runnable{
                             melee.setDurability(durabilityDeduction);
                         } catch (Exception e) {
                             changeWeapon();
-                             // weapon durability down to 0, remove it 
-                             weaponList.remove(Armory.MELEE);
+                            // weapon durability down to 0, remove it
+                            weaponList.remove(Armory.MELEE);
                             e.printStackTrace();
                         }
                         // System.err.println("durability: " + weapon.getDurability());
@@ -417,7 +423,7 @@ public class Hero implements Runnable{
                             ranged.setDurability(durabilityDeduction);
                         } catch (Exception e) {
                             changeWeapon();
-                            // weapon durability down to 0, remove it 
+                            // weapon durability down to 0, remove it
                             weaponList.remove(Armory.RANGED);
                             e.printStackTrace();
                         }
@@ -442,7 +448,7 @@ public class Hero implements Runnable{
                                 magic.setDurability(durabilityDeduction);
                             } catch (Exception e) {
                                 changeWeapon();
-                                // weapon durability down to 0, remove it 
+                                // weapon durability down to 0, remove it
                                 weaponList.remove(Armory.MAGIC);
                                 e.printStackTrace();
                             }
@@ -484,7 +490,7 @@ public class Hero implements Runnable{
                 } else {
                     // hero jumps to the most top
                     fall();
-                } 
+                }
             }
 
             // if hero is moving
@@ -500,7 +506,7 @@ public class Hero implements Runnable{
                     x = 750;
                 }
             }
-            // avoid being stuck by obstacles 
+            // avoid being stuck by obstacles
             else if (!passLeft) {
                 y -= 3;
                 x -= 3;
@@ -605,7 +611,7 @@ public class Hero implements Runnable{
             }
 
         }
-        
+
     }
 
     public int getStrength() {
@@ -637,7 +643,7 @@ public class Hero implements Runnable{
     }
 
     public void setY(int y) {
-        this.y = y;        
+        this.y = y;
     }
 
     public int getY() {
@@ -711,4 +717,5 @@ public class Hero implements Runnable{
     public Armory getCurrentWeapon() {
         return currentWeapon;
     }
+
 }

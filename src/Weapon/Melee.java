@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 import java.util.Random;
 
 public class Melee implements Weapon, Runnable {
-    
+
     private int strenght;
     private int durability;
     // coordinate of weapon effects
@@ -47,7 +47,7 @@ public class Melee implements Weapon, Runnable {
     @Override
     public void crit() {
         int type = rd.nextInt(3);
-        currentStrength = strenght * type; 
+        currentStrength = strenght * type;
     }
 
     @Override
@@ -96,7 +96,7 @@ public class Melee implements Weapon, Runnable {
                 if (toRectangle().intersects(enemy.toRectangle()) && userAttack) {
                     isAttacked = true;
                     currentEnemy = enemy;
-                } 
+                }
             }
 
             try {
@@ -104,14 +104,15 @@ public class Melee implements Weapon, Runnable {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        }   
+        }
     }
 
     @Override
     public Rectangle toRectangle() {
         return new Rectangle(effectsX - 5, effectsY - 5, width + 10, height + 10);
     }
-   public boolean isAttacked() {
+
+    public boolean isAttacked() {
         return isAttacked;
     }
 
@@ -155,7 +156,5 @@ public class Melee implements Weapon, Runnable {
     public int getY() {
         return effectsY;
     }
-
-
 
 }

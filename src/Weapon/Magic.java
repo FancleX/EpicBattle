@@ -6,10 +6,9 @@ import java.util.Random;
 
 import Character.Enemy;
 import Frame.Background;
-import Frame.GameFrame;
 import Frame.StaticValue;
 
-public class Magic implements Weapon, Runnable{
+public class Magic implements Weapon, Runnable {
 
     private int strenght;
     private int durability;
@@ -50,7 +49,7 @@ public class Magic implements Weapon, Runnable{
     @Override
     public void crit() {
         int type = rd.nextInt(3);
-        currentStrength = strenght * type;  
+        currentStrength = strenght * type;
     }
 
     public BufferedImage getCurrentImage(boolean isRight) {
@@ -93,7 +92,7 @@ public class Magic implements Weapon, Runnable{
                 if (toRectangle().intersects(enemy.toRectangle()) && userAttack) {
                     isAttacked = true;
                     currentEnemy = enemy;
-                } 
+                }
             }
 
             try {
@@ -102,14 +101,15 @@ public class Magic implements Weapon, Runnable{
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-        }   
+        }
     }
 
     @Override
     public Rectangle toRectangle() {
         return new Rectangle(effectsX - 5, effectsY - 5, width + 10, height + 10);
     }
-   public boolean isAttacked() {
+
+    public boolean isAttacked() {
         return isAttacked;
     }
 
@@ -139,7 +139,6 @@ public class Magic implements Weapon, Runnable{
         return currentStrength;
     }
 
-
     @Override
     public int getDurability() {
         return durability;
@@ -155,6 +154,4 @@ public class Magic implements Weapon, Runnable{
         return effectsY;
     }
 
-
-    
 }
