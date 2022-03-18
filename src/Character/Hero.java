@@ -262,10 +262,10 @@ public class Hero implements Runnable{
 
     // hero hurted
     public void hurted(int damage) {
-        if (hp - damage > 0) {
-            hp -= damage;
+        if (currentHp - damage > 0) {
+            currentHp -= damage;
         } else {
-            hp = 0;
+            currentHp = 0;
             death();
         }
     }
@@ -379,7 +379,7 @@ public class Hero implements Runnable{
                             melee.setIsAttacked(false);
                         }
                         // reduce durability
-                        durabilityDeduction = 5;
+                        durabilityDeduction = 1;
                         try {
                             // decreaes weapon durability
                             melee.setDurability(durabilityDeduction);
@@ -401,7 +401,7 @@ public class Hero implements Runnable{
                             ranged.setIsAttacked(false);
                         }
                         // reduce durability
-                        durabilityDeduction = 10;
+                        durabilityDeduction = 5;
                         try {
                             // decreaes weapon durability
                             ranged.setDurability(durabilityDeduction);
@@ -446,7 +446,6 @@ public class Hero implements Runnable{
             if (currentMana < 100) {
                 currentMana += 1;
             }
-
 
             // display the action of jumping
             // stand on the obstacle

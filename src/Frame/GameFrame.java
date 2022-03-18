@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 
 import Character.Enemy;
 import Character.Hero;
+import Weapon.Bullet;
 import music.Music;
 
 public class GameFrame extends JFrame implements KeyListener, Runnable {
@@ -109,67 +110,10 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
             graphics.drawImage(currentBackground.getEnd(), 620, 445, this);
         }
 
-        // draw hero
-        graphics.drawImage(hero.getImage(), hero.getX(), hero.getY(), this);
-
-        // draw hero's info
-        graphics.drawImage(hero.getUI(), 20, 40, this);
-        graphics.setFont(new Font("TimesRoman", Font.BOLD, 27));
-        graphics.setColor(Color.GRAY);
-        graphics.drawString(hero.getName(), 165, 68);
-        // draw hp
-        graphics.setColor(Color.RED);
-        // hero.setCurrentHp(73);
-        graphics.fillRect(110, 76, (int) ((float) hero.getCurrentlHp() / hero.getHp() * 165), 5);
-        // draw mana
-        graphics.setColor(Color.BLUE);
-        graphics.fillRect(110, 88, (int) ((float) hero.getCurrentMana() / hero.getMana() * 165), 5);
-        // draw weapon durability
-        switch (hero.getCurrentWeapon()) {
-            case MELEE:
-                graphics.setColor(Color.GREEN);
-                graphics.fillRoundRect(106, 54, (int) ((float) hero.getWeapons().get(0).getDurability() / 100 * 26), 13, 17, 17);
-                break;
-            case RANGED:
-                graphics.setColor(Color.GREEN);
-                graphics.fillRoundRect(106, 54, (int) ((float) hero.getWeapons().get(1).getDurability() / 70 * 26), 13, 17, 17);
-                break;
-            case MAGIC:
-                graphics.setColor(Color.GREEN);
-                graphics.fillRoundRect(106, 54, (int) ((float) hero.getWeapons().get(2).getDurability() / 100 * 26), 13, 17, 17);
-                break;   
-        }
-        
-        // draw attack effects
-        switch (hero.getCurrentWeapon()) {
-            case MELEE:
-                if (hero.faceRight()) {
-                    graphics.drawImage(hero.getCurrentWeaponEffects(), hero.getX() + 35, hero.getY() - 10, this);
-                } else {
-                    graphics.drawImage(hero.getCurrentWeaponEffects(), hero.getX() - 30, hero.getY() - 10, this);
-                }
-                
-                break;
-            case RANGED:
-                if (hero.faceRight()) {
-                    graphics.drawImage(hero.getCurrentWeaponEffects(), hero.getX() + 50, hero.getY(), this);
-                } else {
-                    graphics.drawImage(hero.getCurrentWeaponEffects(), hero.getX() - 300, hero.getY(), this);
-                }
-                break;
-            case MAGIC:
-                if (hero.faceRight()) {
-                    graphics.drawImage(hero.getCurrentWeaponEffects(), hero.getX() + 300, hero.getY() - 220, this);
-                } else {
-                    graphics.drawImage(hero.getCurrentWeaponEffects(), hero.getX() - 450, hero.getY() - 220, this);
-                }
-                break;
-        }
-
         // if background changed, reset all counter
         if (lastScence != currentBackground) {
             count = 0;
-            count1 = 0;
+            // count1 = 0;
             lastScence = currentBackground;
         }
 
@@ -188,6 +132,7 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
                     count1++;
                 } else {
                     iterator.remove();
+                    count1 = 0;
                 }
             } else {
                 // draw enemy phrases
@@ -209,20 +154,66 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
                 graphics.drawImage(enemy.getCurrentImage(), enemy.getX(), enemy.getY(), this);
 
                 // draw enemy bullet
-                enemy.getBullet().paint(graphics);
+                Bullet bullet = enemy.getBullet();
+                bullet.paint(graphics);
+                // damage of bullet
+                if (bullet.toRectangle().intersects(hero.toRectangle())) {
+                    hero.hurted(5);
+                }
             }
-
         }
-
+        
+        // draw hero
+        graphics.drawImage(hero.getImage(), hero.getX(), hero.getY(), this);
+        // draw hero's info
+        graphics.drawImage(hero.getUI(), 20, 40, this);
+        graphics.setFont(new Font("TimesRoman", Font.BOLD, 27));
+        graphics.setColor(Color.GRAY);
+        graphics.drawString(hero.getName(), 165, 68);
+        // draw hp
+        graphics.setColor(Color.RED);
+        // hero.setCurrentHp(73);
+        graphics.fillRect(110, 76, (int) ((float) hero.getCurrentlHp() / hero.getHp() * 165), 5);
+        // draw mana
+        graphics.setColor(Color.BLUE);
+        graphics.fillRect(110, 88, (int) ((float) hero.getCurrentMana() / hero.getMana() * 165), 5);
+        // draw weapon durability
+        graphics.setColor(Color.GREEN);
+        switch (hero.getCurrentWeapon()) {
+            case MELEE:
+                graphics.fillRoundRect(106, 54, (int) ((float) hero.getWeapons().get(0).getDurability() / 100 * 26), 13, 17, 17);
+                // draw attack effects if attack
+                if (hero.faceRight()) {
+                    graphics.drawImage(hero.getCurrentWeaponEffects(), hero.getX() + 35, hero.getY() - 10, this);
+                } else {
+                    graphics.drawImage(hero.getCurrentWeaponEffects(), hero.getX() - 30, hero.getY() - 10, this);
+                }
+                break;
+            case RANGED:
+                graphics.fillRoundRect(106, 54, (int) ((float) hero.getWeapons().get(1).getDurability() / 70 * 26), 13, 17, 17);
+                // draw attack effects if attack
+                if (hero.faceRight()) {
+                    graphics.drawImage(hero.getCurrentWeaponEffects(), hero.getX() + 50, hero.getY(), this);
+                } else {
+                    graphics.drawImage(hero.getCurrentWeaponEffects(), hero.getX() - 300, hero.getY(), this);
+                }
+                break;
+            case MAGIC:
+                graphics.fillRoundRect(106, 54, (int) ((float) hero.getWeapons().get(2).getDurability() / 100 * 26), 13, 17, 17);
+                // draw attack effects if attack
+                if (hero.faceRight()) {
+                    graphics.drawImage(hero.getCurrentWeaponEffects(), hero.getX() + 300, hero.getY() - 220, this);
+                } else {
+                    graphics.drawImage(hero.getCurrentWeaponEffects(), hero.getX() - 450, hero.getY() - 220, this);
+                }
+                break;   
+        }
         // connect offscreen image to window
         g.drawImage(offScreenImage, 0, 0, this);
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
-        // TODO Auto-generated method stub
-        
-    }
+    public void keyTyped(KeyEvent e) {}
 
     @Override
     public void keyPressed(KeyEvent e) {
@@ -258,7 +249,6 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
         if (e.getKeyCode() == 81) {
             hero.changeWeapon();
         }
-
     }
 
     @Override
@@ -276,8 +266,7 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
         // if release "A", then stop attacking
         if (e.getKeyCode() == 65) {
             hero.stopAttacking();
-        }
-        
+        }  
     }
 
     @Override
@@ -335,16 +324,11 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
                         }
                         break;
                 }
-
             } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-        }
-        
+        }  
     }
-
-    
     public static void main(String[] args) {
         GameFrame gameFrame = new GameFrame();
 

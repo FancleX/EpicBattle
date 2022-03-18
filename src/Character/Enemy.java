@@ -50,7 +50,8 @@ public class Enemy implements Runnable{
     // message type
     private int messageType;
     // bullet
-    Bullet bullet = new Bullet(300, 400, faceRight);
+    Bullet bullet;
+    private int count = 0;
 
     /* 
         enemy with melee info:
@@ -197,7 +198,12 @@ public class Enemy implements Runnable{
             }
 
             // bullet
-            // bullet = new Bullet(x, y, faceRight);
+            if (count % 100 == 0) {
+                bullet = new Bullet(x, y, faceRight);
+            }
+            count++;
+
+
 
             try {
                 Thread.sleep(50);
@@ -279,4 +285,7 @@ public class Enemy implements Runnable{
         return bullet;
     }
 
+    public boolean isFaceRight() {
+        return faceRight;
+    }
 }

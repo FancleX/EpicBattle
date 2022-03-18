@@ -5,7 +5,7 @@ import Frame.GameFrame;
 import Frame.StaticValue;
 
 import java.awt.image.BufferedImage;
-
+import java.awt.Rectangle;
 
 import java.awt.Graphics;
 
@@ -16,25 +16,27 @@ public class Bullet {
     private boolean isRight = true;
     private BufferedImage bulletLeft = StaticValue.bulletLeft;
     private BufferedImage bulletRight = StaticValue.bulletRight;
+    private int width = 56;
+    private int height = 24;
 
     public Bullet(int x, int y, boolean isRight) {
         this.x = x;
         this.y = y;
         this.isRight = isRight;
-        bulletMoving();
+        setBulletPosition();
     }
 
     public void paint(Graphics graphics) {
         if (isRight) {
             graphics.drawImage(bulletRight, x, y, null);
-            x += 5;
+            x += 10;
         } else {
             graphics.drawImage(bulletLeft, x, y, null);
-            x -= 5;
+            x -= 10;
         }
     }
     
-    public void bulletMoving() {
+    public void setBulletPosition() {
         if (isRight) {
             x += 60;
         } else {
@@ -67,6 +69,9 @@ public class Bullet {
         return isRight;
     }
 
+    public Rectangle toRectangle() {
+        return new Rectangle(x, y, width, height);
+    }
 
     
 
