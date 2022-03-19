@@ -78,8 +78,11 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
         repaint();
         // show tips
         JOptionPane.showMessageDialog(this,
-                "Tips: Grean bar is your current weapon's durability, \n red bar is your current hp, \n blue bar is your current mana. \n"
-                        + "Weapon will lose if the durability drop to zero. \n If you run out of weapons, you fail the battle!");
+                "Tips: \nGrean bar is your current weapon's durability, \nred bar is your current hp, \nblue bar is your current mana. \n"
+                        + "Weapon will lose if the durability drops to zero. \nIf you run out of weapons, you will fail the battle!");
+        JOptionPane.showMessageDialog(this,
+                "Instructions: \npress '↑' to jump, \n'→' to move right, \n'←' to move left, \n'A' to attack, \n'Q' to change your weapon."
+                        + "\nOnce you kill all of the enemies, \ngo to the teleporter then jump to the next level!");
         // start thread
         thread.start();
         // add music
@@ -137,7 +140,7 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
                 }
             } else {
                 // draw enemy phrases
-                if (count < 20) {
+                if (count < 30) {
                     // draw enemy speaking dialog
                     graphics.drawImage(enemy.getDialog(), enemy.getX() - 20, enemy.getY() - 75, this);
                     // draw message
