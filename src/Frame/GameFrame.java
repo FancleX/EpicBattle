@@ -1,3 +1,8 @@
+/**
+ * @codeImplementation Zhicun Chen
+ * @characterActionDesign Yiqian Huang
+ */
+
 package Frame;
 
 import java.awt.event.KeyEvent;
@@ -18,6 +23,11 @@ import Character.Hero;
 import Weapon.Bullet;
 import music.Music;
 
+/**
+ * GameFrame class is mainly using for drawing characters, background, and
+ * obstacles.
+ * It takes one thread and paints every 50 ms.
+ */
 public class GameFrame extends JFrame implements KeyListener, Runnable {
 
     // store background
@@ -46,6 +56,9 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
     // create a thread to do drawing
     private Thread thread = new Thread(this);
 
+    /**
+     * Set up game frame and display game instructions.
+     */
     public GameFrame() {
         // set window's size
         this.setSize(800, 600);
@@ -89,8 +102,15 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
         new Music();
     }
 
+    /**
+     * Paint everything on an offscreen image, then directly push the image to
+     * frame.
+     * 
+     * @param g graphics that will draw contents
+     */
     @Override
     public void paint(Graphics g) {
+        // draw offScreen Image
         if (offScreenImage == null) {
             offScreenImage = createImage(800, 600);
         }
@@ -105,7 +125,7 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
             graphics.drawImage(obstacle.getRenderedImage(), obstacle.getX(), obstacle.getY(), this);
         }
 
-        if (!(currentBackground.getIsFinal())) {
+        if (!(currentBackground.isFinal())) {
             // draw teleporter
             graphics.drawImage(currentBackground.getTeleporter(), currentBackground.getTeleporterX(),
                     currentBackground.getTeleporterY(), this);
@@ -131,6 +151,7 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
                     finalX = enemy.getX();
                     finalY = enemy.getY();
                 }
+                // death animation
                 if (count1 < 14) {
                     graphics.drawImage(StaticValue.enemyDeath.get(count1), finalX, finalY - 30, this);
                     count1++;
@@ -153,7 +174,7 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
                 graphics.drawImage(enemy.getHpBar(), enemy.getX() - 10, enemy.getY() - 20, this);
                 graphics.setColor(Color.RED);
                 graphics.fillRect(enemy.getX() - 7, enemy.getY() - 14,
-                        (int) ((float) enemy.getHp() / enemy.totalHP() * 55), 8);
+                        (int) ((float) enemy.getHp() / enemy.getTotalHP() * 55), 8);
 
                 // draw enemy itself
                 graphics.drawImage(enemy.getCurrentImage(), enemy.getX(), enemy.getY(), this);
@@ -163,7 +184,11 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
                 bullet.paint(graphics);
                 // damage of bullet
                 if (bullet.toRectangle().intersects(hero.toRectangle())) {
-                    hero.hurted(1);
+                    if (hero.faceRight() == bullet.isRight()) {
+                        hero.hurted(3 * enemy.getCurrentStrength());
+                    } else {
+                        hero.hurted(enemy.getCurrentStrength());
+                    }
                 }
             }
         }
@@ -182,7 +207,7 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
         // draw hp
         graphics.setColor(Color.RED);
         // hero.setCurrentHp(73);
-        graphics.fillRect(110, 76, (int) ((float) hero.getCurrentlHp() / hero.getHp() * 165), 5);
+        graphics.fillRect(110, 76, (int) ((float) hero.getCurrentlHp() / hero.getTotalHP() * 165), 5);
         // draw mana
         graphics.setColor(Color.BLUE);
         graphics.fillRect(110, 88, (int) ((float) hero.getCurrentMana() / hero.getMana() * 165), 5);
@@ -228,6 +253,11 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
     public void keyTyped(KeyEvent e) {
     }
 
+    /**
+     * Perform the corresponding operations according to the different keys press.
+     * 
+     * @param e capture user keystrokes
+     */
     @Override
     public void keyPressed(KeyEvent e) {
         // if press "->", then move right
@@ -264,6 +294,11 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
         }
     }
 
+    /**
+     * Perform the corresponding operations according to the different keys release.
+     * 
+     * @param e capture user keystrokes
+     */
     @Override
     public void keyReleased(KeyEvent e) {
         // if release "->", then stop right
@@ -282,6 +317,10 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
         }
     }
 
+    /**
+     * Run the thread tasks: paint each frame per 50 ms; monitor level progress, and
+     * determine win and loss conditions.
+     */
     @Override
     public void run() {
         while (true) {

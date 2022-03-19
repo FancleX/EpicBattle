@@ -1,3 +1,8 @@
+/**
+ * @codeImplementation Zhicun Chen
+ * @characterActionDesign Yiqian Huang
+ */
+
 package Weapon;
 
 import java.awt.Rectangle;
@@ -6,9 +11,15 @@ import Character.*;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
+/**
+ * Melee class is a melee weapon that includes the size, effects of the weapon,
+ * and runs for damage detection.
+ */
 public class Melee implements Weapon, Runnable {
 
+    // strength of the weapon
     private int strenght;
+    // durability of the weapon
     private int durability;
     // coordinate of weapon effects
     private int effectsX;
@@ -36,6 +47,11 @@ public class Melee implements Weapon, Runnable {
     // random
     private Random rd = new Random();
 
+    /**
+     * Instantiate a melee weapon.
+     * 
+     * @param background current background of the character
+     */
     public Melee(Background background) {
         this.strenght = 2;
         this.durability = 100;
@@ -43,11 +59,15 @@ public class Melee implements Weapon, Runnable {
         thread.start();
     }
 
-    // weapon can crit up to 2 times damage
+    // weapon can crit up to 2 times damage, 20%
     @Override
     public void crit() {
-        int type = rd.nextInt(3);
-        currentStrength = strenght * type;
+        int type = rd.nextInt(5);
+        if (type == 0) {
+            currentStrength = strenght * 2;
+        } else {
+            currentStrength = strenght;
+        }
     }
 
     @Override
@@ -85,6 +105,7 @@ public class Melee implements Weapon, Runnable {
     @Override
     public void run() {
         while (true) {
+            // loop enemies to determine if weapon attacks an enemy
             for (int i = 0; i < background.getEnemies().size(); i++) {
                 Enemy enemy = background.getEnemies().get(i);
                 // System.err.println("x: " + effectsX + " y: " + effectsY);
@@ -97,7 +118,6 @@ public class Melee implements Weapon, Runnable {
                     currentEnemy = enemy;
                 }
             }
-
             try {
                 Thread.sleep(10);
             } catch (InterruptedException e) {
@@ -111,6 +131,7 @@ public class Melee implements Weapon, Runnable {
         return new Rectangle(effectsX - 5, effectsY - 5, width + 10, height + 10);
     }
 
+    @Override
     public boolean isAttacked() {
         return isAttacked;
     }

@@ -1,11 +1,20 @@
+/**
+ * @codeImplementation Zhicun Chen
+ * @characterActionDesign Yiqian Huang
+ */
+
 package Character;
 
 import java.awt.image.BufferedImage;
+import java.util.Random;
 import java.awt.Rectangle;
 
 import Frame.*;
 import Weapon.Bullet;
 
+/**
+ * Enemy class has enemy coordinates, size, actions.
+ */
 public class Enemy extends Character implements Runnable {
 
     // coordinate of hero
@@ -22,11 +31,10 @@ public class Enemy extends Character implements Runnable {
     private int maxRight = 700;
     private int maxLeft = 400;
     // strength of enemy
-    private int strenght;
+    // private int strenght;
+    private int currentStrength;
     // hp of enemy
     private int hp;
-    // mana of enemy
-    private int mana;
     // create a thread
     private Thread thread = new Thread(this);
     // iterate images
@@ -37,8 +45,8 @@ public class Enemy extends Character implements Runnable {
     private int width = 40;
     // hp bar
     private BufferedImage hpBar = StaticValue.enemyHP;
-    // total hp
-    private int totalHP;
+    // // total hp
+    // private int totalHP;
     // dialog
     private BufferedImage dialog = StaticValue.enemyDialog;
     // speaking phases
@@ -49,12 +57,23 @@ public class Enemy extends Character implements Runnable {
     Bullet bullet;
     // count for controlling speed of bullet generation
     private int count = 0;
+    // determine strength for attacking
+    Random rd = new Random();
 
+    /**
+     * Instantiate an enemy.
+     * 
+     * @param x          x-axis coordiante
+     * @param y          y-axis coordinate
+     * @param faceRight  true if enemy faces to right
+     * @param background background of the enemy
+     * @param message    type of message that enemy speaks
+     */
     public Enemy(int x, int y, boolean faceRight, Background background, int message) {
-        this.strenght = 5;
+        super(null, 100, 1);
+        // this.strenght = 1;
         this.hp = 100;
-        this.mana = 0;
-        totalHP = 100;
+        // totalHP = 100;
         currentImage = StaticValue.enemyRunLeft.get(0);
         this.x = x;
         this.y = y;
@@ -64,12 +83,25 @@ public class Enemy extends Character implements Runnable {
         thread.start();
     }
 
+    /**
+     * Enemy attacks from the back of the hero will deal 3 times damage.
+     * 
+     * @param faceRight true if face right
+     */
+    @Override
+    public void attack(boolean faceRight) {
+        int damage = rd.nextInt(getStrength()) + 1;
+        currentStrength = damage;
+    }
+
     // death
+    @Override
     public void death() {
         currentImage = StaticValue.enemyDeath.get(0);
     }
 
     // enemy hurted
+    @Override
     public void hurted(int damage) {
         if (hp - damage > 0) {
             hp -= damage;
@@ -87,6 +119,7 @@ public class Enemy extends Character implements Runnable {
     @Override
     public void run() {
         while (isAlive()) {
+            // loop animation
             iterator = iterator == 0 ? 1 : 0;
             // orietation of enemy
             if (faceRight) {
@@ -124,7 +157,7 @@ public class Enemy extends Character implements Runnable {
                 faceRight = true;
             }
 
-            // bullet
+            // bullet generation
             if (count % 100 == 0) {
                 bullet = new Bullet(x, y, faceRight);
             }
@@ -138,42 +171,75 @@ public class Enemy extends Character implements Runnable {
         }
     }
 
-    public int getStrength() {
-        return strenght;
+    /**
+     * Get current strength of enemy.
+     * 
+     * @return current strength
+     */
+    public int getCurrentStrength() {
+        attack(faceRight);
+        return currentStrength;
     }
 
+    /**
+     * Get hp of the enemy.
+     * 
+     * @return hp of the enemy
+     */
     public int getHp() {
         return hp;
     }
 
+    /**
+     * Set hp of the enemy.
+     * 
+     * @param hp hp of the enemy
+     */
     public void setHp(int hp) {
         this.hp = hp;
     }
 
-    public int getMana() {
-        return mana;
-    }
-
-    public void setMana(int mana) {
-        this.mana = mana;
-    }
-
+    /**
+     * Wrap the enemy by a rectangle.
+     * 
+     * @return rectangle
+     */
     public Rectangle toRectangle() {
         return new Rectangle(x, y, width, height);
     }
 
+    /**
+     * Get current image of the enemy.
+     * 
+     * @return current image of the enemy
+     */
     public BufferedImage getCurrentImage() {
         return currentImage;
     }
 
+    /**
+     * Get x-axis coordinate.
+     * 
+     * @return x-axis coordinate
+     */
     public int getX() {
         return x;
     }
 
+    /**
+     * Get y-axis coordinate.
+     * 
+     * @return y-axis coordinate
+     */
     public int getY() {
         return y;
     }
 
+    /**
+     * Determine if the enemy is alive.
+     * 
+     * @return true if enemy is alive
+     */
     public boolean isAlive() {
         if (hp <= 0) {
             return false;
@@ -181,34 +247,47 @@ public class Enemy extends Character implements Runnable {
         return true;
     }
 
+    /**
+     * Get background of the enemy.
+     * 
+     * @return background of the enemy
+     */
     public Background getBackground() {
         return background;
     }
 
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
+    /**
+     * Get hp bar image of the enemy.
+     * 
+     * @return hp bar image
+     */
     public BufferedImage getHpBar() {
         return hpBar;
     }
 
-    public int totalHP() {
-        return totalHP;
-    }
-
+    /**
+     * Get the image of dialog box.
+     * 
+     * @return image of dialog box
+     */
     public BufferedImage getDialog() {
         return dialog;
     }
 
+    /**
+     * Get bullet.
+     * 
+     * @return bullet
+     */
     public Bullet getBullet() {
         return bullet;
     }
 
+    /**
+     * Get true if the enemy faces right
+     * 
+     * @return true if the enemy faces right
+     */
     public boolean isFaceRight() {
         return faceRight;
     }

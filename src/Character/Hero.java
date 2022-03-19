@@ -1,3 +1,8 @@
+/**
+ * @codeImplementation Zhicun Chen
+ * @characterActionDesign Yiqian Huang
+ */
+
 package Character;
 
 import java.awt.image.BufferedImage;
@@ -12,13 +17,13 @@ import Weapon.Melee;
 import Weapon.Ranged;
 import Weapon.Weapon;
 
+/**
+ * Hero class has hero coordinates, size, actions.
+ */
 public class Hero extends Character implements Runnable {
 
-    private String name;
-    private int strenght;
-    private int hp;
+    // mana
     private int mana;
-
     // coordinate of hero
     private int x;
     private int y;
@@ -47,7 +52,7 @@ public class Hero extends Character implements Runnable {
     // hero UI
     private BufferedImage ui = null;
     // create thread to drive hero
-    private Thread thread = null;
+    private Thread thread = new Thread(this);
     // moving speed on x-axis
     private int xSpeed;
     // jumping speed on y-axis
@@ -81,17 +86,25 @@ public class Hero extends Character implements Runnable {
     // if hero runs out of weapon then fail the game
     private boolean isNoWeapon = false;
 
+    /**
+     * Instantiate a hero.
+     * 
+     * @param name     name of the hero
+     * @param strenght strength of the hero
+     * @param hp       hp of the hero
+     * @param mana     mana of the hero
+     */
     public Hero(String name, int strenght, int hp, int mana) {
-        this.name = name;
-        this.strenght = strenght;
-        this.hp = hp;
+        super(name, hp, strenght);
         this.mana = mana;
         this.currentHp = hp;
         this.currentMana = mana;
 
         image = StaticValue.meleeWeaponRight;
         this.status = "melee_weapon_right";
+        // initialize ui
         ui = StaticValue.heroUI;
+        // initialize weapon system
         weaponList.add(Armory.MELEE);
         weaponList.add(Armory.RANGED);
         weaponList.add(Armory.MAGIC);
@@ -100,11 +113,12 @@ public class Hero extends Character implements Runnable {
         weapons.add(new Magic(background));
         currentWeapon = Armory.MELEE;
 
-        thread = new Thread(this);
         thread.start();
     }
 
-    // hero moves to left
+    /**
+     * Hero moves to left.
+     */
     public void moveLeft() {
         // change speed to nagative
         xSpeed = -10;
@@ -116,7 +130,9 @@ public class Hero extends Character implements Runnable {
         }
     }
 
-    // hero moves to right
+    /**
+     * Hero moves to right.
+     */
     public void moveRight() {
         xSpeed = 10;
         if (status != "jump") {
@@ -126,7 +142,9 @@ public class Hero extends Character implements Runnable {
         }
     }
 
-    // hero stops at left
+    /**
+     * Hero stops at left.
+     */
     public void stopLeft() {
         // change xSpeed to zero
         xSpeed = 0;
@@ -138,7 +156,9 @@ public class Hero extends Character implements Runnable {
         }
     }
 
-    // hero stops at right
+    /**
+     * Hero stops at right.
+     */
     public void stopRight() {
         xSpeed = 0;
         if (status != "jump") {
@@ -148,7 +168,9 @@ public class Hero extends Character implements Runnable {
         }
     }
 
-    // hero jumps up
+    /**
+     * Hero jumps up.
+     */
     public void jump() {
         // if is jumping
         if (status != "jump") {
@@ -165,7 +187,9 @@ public class Hero extends Character implements Runnable {
         }
     }
 
-    // hero falls down
+    /**
+     * Hero falls down.
+     */
     public void fall() {
         // detect if is on ground and stop falling on the ground
         if (status.contains("left")) {
@@ -179,6 +203,7 @@ public class Hero extends Character implements Runnable {
     }
 
     // death
+    @Override
     public void death() {
         switch (currentWeapon) {
             case MELEE:
@@ -194,7 +219,11 @@ public class Hero extends Character implements Runnable {
         isAlive = false;
     }
 
-    // hero orientation
+    /**
+     * Hero orientation.
+     * 
+     * @return true if hero faces right
+     */
     public boolean faceRight() {
         if (status.contains("right")) {
             faceRight = true;
@@ -205,7 +234,9 @@ public class Hero extends Character implements Runnable {
         }
     }
 
-    // hero change weapon
+    /**
+     * Hero change weapon.
+     */
     public void changeWeapon() {
         currentWeaponEffects = null;
         switch (currentWeapon) {
@@ -234,6 +265,7 @@ public class Hero extends Character implements Runnable {
     }
 
     // hero attack
+    @Override
     public void attack(boolean isRight) {
         isAttacking = true;
         switch (currentWeapon) {
@@ -252,7 +284,9 @@ public class Hero extends Character implements Runnable {
         }
     }
 
-    // hero stops attacking
+    /**
+     * Hero stops attacking.
+     */
     public void stopAttacking() {
         isAttacking = false;
         currentWeaponEffects = null;
@@ -280,7 +314,11 @@ public class Hero extends Character implements Runnable {
         }
     }
 
-    // get damage by weapon bonus
+    /**
+     * Get damage by weapon bonus.
+     * 
+     * @return damage
+     */
     public int causedDamage() {
         int damage = 0;
         Weapon weapon = null;
@@ -288,7 +326,7 @@ public class Hero extends Character implements Runnable {
             case MELEE:
                 weapon = weapons.get(0);
                 // bonus damage from the weapon
-                damage = this.strenght + weapon.getStrength();
+                damage = getStrength() + weapon.getStrength();
                 break;
             case RANGED:
                 weapon = weapons.get(1);
@@ -298,18 +336,21 @@ public class Hero extends Character implements Runnable {
                 if (chance == 0) {
                     damage = 0;
                 } else {
-                    damage = this.strenght + chance;
+                    damage = getStrength() + chance;
                 }
                 break;
             case MAGIC:
                 weapon = weapons.get(2);
                 // bonus damage from the weapon
-                damage = this.strenght + weapon.getStrength();
+                damage = getStrength() + weapon.getStrength();
                 break;
         }
         return damage;
     }
 
+    /**
+     * Track weapon position.
+     */
     public void trackWeaponPosition() {
         switch (currentWeapon) {
             case MELEE:
@@ -608,111 +649,203 @@ public class Hero extends Character implements Runnable {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
         }
-
     }
 
-    public int getStrength() {
-        return strenght;
-    }
-
-    public int getHp() {
-        return hp;
-    }
-
-    public void setHp(int hp) {
-        this.hp = hp;
-    }
-
+    /**
+     * Get mana of the hero.
+     * 
+     * @return mana
+     */
     public int getMana() {
         return mana;
     }
 
+    /**
+     * Set mana of the hero.
+     * 
+     * @param mana mana
+     */
     public void setMana(int mana) {
         this.mana = mana;
     }
 
+    /**
+     * Set x-axis coordinate.
+     * 
+     * @param x x-axis coordinate
+     */
     public void setX(int x) {
         this.x = x;
     }
 
+    /**
+     * Get x-axis coordinate.
+     * 
+     * @return x-axis coordinate
+     */
     public int getX() {
         return x;
     }
 
+    /**
+     * Set y-axis coordinate.
+     * 
+     * @param y y-axis coordinate
+     */
     public void setY(int y) {
         this.y = y;
     }
 
+    /**
+     * Get y-axis coordinate.
+     * 
+     * @return y-axis coordinate
+     */
     public int getY() {
         return y;
     }
 
+    /**
+     * Get image.
+     * 
+     * @return image
+     */
     public BufferedImage getImage() {
         return image;
     }
 
+    /**
+     * Get background.
+     * 
+     * @return background
+     */
     public Background getBackground() {
         return background;
     }
 
+    /**
+     * Set background.
+     * 
+     * @param background current background
+     */
     public void setBackground(Background background) {
         this.background = background;
     }
 
+    /**
+     * Wrap hero by a rectangle.
+     * 
+     * @return rectangle
+     */
     public Rectangle toRectangle() {
         return new Rectangle(x, y, width, height);
     }
 
+    /**
+     * Get ui image.
+     * 
+     * @return ui image
+     */
     public BufferedImage getUI() {
         return ui;
     }
 
-    public String getName() {
-        return name;
-    }
-
+    /**
+     * Get current hp.
+     * 
+     * @return current hp
+     */
     public int getCurrentlHp() {
         return currentHp;
     }
 
+    /**
+     * Set current hp.
+     * 
+     * @param hp current hp
+     */
     public void setCurrentHp(int hp) {
         this.currentHp = hp;
     }
 
+    /**
+     * Get current mana.
+     * 
+     * @return current mana
+     */
     public int getCurrentMana() {
         return currentMana;
     }
 
+    /**
+     * Set current mana.
+     * 
+     * @param mana current mana
+     */
     public void setCurrentMana(int mana) {
         this.currentMana = mana;
     }
 
+    /**
+     * Determine if hero is alive.
+     * 
+     * @return true if hero is alive
+     */
     public boolean isAlive() {
         return isAlive;
     }
 
+    /**
+     * Get weapon tag list.
+     * 
+     * @return weapon tag list
+     */
     public List<Armory> getWeaponList() {
         return weaponList;
     }
 
+    /**
+     * Get weapon object list.
+     * 
+     * @return weapon object list
+     */
     public List<Weapon> getWeapons() {
         return weapons;
     }
 
+    /**
+     * Determine if hero is attacking.
+     * 
+     * @return true if hero is attacking
+     */
     public boolean isAttacking() {
         return isAttacking;
     }
 
+    /**
+     * Get current weapon effects.
+     * 
+     * @return current weapon effects
+     */
     public BufferedImage getCurrentWeaponEffects() {
         return currentWeaponEffects;
     }
 
+    /**
+     * Determine if there is no weapon to use.
+     * 
+     * @return true if no weapon to use
+     */
     public boolean isNoWeapon() {
         return isNoWeapon;
     }
 
+    /**
+     * Get current weapon tag.
+     * 
+     * @return current weapon tag
+     */
     public Armory getCurrentWeapon() {
         return currentWeapon;
     }

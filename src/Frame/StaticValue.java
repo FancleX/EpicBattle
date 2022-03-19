@@ -1,3 +1,8 @@
+/**
+ * @codeImplementation Zhicun Chen
+ * @characterActionDesign Yiqian Huang
+ */
+
 package Frame;
 
 import java.awt.image.BufferedImage;
@@ -8,6 +13,9 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
+/**
+ * StaticValue class stores all of the image materials in the buffer.
+ */
 public class StaticValue {
     // set background
     public static BufferedImage background1 = null;

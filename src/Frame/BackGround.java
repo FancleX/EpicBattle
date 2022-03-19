@@ -1,3 +1,8 @@
+/**
+ * @codeImplementation Zhicun Chen
+ * @characterActionDesign Yiqian Huang
+ */
+
 package Frame;
 
 import java.awt.image.BufferedImage;
@@ -7,6 +12,12 @@ import java.util.Random;
 
 import Character.Enemy;
 
+/**
+ * Background takes care of game background and shares background's info with
+ * characters and mian frame.
+ * Background has ground and obstacles settings for each level, and stores
+ * enemies' info.
+ */
 public class Background {
 
     // current background
@@ -29,13 +40,24 @@ public class Background {
     // random
     private Random rd = new Random();
 
+    /**
+     * Empty constructor for instantiating an object without specific info.
+     */
     public Background() {
     }
 
+    /**
+     * Instantiate a background that has current level, and if is the final level.
+     * Also complete level scene and enemy settings.
+     * 
+     * @param currentScence current level
+     * @param isFinal       last level
+     */
     public Background(int currentScence, boolean isFinal) {
         this.currentScence = currentScence;
         this.isFinal = isFinal;
 
+        // give different background pictures to different level
         if (isFinal) {
             backgroundImage = StaticValue.background3;
         } else {
@@ -100,44 +122,84 @@ public class Background {
         }
     }
 
+    /**
+     * Get the image of the background.
+     * 
+     * @return the image of the background
+     */
     public BufferedImage getBackgroundImage() {
         return backgroundImage;
     }
 
+    /**
+     * Get current scence.
+     * 
+     * @return current scence
+     */
     public int getCurrentScence() {
         return currentScence;
     }
 
+    /**
+     * Get if is the final scence.
+     * 
+     * @return true if is the final scence
+     */
     public boolean isFinal() {
         return isFinal;
     }
 
+    /**
+     * Get obstacles in the background.
+     * 
+     * @return a list of obstacles
+     */
     public List<Obstacle> getObstacleList() {
         return obstacleList;
     }
 
+    /**
+     * Get the image of the teleporter.
+     * 
+     * @return image of the teleporter
+     */
     public BufferedImage getTeleporter() {
         return teleporter;
     }
 
+    /**
+     * Get x-axis coordinate of the teleporter.
+     * 
+     * @return x-axis coordinate of the teleporter
+     */
     public int getTeleporterX() {
         return teleporterX;
     }
 
+    /**
+     * Get y-axis coordinate of the teleporter.
+     * 
+     * @return y-axis coordinate of the teleporter
+     */
     public int getTeleporterY() {
         return teleporterY;
     }
 
+    /**
+     * Get the image of the teleporter in the last scence.
+     * 
+     * @return image of the telepoerter in the last scence
+     */
     public BufferedImage getEnd() {
         return end;
     }
 
-    public boolean getIsFinal() {
-        return isFinal;
-    }
-
+    /**
+     * Get enemies in the background.
+     * 
+     * @return a list of enemies
+     */
     public List<Enemy> getEnemies() {
         return enemies;
     }
-
 }

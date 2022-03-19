@@ -1,3 +1,8 @@
+/**
+ * @codeImplementation Zhicun Chen
+ * @characterActionDesign Yiqian Huang
+ */
+
 package Weapon;
 
 import java.awt.Rectangle;
@@ -8,9 +13,15 @@ import Character.Enemy;
 import Frame.Background;
 import Frame.StaticValue;
 
+/**
+ * Magic class is a magic weapon that includes the size, effects of the weapon,
+ * and runs for damage detection.
+ */
 public class Magic implements Weapon, Runnable {
 
+    // strength of the weapon
     private int strenght;
+    // durability of the weapon
     private int durability;
     // coordinate of weapon effects
     private int effectsX;
@@ -38,6 +49,11 @@ public class Magic implements Weapon, Runnable {
     // random
     private Random rd = new Random();
 
+    /**
+     * Instantiate a ranged weapon.
+     * 
+     * @param background current background of the character
+     */
     public Magic(Background background) {
         this.strenght = 50;
         this.durability = 100;
@@ -45,13 +61,18 @@ public class Magic implements Weapon, Runnable {
         thread.start();
     }
 
-    // weapon can crit up to 2 times damage
+    // weapon can crit up to 2 times damage, 33%
     @Override
     public void crit() {
         int type = rd.nextInt(3);
-        currentStrength = strenght * type;
+        if (type == 2) {
+            currentStrength = strenght * 2;
+        } else {
+            currentStrength = strenght;
+        }
     }
 
+    @Override
     public BufferedImage getCurrentImage(boolean isRight) {
         this.isRight = isRight;
         currentImage = StaticValue.magicEffects.get(0);
@@ -59,6 +80,7 @@ public class Magic implements Weapon, Runnable {
     }
 
     // track coordinate
+    @Override
     public void setXY(int x, int y) {
         if (isRight) {
             this.effectsX = x + 300;
@@ -82,6 +104,7 @@ public class Magic implements Weapon, Runnable {
     @Override
     public void run() {
         while (true) {
+            // loop enemies to determine if weapon attacks an enemy
             for (int i = 0; i < background.getEnemies().size(); i++) {
                 Enemy enemy = background.getEnemies().get(i);
                 // System.err.println("x: " + effectsX + " y: " + effectsY);
@@ -94,7 +117,6 @@ public class Magic implements Weapon, Runnable {
                     currentEnemy = enemy;
                 }
             }
-
             try {
                 Thread.sleep(10);
             } catch (InterruptedException e) {
@@ -108,6 +130,7 @@ public class Magic implements Weapon, Runnable {
         return new Rectangle(effectsX - 5, effectsY - 5, width + 10, height + 10);
     }
 
+    @Override
     public boolean isAttacked() {
         return isAttacked;
     }

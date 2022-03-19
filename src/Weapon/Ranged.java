@@ -1,3 +1,8 @@
+/**
+ * @codeImplementation Zhicun Chen
+ * @characterActionDesign Yiqian Huang
+ */
+
 package Weapon;
 
 import java.awt.Rectangle;
@@ -8,9 +13,15 @@ import Character.Enemy;
 import Frame.Background;
 import Frame.StaticValue;
 
+/**
+ * Ranged class is a ranged weapon that includes the size, effects of the
+ * weapon, and runs for damage detection.
+ */
 public class Ranged implements Weapon, Runnable {
 
+    // strength of the weapon
     private int strenght;
+    // durabilitiy of the weapon
     private int durability;
     // coordinate of weapon effects
     private int effectsX;
@@ -38,6 +49,11 @@ public class Ranged implements Weapon, Runnable {
     // random
     private Random rd = new Random();
 
+    /**
+     * Instantiate a ranged weapon.
+     * 
+     * @param background current background of the character
+     */
     public Ranged(Background background) {
         this.strenght = 30;
         this.durability = 70;
@@ -45,13 +61,18 @@ public class Ranged implements Weapon, Runnable {
         thread.start();
     }
 
-    // weapon can crit up to 2 times damage
+    // weapon can crit up to 2 times damage, 50%
     @Override
     public void crit() {
-        int type = rd.nextInt(3);
-        currentStrength = strenght * type;
+        int type = rd.nextInt(2);
+        if (type == 2) {
+            currentStrength = strenght * 2;
+        } else {
+            currentStrength = strenght;
+        }
     }
 
+    @Override
     public BufferedImage getCurrentImage(boolean isRight) {
         this.isRight = isRight;
         if (isRight) {
@@ -63,6 +84,7 @@ public class Ranged implements Weapon, Runnable {
     }
 
     // track coordinate
+    @Override
     public void setXY(int x, int y) {
         if (isRight) {
             this.effectsX = x + 50;
@@ -87,6 +109,7 @@ public class Ranged implements Weapon, Runnable {
     @Override
     public void run() {
         while (true) {
+            // loop enemies to determine if weapon attacks an enemy
             for (int i = 0; i < background.getEnemies().size(); i++) {
                 Enemy enemy = background.getEnemies().get(i);
                 // System.err.println("x: " + effectsX + " y: " + effectsY);
@@ -99,7 +122,6 @@ public class Ranged implements Weapon, Runnable {
                     currentEnemy = enemy;
                 }
             }
-
             try {
                 Thread.sleep(10);
             } catch (InterruptedException e) {
@@ -113,6 +135,7 @@ public class Ranged implements Weapon, Runnable {
         return new Rectangle(effectsX - 5, effectsY - 5, width + 10, height + 10);
     }
 
+    @Override
     public boolean isAttacked() {
         return isAttacked;
     }
@@ -139,6 +162,7 @@ public class Ranged implements Weapon, Runnable {
 
     @Override
     public int getStrength() {
+        // ranged weapon has a chance that loses attack on an enemy, 25%
         int chance = rd.nextInt(4);
         if (chance != 0) {
             crit();
@@ -153,10 +177,12 @@ public class Ranged implements Weapon, Runnable {
         return durability;
     }
 
+    @Override
     public int getX() {
         return effectsX;
     }
 
+    @Override
     public int getY() {
         return effectsY;
     }
