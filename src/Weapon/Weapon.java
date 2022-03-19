@@ -35,5 +35,4 @@ public interface Weapon {
     int getX();
 
     int getY();
-
 }

@@ -80,7 +80,6 @@ public class Melee implements Weapon, Runnable {
             durability = 0;
             throw new Exception();
         }
-
     }
 
     @Override
@@ -100,7 +99,7 @@ public class Melee implements Weapon, Runnable {
             }
 
             try {
-                Thread.sleep(50);
+                Thread.sleep(10);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -156,5 +155,4 @@ public class Melee implements Weapon, Runnable {
     public int getY() {
         return effectsY;
     }
-
 }

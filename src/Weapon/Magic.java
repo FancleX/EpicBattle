@@ -96,9 +96,8 @@ public class Magic implements Weapon, Runnable {
             }
 
             try {
-                Thread.sleep(50);
+                Thread.sleep(10);
             } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
@@ -153,5 +152,4 @@ public class Magic implements Weapon, Runnable {
     public int getY() {
         return effectsY;
     }
-
 }

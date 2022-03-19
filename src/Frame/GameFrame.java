@@ -28,8 +28,6 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
     private Image offScreenImage = null;
     // create a hero
     private Hero hero;
-    // create a thread to do hero action
-    private Thread thread = new Thread(this);
     // limit jumping gap
     private long firstJump = 0;
     private long secondJump = 1500;
@@ -45,6 +43,8 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
     private int finalY;
     // last scence
     private Background lastScence;
+    // create a thread to do drawing
+    private Thread thread = new Thread(this);
 
     public GameFrame() {
         // set window's size
@@ -169,10 +169,10 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
         }
 
         // draw hero
-        if (!hero.isAlive()) {
-            graphics.drawImage(hero.getImage(), hero.getX(), hero.getY() + 20, this);
-        } else {
+        if (hero.isAlive()) {
             graphics.drawImage(hero.getImage(), hero.getX(), hero.getY(), this);
+        } else {
+            graphics.drawImage(hero.getImage(), hero.getX(), hero.getY() + 20, this);
         }
         // draw hero's info
         graphics.drawImage(hero.getUI(), 20, 40, this);

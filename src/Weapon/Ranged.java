@@ -76,7 +76,7 @@ public class Ranged implements Weapon, Runnable {
     public void setDurability(int cost) throws Exception {
         if (durability - cost >= 0) {
             durability -= cost;
-            System.err.println("durabilityRanged: " + durability);
+            // System.err.println("durabilityRanged: " + durability);
         } else {
             durability = 0;
             throw new Exception();
@@ -101,9 +101,8 @@ public class Ranged implements Weapon, Runnable {
             }
 
             try {
-                Thread.sleep(50);
+                Thread.sleep(10);
             } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
@@ -161,5 +160,4 @@ public class Ranged implements Weapon, Runnable {
     public int getY() {
         return effectsY;
     }
-
 }
