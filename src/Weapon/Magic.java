@@ -92,7 +92,7 @@ public class Magic implements Weapon, Runnable {
 
     @Override
     public void setDurability(int cost) throws Exception {
-        if (durability - cost >= 0) {
+        if (durability - cost > 0) {
             durability -= cost;
         } else {
             durability = 0;
@@ -103,7 +103,7 @@ public class Magic implements Weapon, Runnable {
 
     @Override
     public void run() {
-        while (true) {
+        while (durability > 0) {
             // loop enemies to determine if weapon attacks an enemy
             for (int i = 0; i < background.getEnemies().size(); i++) {
                 Enemy enemy = background.getEnemies().get(i);
