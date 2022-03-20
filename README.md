@@ -1,7 +1,7 @@
 ## Epic Battle
 A 2D RPG(role-playing video game) game. Control your hero to fight monsters!
 
-Language, framework, class: 
+Language, framework, class used: 
 
 <p>
 
