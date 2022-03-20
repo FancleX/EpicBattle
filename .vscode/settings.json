@@ -2,7 +2,6 @@
     "java.project.sourcePaths": ["src"],
     "java.project.outputPath": "bin",
     "java.project.referencedLibraries": [
-        "lib/**/*.jar",
-        "c:\\Users\\fancl\\Downloads\\jaco-mp3-player-0.9.3\\jaco-mp3-player-0.9.3.jar"
+        "lib/**/*.jar"
     ]
 }
