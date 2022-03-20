@@ -3,7 +3,7 @@
  * @characterActionDesign Yiqian Huang
  */
 
-package Weapon;
+package weapon;
 
 /**
  * Armory class has all types of weapons.

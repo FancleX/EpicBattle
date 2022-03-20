@@ -3,7 +3,7 @@
  * @characterActionDesign Yiqian Huang
  */
 
-package Frame;
+package frame;
 
 import java.awt.image.BufferedImage;
 import java.io.File;

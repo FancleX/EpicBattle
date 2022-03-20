@@ -3,19 +3,15 @@
  * @characterActionDesign Yiqian Huang
  */
 
-package Character;
+package character;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.Rectangle;
 
-import Frame.*;
-import Weapon.Armory;
-import Weapon.Magic;
-import Weapon.Melee;
-import Weapon.Ranged;
-import Weapon.Weapon;
+import frame.*;
+import weapon.*;
 
 /**
  * Hero class has hero coordinates, size, actions.

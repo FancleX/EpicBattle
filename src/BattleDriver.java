@@ -4,7 +4,7 @@
  * @characterActionDesign Yiqian Huang
  */
 
-import Frame.GameFrame;
+import frame.GameFrame;
 
 /**
  * Start a battle game.

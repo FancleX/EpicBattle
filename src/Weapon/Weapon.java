@@ -3,13 +3,13 @@
  * @characterActionDesign Yiqian Huang
  */
 
-package Weapon;
+package weapon;
 
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
-import Character.Enemy;
-import Frame.Background;
+import character.Enemy;
+import frame.Background;
 
 /**
  * Weapon interface defines the general methods for each different weapon.

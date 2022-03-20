@@ -3,9 +3,9 @@
  * @characterActionDesign Yiqian Huang
  */
 
-package Weapon;
+package weapon;
 
-import Frame.StaticValue;
+import frame.StaticValue;
 
 import java.awt.image.BufferedImage;
 import java.awt.Rectangle;

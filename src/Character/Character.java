@@ -3,7 +3,7 @@
  * @characterActionDesign Yiqian Huang
  */
 
-package Character;
+package character;
 
 /**
  * Character class stores character' name, hp, strenght, and defines several

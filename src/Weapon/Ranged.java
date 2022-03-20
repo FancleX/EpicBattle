@@ -3,15 +3,15 @@
  * @characterActionDesign Yiqian Huang
  */
 
-package Weapon;
+package weapon;
 
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
-import Character.Enemy;
-import Frame.Background;
-import Frame.StaticValue;
+import character.Enemy;
+import frame.Background;
+import frame.StaticValue;
 
 /**
  * Ranged class is a ranged weapon that includes the size, effects of the

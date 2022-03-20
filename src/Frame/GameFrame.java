@@ -3,7 +3,7 @@
  * @characterActionDesign Yiqian Huang
  */
 
-package Frame;
+package frame;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -18,9 +18,9 @@ import java.awt.Graphics;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import Character.Enemy;
-import Character.Hero;
-import Weapon.Bullet;
+import character.Enemy;
+import character.Hero;
+import weapon.Bullet;
 import music.Music;
 
 /**

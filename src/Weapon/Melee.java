@@ -3,11 +3,11 @@
  * @characterActionDesign Yiqian Huang
  */
 
-package Weapon;
+package weapon;
 
 import java.awt.Rectangle;
-import Frame.*;
-import Character.*;
+import frame.*;
+import character.*;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 

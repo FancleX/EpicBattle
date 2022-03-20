@@ -3,14 +3,14 @@
  * @characterActionDesign Yiqian Huang
  */
 
-package Character;
+package character;
 
 import java.awt.image.BufferedImage;
 import java.util.Random;
 import java.awt.Rectangle;
 
-import Frame.*;
-import Weapon.Bullet;
+import frame.*;
+import weapon.Bullet;
 
 /**
  * Enemy class has enemy coordinates, size, actions.

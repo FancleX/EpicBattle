@@ -3,14 +3,14 @@
  * @characterActionDesign Yiqian Huang
  */
 
-package Frame;
+package frame;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import Character.Enemy;
+import character.Enemy;
 
 /**
  * Background takes care of game background and shares background's info with
