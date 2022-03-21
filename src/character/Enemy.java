@@ -1,6 +1,5 @@
 /**
- * @codeImplementation Zhicun Chen
- * @characterActionDesign Yiqian Huang
+ * @teamMemebers Zhicun Chen, Yiqian Huang 
  */
 
 package character;
