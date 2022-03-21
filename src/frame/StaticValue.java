@@ -1,5 +1,5 @@
 /**
- * @teamMemebers Zhicun Chen, Yiqian Huang 
+ * @authors Zhicun Chen, Yiqian Huang 
  */
 
 package frame;
