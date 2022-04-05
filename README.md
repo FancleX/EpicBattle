@@ -13,7 +13,7 @@ Language, framework, class used:
 
 Game overview:
 
-![Screenshot](https://github.com/FancleX/EpicBattle/blob/master/img/gamedemo.PNG)
+![Screenshot](img/gamedemo.PNG)
 
 ## Getting Started
 
